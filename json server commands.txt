@@ -1,2 +1,0 @@
-json-server --watch db.json
-// This starts up the server.
