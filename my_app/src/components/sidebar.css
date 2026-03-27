@@ -1,0 +1,253 @@
+/* =================
+GLOBAL RESET
+================= */
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* =================
+SIDEBAR ROOT
+================= */
+.closed-sidebar-wrapper,
+.open-sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding: 10px 0;
+    background-color: rgb(0, 17, 51);
+    z-index: 1000;
+}
+
+.closed-sidebar-wrapper {
+    min-width: 100px;
+}
+
+.open-sidebar-wrapper {
+    min-width: 280px;
+}
+
+/* =================
+CONTENT WRAPPER
+================= */
+.closed-sidebar-wrapper .content-wrapper,
+.open-sidebar-wrapper .content-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+/* =================
+LOGO (direct child)
+================= */
+.logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 68px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    border: solid 2px rgba(255, 255, 255, 0.3);
+}
+
+.logo-wrapper img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    display: block;
+}
+
+/* =================
+TOP BAR (OPEN ONLY)
+================= */
+.open-sidebar-wrapper .top-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* children of top-bar */
+.open-sidebar-wrapper .top-bar .icon-wrapper {
+    all: unset;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 10px;
+    border: solid 2px rgba(255, 255, 255, 0.3);
+}
+
+.open-sidebar-wrapper .top-bar .icon-wrapper img {
+    width: 60%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    display: block;
+}
+
+/* =================
+LIKED LIST (direct child)
+================= */
+.liked-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 5px;
+    padding: 7px 5px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgb(0, 0, 0);
+    border: solid 2px rgba(255, 255, 255, 0.3);
+}
+
+.liked-list li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* =================
+TOGGLE GROUP (OPEN)
+================= */
+.open-sidebar-wrapper .toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.open-sidebar-wrapper .toggle-group h1 {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* =================
+BUTTON: TOGGLE
+================= */
+.toggle-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 52px;
+    aspect-ratio: 1 / 1;
+    background-color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+}
+
+.toggle-btn img {
+    width: 100%;
+    object-fit: contain;
+}
+
+/* =================
+LIKED SONGS GROUP
+================= */
+.open-sidebar-wrapper .liked-songs-group {
+    display: flex;
+    width: 100%;
+    border-radius: 8px;
+    background-color: rgb(80, 115, 186);
+}
+
+/* liked songs button */
+.liked-songs {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    aspect-ratio: 1 / 1;
+    background-color: rgb(80, 115, 186);
+    border-radius: 6px;
+    border: solid 2px black;
+}
+
+.liked-songs img {
+    width: 80%;
+    object-fit: contain;
+}
+
+/* description inside group */
+.open-sidebar-wrapper .description {
+    margin-left: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.open-sidebar-wrapper .description * {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 900;
+}
+
+.open-sidebar-wrapper .liked-songs-group h2 {
+    font-size: 0.85rem;
+}
+
+.open-sidebar-wrapper .liked-songs-group span {
+    font-size: 0.85rem;
+}
+
+/* =================
+DIVIDER
+================= */
+.liked-list-divider {
+    width: 100%;
+    height: 4px;
+    margin: 10px 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+}
+
+/* =================
+LIKED ALBUMS GROUP
+================= */
+.open-sidebar-wrapper .liked-albums-group {
+    display: flex;
+    width: 100%;
+    border-radius: 8px;
+    background-color: rgb(48, 69, 112);
+}
+
+/* liked albums button */
+.liked-albums {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 6px;
+    border: solid 2px rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.liked-albums img {
+    width: 100%;
+    object-fit: contain;
+}
+
+/* album text */
+.open-sidebar-wrapper .liked-albums-group h2 {
+    font-size: 0.85rem;
+}
+
+.open-sidebar-wrapper .liked-albums-group span {
+    font-size: 0.85rem;
+}

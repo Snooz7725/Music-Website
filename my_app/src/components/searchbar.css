@@ -1,0 +1,47 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+.searchbar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 40%;
+
+    display: flex;
+    gap: 9px;
+    border-radius: 20px;
+    min-width: 30vw;
+    width: 40%;
+    height: auto;
+    margin: 0px auto;
+
+    background-color: rgb(80, 115, 186);
+}
+
+.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* important */
+    height: 37px;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: black;
+}
+
+.icon-wrapper img {
+    width: 60%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    display: block;   
+}
+
+.searchbar-wrapper input {
+    all: unset;
+    font-weight: 900;
+    font-size: 1rem;
+    color: white;
+    width: 90%;
+}

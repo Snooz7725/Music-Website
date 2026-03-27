@@ -1,0 +1,14 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+.hero-wrapper {
+    width: 80vw;
+    height: 54vh;
+}
+
+.left-panel {
+    width: 35%;
+}
