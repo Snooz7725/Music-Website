@@ -2,6 +2,7 @@ import { useState } from "react"
 import "./App.css"
 import Searchbar from "./components/searchbar"
 import Sidebar from "./components/sidebar"
+import Hero from "./components/hero"
 
 function App() {
     const [state, setState] = useState(true)
@@ -9,8 +10,8 @@ function App() {
     return (
         <div className="app-wrapper">
             <Sidebar />
-            <div className="right-section">
-                <Searchbar />    
+            <div className="main-section">
+                <Searchbar />
             </div>
         </div>
     )

@@ -11,8 +11,9 @@
     display: flex;
 }
 
-.right-section {
+.main-section {
     flex: 1;
+    margin-left: var(--closed-sidebar-width);
 }
 
 .sidebar-wrapper {

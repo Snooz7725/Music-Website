@@ -3,6 +3,9 @@
 
 :root {
     --primary-colour: rgb(126, 126, 126);
+
+    --closed-sidebar-width: clamp(70px, 7vw, 90px);
+    --open-sidebar-width: clamp(200px, 20vw, 300px); /* +75% */
 }
 
 *, 
@@ -15,6 +18,7 @@
 
 html,
 body {
+    font-size: 16px;
     min-height: 100vh;
 }
 
