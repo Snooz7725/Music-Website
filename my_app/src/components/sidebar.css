@@ -1,3 +1,7 @@
+.sidebar * {
+    border: solid 1px green;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -63,6 +67,14 @@
     align-items: center;
     height: 100%;
     aspect-ratio: 1 / 1;
+    background-color: aquamarine;
+    border-radius: 0;
+}
+
+.btn .icon-wrapper img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
 }
 
 .open .btn {
@@ -71,23 +83,37 @@
 }
 
 .open-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    white-space: nowrap;
     max-width: 200px;
     overflow: hidden;
     opacity: 1;
-    transform: translateX(0);
-    transition: max-width 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    /* transform: translateX(0); */
+    transition: max-width 0.3s ease, opacity 0.3s ease; /* , transform 0.3s ease */
+    background-color: blueviolet;
+    padding: 0 0.5rem;
 }
 
 .open-content.hidden {
     max-width: 0;
     opacity: 0;
-    transform: translateX(-12px);
+    /* transform: translateX(-0.6vw); */
 }
 
 .open-content .title {
-    font-size: 1rem;
+    font-weight: 900;
+    font-size: 0.8rem;
 }
 
 .open-content .name {
-    font-size: 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.open-content .count {
+    font-size: 0.6rem;
+    font-weight: 600;
 }

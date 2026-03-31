@@ -33,7 +33,7 @@ function Sidebar() {
                     </div>
                     <div className={open ? "open-content" : "open-content hidden"}>
                         <span className="name">Liked Songs</span>
-                        <span className="count">Count:<span></span></span>
+                        <span className="count">Count: <span>90</span></span>
                     </div>
                 </a></li>
             </ul>
