@@ -2,7 +2,8 @@
 }
 
 :root {
-    --primary-colour: rgb(126, 126, 126);
+    --prim-colour: rgb(117, 117, 117);
+    --prim-text-colour: rgb(255, 255, 255);
 
     --closed-sidebar-width: clamp(70px, 7vw, 90px);
     --open-sidebar-width: clamp(200px, 20vw, 300px); /* +75% */

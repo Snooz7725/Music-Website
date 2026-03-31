@@ -44,6 +44,16 @@ function Sidebar() {
                         <span className="count">Count: <span>90</span></span>
                     </div>
                 </a></li>
+
+                <li><a className="album-btn btn">
+                    <div className="icon-wrapper">
+                        <img src={albumIcon} alt="Album" />
+                    </div>
+                    <div className={open ? "open-content" : "open-content hidden"}>
+                        <span className="name">Album</span>
+                        <span className="count">Count: <span>90</span></span>
+                    </div>
+                </a></li>
             </ul>
         </nav>
     )
