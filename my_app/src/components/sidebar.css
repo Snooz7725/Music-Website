@@ -64,11 +64,12 @@
     align-items: center;
     height: calc(var(--closed-sidebar-width) * 0.55);
     max-width: 0;
+    border: transparent;
     aspect-ratio: 1 / 1;
     background-color: aquamarine;
     border-radius: 0;
     overflow: hidden;
-    transition: margin 0.3s ease, max-width 0.3s ease;
+    transition: border 0.3s ease, margin 0.3s ease, max-width 0.3s ease;
 }
 
 .open .topbar-list .icon-wrapper {
@@ -103,10 +104,10 @@
     all: unset;
     display: flex;
     background-color: rgb(255, 0, 0);
-    height: calc(var(--closed-sidebar-width) * 0.55);
-    width: calc(var(--closed-sidebar-width) * 0.55);
+    height: calc(var(--closed-sidebar-width) * 0.7);
+    width: calc(var(--closed-sidebar-width) * 0.7);
     aspect-ratio: 1 / 1;
-    transition: width 0.2s ease;
+    transition: width 0.3s ease;
 }
 
 .btn .icon-wrapper {
@@ -128,7 +129,7 @@
 }
 
 .open .btn {
-    width: calc(var(--open-sidebar-width) * 0.55);
+    width: calc(var(--open-sidebar-width) * 0.7);
     aspect-ratio: unset;
 }
 
