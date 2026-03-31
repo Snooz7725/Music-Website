@@ -14,9 +14,17 @@ function Sidebar() {
         // State/class controlled width + transition + potentially translateX for fluidity
         // Record closed sidebar width
         <nav className={open ? "open sidebar" : "closed sidebar"}>
-            <div className="logo-wrapper">
-                <img src="" alt="Logo" />
-            </div>
+            <ul className="topbar-list">
+                <li className="logo-wrapper">
+                    <img src={logo} alt="Logo" />
+                </li>
+                <li className="icon-wrapper">
+                    <img src={homeIcon} alt="Home" />
+                </li>
+                <li className="icon-wrapper">
+                    <img src={searchIcon} alt="Search" />
+                </li>
+            </ul>
             <ul className="btn-list">
                 <li><button className="toggle-btn btn" onClick={() => setOpen(!open)}>
                     <div className="icon-wrapper">
