@@ -65,13 +65,18 @@
     border-radius: 1vw;
     outline: solid 1.5px transparent;
     overflow: hidden;
-    transition: outline-color 0.3s ease, margin 0.3s ease, max-width 0.3s ease;
+    transform: scale(1);
+    transition: outline-color 0.3s ease, margin 0.3s ease, max-width 0.3s ease, transform 0.3s ease;
 }
 
 .open .topbar-list .icon-wrapper {
     outline-color: var(--prim-colour);
     max-width: calc(var(--closed-sidebar-width) * 0.55);
     margin: 0 0.5rem;
+}
+
+.topbar-list .icon-wrapper:hover {
+    transform: scale(1.1);
 }
 
 .topbar-list .icon-wrapper img {
@@ -124,9 +129,19 @@
     align-items: center;
     height: 100%;
     aspect-ratio: 1 / 1;
-    outline: solid 1.5px rgb(0, 0, 0);
+    outline: solid 1.5px transparent;
     border-radius: 1vw;
     overflow: hidden;
+    transition: transform 0.3s ease, outline-color 0.3s ease;
+    transform: scale(1);
+}
+
+.open .btn .icon-wrapper {
+    outline-color: rgb(0, 0, 0);
+}
+
+.btn:hover .icon-wrapper {
+    transform: scale(1.1);
 }
 
 .btn .icon-wrapper img {
