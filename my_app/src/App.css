@@ -14,9 +14,12 @@
 
 .main-section {
     flex: 1;
+    width: var(--main-section-width);
     margin-left: var(--closed-sidebar-width);
 }
 
-.sidebar-wrapper {
-    flex: 0 0 1;
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
 }

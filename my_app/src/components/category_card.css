@@ -1,0 +1,22 @@
+.category-card-wrapper {
+    width: var(--category-card-list-width);
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    flex: 0 0 auto;
+}
+
+.category-card-wrapper .icon-wrapper {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.category-card-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

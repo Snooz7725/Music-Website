@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import './hero.css'
-import githubIcon from '../assets/github.svg'
+import './category.css'
 
-function Hero() {
+function Category({ title, children }) {
     const [state, setState] = useState(true)
 
     return (
         <div className="category-wrapper">
-            
+            <h1>{title}</h1>
+            <ul className="card-list">{children}</ul>
         </div>
     )
 };
 
-export default Hero
+export default Category

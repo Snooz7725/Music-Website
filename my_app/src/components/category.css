@@ -1,0 +1,22 @@
+.category-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.category-wrapper * {
+    outline: solid 1.5px green;
+}
+
+.category-wrapper h1 {
+    align-self: flex-start;
+    background-color: seagreen;
+    padding: 0.6rem;
+}
+
+.card-list {
+    display: flex;
+    gap: 1.2rem;
+    background-color: rgba(80, 115, 186, 0.5);
+    max-width: calc(var(--category-card-list-width) + var(--main-section-width));
+}
