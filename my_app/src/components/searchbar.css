@@ -7,28 +7,33 @@
 .searchbar-wrapper {
     position: fixed;
     top: 0;
-    left: 40%;
-
+    left: calc(var(--closed-sidebar-width) + 30vw);
     display: flex;
     gap: 9px;
     border-radius: 20px;
     min-width: 30vw;
     width: 40%;
-    height: auto;
+    height: var(--searchbar-height);
     margin: 0px auto;
-
     background-color: rgb(80, 115, 186);
+    outline: solid 0.2rem transparent;
+    transition: outline 0.3s ease-in-out;
+}
+
+.searchbar-wrapper:focus-within {
+    outline-color: rgb(201, 222, 255);
 }
 
 .icon-wrapper {
     display: flex;
     justify-content: center;
     align-items: center; /* important */
-    height: 37px;
+    height: 100%;
     aspect-ratio: 1 / 1;
     border-radius: 20px;
     overflow: hidden;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
+    transition: transform 0.3s ease;
 }
 
 .icon-wrapper img {

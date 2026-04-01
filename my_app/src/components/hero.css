@@ -5,10 +5,13 @@
 }
 
 .hero-wrapper {
+    display: flex;
+    background-color: aquamarine;
     width: 80vw;
     height: 54vh;
 }
 
 .left-panel {
+    background-color: lightcoral;
     width: 35%;
 }

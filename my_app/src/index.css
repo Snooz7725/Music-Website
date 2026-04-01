@@ -7,6 +7,9 @@
 
     --closed-sidebar-width: clamp(70px, 7vw, 90px);
     --open-sidebar-width: clamp(200px, 20vw, 300px); /* +75% */
+
+    --searchbar-height: clamp(2rem, 4.5vh, 50px);
+    --searchbar-width: clamp(200px, 20vw, 300px);
 }
 
 *, 

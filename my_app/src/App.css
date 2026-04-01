@@ -7,8 +7,11 @@
 }
 
 .app-wrapper {
-    height: 100vh;
+    margin-top: calc(var(--searchbar-height) + 2vh);
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .main-section {

@@ -12,6 +12,7 @@ function App() {
             <Sidebar />
             <div className="main-section">
                 <Searchbar />
+                <Hero />
             </div>
         </div>
     )
