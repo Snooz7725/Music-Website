@@ -13,7 +13,7 @@ function Sidebar() {
     return (
         // State/class controlled width + transition + potentially translateX for fluidity
         // Record closed sidebar width
-        <nav className={open ? "open sidebar" : "closed sidebar"}>
+        <nav className={open ? "open sidebar-wrapper" : "sidebar-wrapper"}>
             <ul className="topbar-list">
                 <li className="logo-wrapper">
                     <img src={logo} alt="Logo" />
@@ -21,7 +21,7 @@ function Sidebar() {
                 <li className="icon-wrapper">
                     <img src={homeIcon} alt="Home" />
                 </li>
-                <li className="icon-wrapper">
+                <li className="icon-wrapper search-btn">
                     <img src={searchIcon} alt="Search" />
                 </li>
             </ul>
