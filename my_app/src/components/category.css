@@ -1,7 +1,7 @@
 .category-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    outline: solid 1.5px green;
 }
 
 .category-wrapper * {
@@ -9,6 +9,7 @@
 }
 
 .category-wrapper h1 {
+    font-size: 1.7rem;
     align-self: flex-start;
     background-color: seagreen;
     padding: 0.6rem;

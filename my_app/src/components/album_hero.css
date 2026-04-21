@@ -1,0 +1,42 @@
+.album-hero-wrapper {
+    outline: 1px solid green;
+    background-color: white;
+    padding: 1.3rem;
+    padding-bottom: 4rem;
+}
+
+.album-hero-wrapper * {
+    outline: 1px solid green;
+}
+
+.album-hero-wrapper .top-section {
+    display: flex;
+}
+
+.album-hero-wrapper .top-section .img-wrapper {
+    width: calc(var(--main-section-left-over) * 0.15);
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.album-hero-wrapper .top-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.album-hero-wrapper .album-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.album-hero-wrapper .btn-list {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+}

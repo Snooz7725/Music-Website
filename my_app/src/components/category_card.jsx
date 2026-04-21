@@ -1,17 +1,15 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import './category_card.css'
 
-function CategoryCard({ title, artist, filePath }) {
-    const [state, setState] = useState(true)
-
+function CategoryCard({ id, title, artist, filePath }) {
     return (
         <li className="category-card-wrapper">
-            <div className="icon-wrapper">
+            <Link to={`/album/${id}`}><div className="icon-wrapper">
                 <img src={filePath} alt="Album cover" />
-            </div>
-            <div>
-                <h2>{title}</h2>
+            </div></Link>
+            <div className="details">
+                <Link to={`/album/${id}`}>
+                    <h2>{title}</h2>
+                </Link>
                 <h3>{artist}</h3>
             </div>
         </li>

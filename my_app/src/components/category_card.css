@@ -20,3 +20,13 @@
     height: 100%;
     object-fit: cover;
 }
+
+.category-card-wrapper .details {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.7rem;
+    font-size: 14px;
+    font-weight: bold;
+}

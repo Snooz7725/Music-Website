@@ -4,10 +4,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import './index.css'
 import App from './pages/App'
 import NoMatch from './pages/no_match'
+import Album from './pages/album'
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
-  { path: "/album/:id", element: <h1>Test</h1> },
+  { path: "/album/:id", element: <Album /> },
   { path: "*", element: <NoMatch /> }
 ])
 

@@ -16,10 +16,10 @@ function Sidebar() {
         // Record closed sidebar width
         <nav className={open ? "open sidebar-wrapper" : "sidebar-wrapper"}>
             <ul className="topbar-list">
-                <NavLink to="/test"><li className="logo-wrapper">
+                <NavLink to="/"><li className="logo-wrapper">
                     <img src={logo} alt="Logo" />
                 </li></NavLink>
-                <NavLink to="/test"><li className="icon-wrapper">
+                <NavLink to="/"><li className="icon-wrapper">
                     <img src={homeIcon} alt="Home" />
                 </li></NavLink>
                 <NavLink to="/test"><li className="icon-wrapper search-btn">
@@ -46,7 +46,7 @@ function Sidebar() {
                     </div>
                 </NavLink></li>
 
-                <li><NavLink to="/album" className="album-btn btn">
+                <li><NavLink to="/album/1" className="album-btn btn">
                     <div className="icon-wrapper">
                         <img src={albumIcon} alt="Album" />
                     </div>
