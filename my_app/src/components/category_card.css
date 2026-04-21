@@ -1,8 +1,8 @@
 .category-card-wrapper {
     width: var(--category-card-list-width);
+    background-color: aqua;
     display: flex;
     flex-direction: column;
-    background-color: aqua;
     flex: 0 0 auto;
 }
 

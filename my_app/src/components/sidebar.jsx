@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import './sidebar.css'
 import logo from "./../assets/logo.png"
 import sidebarIcon from "./../assets/black_sidebar.png"
@@ -8,22 +9,22 @@ import homeIcon from "./../assets/black_home.png"
 import searchIcon from "./../assets/search.png"
 
 function Sidebar() {
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
     return (
         // State/class controlled width + transition + potentially translateX for fluidity
         // Record closed sidebar width
         <nav className={open ? "open sidebar-wrapper" : "sidebar-wrapper"}>
             <ul className="topbar-list">
-                <li className="logo-wrapper">
+                <NavLink to="/test"><li className="logo-wrapper">
                     <img src={logo} alt="Logo" />
-                </li>
-                <li className="icon-wrapper">
+                </li></NavLink>
+                <NavLink to="/test"><li className="icon-wrapper">
                     <img src={homeIcon} alt="Home" />
-                </li>
-                <li className="icon-wrapper search-btn">
+                </li></NavLink>
+                <NavLink to="/test"><li className="icon-wrapper search-btn">
                     <img src={searchIcon} alt="Search" />
-                </li>
+                </li></NavLink>
             </ul>
             <ul className="btn-list">
                 <li><button className="toggle-btn btn" onClick={() => setOpen(!open)}>
@@ -35,7 +36,7 @@ function Sidebar() {
                     </div>
                 </button></li>
 
-                <li><a className="liked-btn btn">
+                <li><NavLink to="/liked" className="liked-btn btn">
                     <div className="icon-wrapper">
                         <img src={likedIcon} alt="Liked Songs" />
                     </div>
@@ -43,9 +44,9 @@ function Sidebar() {
                         <span className="name">Liked Songs</span>
                         <span className="count">Count: <span>90</span></span>
                     </div>
-                </a></li>
+                </NavLink></li>
 
-                <li><a className="album-btn btn">
+                <li><NavLink to="/album" className="album-btn btn">
                     <div className="icon-wrapper">
                         <img src={albumIcon} alt="Album" />
                     </div>
@@ -53,7 +54,7 @@ function Sidebar() {
                         <span className="name">Album</span>
                         <span className="count">Count: <span>90</span></span>
                     </div>
-                </a></li>
+                </NavLink></li>
             </ul>
         </nav>
     )

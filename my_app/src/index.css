@@ -27,15 +27,11 @@
 html,
 body {
     font-size: 16px;
-    min-height: calc(100vh - (var(--searchbar-height) + 2vh));
+    min-height: 100vh;
 }
 
 body {
     background: linear-gradient(to bottom, rgb(0, 34, 101), rgb(0, 3, 8));
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-main {
-    margin-top: calc(var(--searchbar-height) + 2vh);
 }
