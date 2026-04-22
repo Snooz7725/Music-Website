@@ -1,5 +1,88 @@
+.song-list-wrapper {
+    outline: 1px solid green;
+}
+
+.song-list-wrapper * {
+    outline: 1px solid green;
+}
+
+.song-list-wrapper .song-grid * {
+    color: white;
+}
+
 .song-list-wrapper .song-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4rem;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.song-list-wrapper .song-row {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.song-list-wrapper .song-title {
+    flex: 1;
+    display: flex;
+}
+
+.song-list-wrapper .song-album {
+    flex: 1;
+}
+
+.song-list-wrapper .song-duration {
+    flex: 1;
+}
+
+.song-list-wrapper .song-title .like-btn-outer-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.song-list-wrapper .song-title .like-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6.5rem;
+    aspect-ratio: 1 / 1;
+    background-color: rgb(255, 28, 28);
+    overflow: hidden;
+}
+
+.song-list-wrapper .like-btn-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.song-list-wrapper .song-title .song-thumbnail-wrapper {
+    width: 10rem;
+    aspect-ratio: 1 / 1;
+    background-color: rgb(255, 28, 28);
+}
+
+.song-list-wrapper .song-title .song-thumbnail-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.song-list-wrapper .song-details {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 0.5rem;
+}
+
+
+
+.song-list-wrapper .song-row .song-album,
+.song-list-wrapper .song-row .song-duration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

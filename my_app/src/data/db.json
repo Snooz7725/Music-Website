@@ -8,6 +8,8 @@
     "songs": [
         {"id": 0, "albumId": 2, "title": "Famous Pipe Game", "artist": "Kendrick Lamar", "releaseDate": "2009-01-30", "duration": 190, "thumbnail": "album_placeholder.jpg"},
         {"id": 1, "albumId": 1, "title": "man at the garden", "artist": "Kendrick Lamar", "releaseDate": "2024-11-22", "duration": 233, "thumbnail": "album_placeholder.jpg"},
-        {"id": 2, "albumId": 0, "title": "HUMBLE.", "artist": "Kendrick Lamar", "releaseDate": "2017-03-30", "duration": 177, "thumbnail": "album_placeholder.jpg"}
+        {"id": 2, "albumId": 0, "title": "HUMBLE.", "artist": "Kendrick Lamar", "releaseDate": "2017-03-30", "duration": 177, "thumbnail": "album_placeholder.jpg"},
+        {"id": 3, "albumId": 1, "title": "man at the garden", "artist": "Kendrick Lamar", "releaseDate": "2024-11-22", "duration": 233, "thumbnail": "album_placeholder.jpg"},
+        {"id": 4, "albumId": 1, "title": "man at the garden", "artist": "Kendrick Lamar", "releaseDate": "2024-11-22", "duration": 233, "thumbnail": "album_placeholder.jpg"}
     ]
 }

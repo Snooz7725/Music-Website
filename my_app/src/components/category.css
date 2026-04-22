@@ -1,5 +1,6 @@
 .category-wrapper {
     display: flex;
+    width: fit-content;
     flex-direction: column;
     outline: solid 1.5px green;
 }
@@ -9,7 +10,7 @@
 }
 
 .category-wrapper h1 {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     align-self: flex-start;
     background-color: seagreen;
     padding: 0.6rem;

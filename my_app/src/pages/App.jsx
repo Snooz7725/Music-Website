@@ -4,7 +4,6 @@ import Sidebar from "../components/sidebar"
 import Hero from "../components/hero"
 import Category from "../components/category"
 import CategoryCard from "../components/category_card"
-import albumPlaceholder from "../assets/album_placeholder.jpg"
 import musicData from "../data/db.json"
 
 function App() {

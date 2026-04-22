@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './hero.css'
-import githubIcon from '../assets/github.svg'
 
 function Hero() {
     const [state, setState] = useState(true)
@@ -14,7 +13,7 @@ function Hero() {
                 <ul className="btn-list">
                     <li><a className="github-btn btn" href="#">
                         <div className="icon-wrapper">
-                            <img src={githubIcon} alt="GitHub" />
+                            <img src="/assets/github.svg" alt="GitHub" />
                         </div>
                         <span>GitHub</span>
                     </a></li>

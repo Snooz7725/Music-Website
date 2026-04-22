@@ -8,14 +8,15 @@ import musicData from "../data/db.json"
 function Album() {
     const { albums, songs } = musicData
     const params = useParams()
-    const chosenAlbum = albums.find(album => album.id === parseInt(params.id))
+    const routeAlbumId = Number(params.id)
+    const chosenAlbum = albums.find(album => album.id === routeAlbumId)
     const albumSongs = songs.filter(song => song.albumId === chosenAlbum?.id)
 
     return (
         <div className="album-wrapper">
             <Sidebar />
-            <AlbumHero title={chosenAlbum.title} artist={chosenAlbum.artist} releaseDate={chosenAlbum.releaseDate} count={albumSongs.length} />
-            <SongList />
+            <AlbumHero title={chosenAlbum.title ?? "Unknown Album"} artist={chosenAlbum.artist ?? "Unknown Artist"} releaseDate={chosenAlbum.releaseDate ?? "-"} count={albumSongs.length} />
+            <SongList albumId={routeAlbumId} />
         </div>
     )
 }

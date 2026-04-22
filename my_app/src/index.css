@@ -13,6 +13,8 @@
 
     --main-section-width: 90vw;
     --main-section-left-over: calc(100vw - var(--closed-sidebar-width));
+
+    --category-card-list-width: clamp(195px, 11vw, 228px);
 }
 
 *, 
