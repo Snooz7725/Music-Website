@@ -1,11 +1,3 @@
-.song-list-wrapper {
-    outline: 1px solid green;
-}
-
-.song-list-wrapper * {
-    outline: 1px solid green;
-}
-
 .song-list-wrapper .song-grid * {
     color: white;
 }
@@ -13,6 +5,8 @@
 .song-list-wrapper .song-grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
 }
 
 .song-list-wrapper .song-row {
@@ -20,34 +14,34 @@
     gap: 2rem;
     width: 100%;
     padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 0.5rem;
+}
+
+.song-list-wrapper .song-title,
+.song-list-wrapper .song-album,
+.song-list-wrapper .song-duration {
+    flex: 1;
 }
 
 .song-list-wrapper .song-title {
-    flex: 1;
     display: flex;
-}
-
-.song-list-wrapper .song-album {
-    flex: 1;
-}
-
-.song-list-wrapper .song-duration {
-    flex: 1;
 }
 
 .song-list-wrapper .song-title .like-btn-outer-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 1.2vw;
 }
 
 .song-list-wrapper .song-title .like-btn-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 6.5rem;
+    width: 4.5rem;
     aspect-ratio: 1 / 1;
-    background-color: rgb(255, 28, 28);
     overflow: hidden;
 }
 
@@ -58,9 +52,8 @@
 }
 
 .song-list-wrapper .song-title .song-thumbnail-wrapper {
-    width: 10rem;
+    width: 7rem;
     aspect-ratio: 1 / 1;
-    background-color: rgb(255, 28, 28);
 }
 
 .song-list-wrapper .song-title .song-thumbnail-wrapper img {
@@ -74,15 +67,38 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
     gap: 0.5rem;
 }
 
+.song-list-wrapper .song-details span {
+    width: 100%;
+}
 
+.song-list-wrapper .song-details .title {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.song-list-wrapper .song-details .artist {
+    font-size: 1.1rem;
+}
+
+.song-list-wrapper .song-row .song-album {
+    border-right: 1px solid rgba(255, 255, 255, 0.4);
+    border-left: 1px solid rgba(255, 255, 255, 0.4);
+}
 
 .song-list-wrapper .song-row .song-album,
 .song-list-wrapper .song-row .song-duration {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 600;
+}
+
+.song-list-wrapper .song-album span,
+.song-list-wrapper .song-duration span {
+    font-size: 2rem;
+    font-weight: 500;
 }

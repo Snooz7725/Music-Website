@@ -22,12 +22,12 @@ function SongList({ albumId }) {
                                 <img src={"/assets/" + song.thumbnail} alt={song.title} />
                             </div>
                             <div className="song-details">
-                                <span>{song.title}</span>
-                                <span>{song.artist}</span>
+                                <span className="title">{song.title}</span>
+                                <span className="artist">{song.artist}</span>
                             </div>
                         </div>
                         <div className="song-album"><span>{album?.title}</span></div>
-                        <div className="song-duration"><span>{song.duration}</span></div>
+                        <div className="song-duration"><span>{Math.floor(song.duration / 60)}:{String(song.duration % 60).padStart(2, '0')}</span></div>
                     </div>
                 ))}
             </div>
