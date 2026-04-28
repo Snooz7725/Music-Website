@@ -3,11 +3,14 @@ import Searchbar from "../components/searchbar"
 import Sidebar from "../components/sidebar"
 import Hero from "../components/hero"
 import Category from "../components/category"
-import CategoryCard from "../components/category_card"
+import AlbumCategoryCard from "../components/album_category_card"
+import SongCategoryCard from "../components/song_category_card"
 import musicData from "../data/db.json"
 
 function App() {
-    const { albums, songs } = musicData
+    const { albums, songs, artists } = musicData
+    const albumMap = Object.fromEntries(albums.map(album => [album.id, album]))
+    const artistMap = Object.fromEntries(artists.map(artist => [artist.id, artist]))
 
     return (
         <div className="app-wrapper">
@@ -18,10 +21,13 @@ function App() {
                     <Hero />
                     <Category title="Songs">
                         {songs.map((song) => (
-                            <CategoryCard
-                                id={song.id}
+                            <SongCategoryCard
+                                songId={song.id}
+                                albumId={albumMap[song.album_id].id}
                                 title={song.title}
-                                artist={song.artist}
+                                albumTitle={albumMap[song.album_id].title}
+                                artist={artistMap[song.artist_id].name}
+                                artistId={song.artist_id}
                                 filePath={song.thumbnail}
                             />
                         ))}
@@ -29,10 +35,11 @@ function App() {
 
                     <Category title="Albums">
                         {albums.map((album) => (
-                            <CategoryCard
-                                id={album.id}
-                                title={album.title}
-                                artist={album.artist}
+                            <AlbumCategoryCard
+                                albumId={album.id}
+                                albumTitle={album.title}
+                                artist={artistMap[album.artist_id].name}
+                                artistId={album.artist_id}
                                 filePath={album.thumbnail}
                             />
                         ))}

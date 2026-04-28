@@ -1,9 +1,6 @@
-import { useState } from 'react'
 import './hero.css'
 
 function Hero() {
-    const [state, setState] = useState(true)
-
     return (
         <div className="hero-wrapper">
             <div className="left-panel">

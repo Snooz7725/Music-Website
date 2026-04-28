@@ -1,15 +1,22 @@
-import musicData from "../data/db.json"
 import "./song_list.css"
 
-function SongList({ albumId }) {
-    const { albums, songs } = musicData
-    const albumSongs = songs.filter(song => song.albumId === albumId)
-    const album = albums.find(album => album.id === albumId)
+function SongList({ songData, albumData }) {
+    console.log(JSON.stringify(albumData, null, 2));
+    console.log(JSON.stringify(songData, null, 2));
+
+    const albumMap = Object.fromEntries(albumData.map(album => [album.id, album]))
 
     return (
         <div className="song-list-wrapper">
             <div className="song-grid">
-                {albumSongs.map(song => (
+                <div className="song-row song-header">
+                    <div className="song-title"><span>Title</span></div>
+                    <hr/>
+                    <div className="song-album"><span>Album</span></div>
+                    <hr/>
+                    <div className="song-duration"><span>Duration</span></div>
+                </div>
+                {songData.map(song => (
                     <div key={song.id} className="song-row">
                         <div className="song-title">
                             <div className="like-btn-outer-wrapper">
@@ -26,7 +33,9 @@ function SongList({ albumId }) {
                                 <span className="artist">{song.artist}</span>
                             </div>
                         </div>
-                        <div className="song-album"><span>{album?.title}</span></div>
+                        <hr/>
+                        <div className="song-album"><span>{albumMap[song.album_id].title}</span></div>
+                        <hr/>
                         <div className="song-duration"><span>{Math.floor(song.duration / 60)}:{String(song.duration % 60).padStart(2, '0')}</span></div>
                     </div>
                 ))}

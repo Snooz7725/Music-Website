@@ -1,0 +1,33 @@
+.song-category-card-wrapper {
+    width: var(--category-card-list-width);
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+}
+
+.song-category-card-wrapper .icon-wrapper {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.song-category-card-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.song-category-card-wrapper .details {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem;
+    font-size: 14px;
+    font-weight: bold;
+    gap: 0.2rem;
+}

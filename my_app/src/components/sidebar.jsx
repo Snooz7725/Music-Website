@@ -31,7 +31,7 @@ function Sidebar() {
                     </div>
                 </button></li>
 
-                <li><NavLink to="/liked" className="liked-btn btn">
+                <li><NavLink to="/liked-songs" className="liked-btn btn">
                     <div className="icon-wrapper">
                         <img src="/assets/transparent_heart_btn.png" alt="Liked Songs" />
                     </div>
