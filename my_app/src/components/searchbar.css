@@ -6,7 +6,7 @@
 
 .searchbar-wrapper {
     position: fixed;
-    top: 0;
+    top: 0.2rem;
     left: calc(var(--closed-sidebar-width) + 30vw);
     display: flex;
     gap: 9px;
@@ -45,8 +45,14 @@
 
 .searchbar-wrapper input {
     all: unset;
+    display: block;
     font-weight: 900;
     font-size: 1rem;
-    color: white;
+    color: rgb(255, 255, 255);
+    caret-color: rgb(255, 255, 255);
     width: 90%;
+}
+
+.searchbar-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
 }

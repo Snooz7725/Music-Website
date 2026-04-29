@@ -1,6 +1,6 @@
 import "./album_hero.css"
 
-function AlbumHero({ title, artist, releaseDate, count }) {
+function AlbumHero({ albumTitle, artist, releaseDate, count }) {
     return (
         <div className="album-hero-wrapper">
             <div className="top-section">
@@ -8,10 +8,10 @@ function AlbumHero({ title, artist, releaseDate, count }) {
                     <img src="/assets/album_placeholder.jpg" alt="Album Cover"/>
                 </div>
                 <div className="album-info">
-                    <h1>{title}</h1>
-                    <p>{artist}</p>
-                    <p>Release Date: {releaseDate}</p>
-                    <p>Count: {count}</p>
+                    <h1 className="title">{albumTitle}</h1>
+                    <p className="artist-name">{artist}</p>
+                    <p className="release-date">Release Date: {releaseDate}</p>
+                    <p className="song-count">Count: {count}</p>
                 </div>
             </div>
             <ul className="btn-list">

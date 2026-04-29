@@ -1,8 +1,8 @@
-import './hero.css'
+import './creator_hero.css'
 
-function Hero() {
+function CreatorHero() {
     return (
-        <div className="hero-wrapper">
+        <div className="creator-hero-wrapper">
             <div className="left-panel">
                 <h1>Welcome To SoundVault</h1>
                 <p>A website for listing your favourite albums & songs</p>
@@ -20,4 +20,4 @@ function Hero() {
     )
 };
 
-export default Hero
+export default CreatorHero

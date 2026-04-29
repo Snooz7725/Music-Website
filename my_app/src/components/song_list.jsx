@@ -1,10 +1,8 @@
 import "./song_list.css"
 
-function SongList({ songData, albumData }) {
-    console.log(JSON.stringify(albumData, null, 2));
-    console.log(JSON.stringify(songData, null, 2));
-
+function SongList({ songData, albumData, artistData}) {
     const albumMap = Object.fromEntries(albumData.map(album => [album.id, album]))
+    const artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
 
     return (
         <div className="song-list-wrapper">
@@ -30,7 +28,7 @@ function SongList({ songData, albumData }) {
                             </div>
                             <div className="song-details">
                                 <span className="title">{song.title}</span>
-                                <span className="artist">{song.artist}</span>
+                                <span className="artist">{artistMap[song.artist_id].name}</span>
                             </div>
                         </div>
                         <hr/>

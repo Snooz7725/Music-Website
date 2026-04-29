@@ -1,4 +1,4 @@
-.album-hero-wrapper {
+.Liked-hero-wrapper {
     outline: 1px solid green;
     background-color: white;
     padding: 1.3rem;
@@ -8,16 +8,16 @@
     gap: 0.7rem;
 }
 
-.album-hero-wrapper * {
+.Liked-hero-wrapper * {
     outline: 1px solid green;
 }
 
-.album-hero-wrapper .top-section {
+.Liked-hero-wrapper .top-section {
     display: flex;
     gap: 0.5rem;
 }
 
-.album-hero-wrapper .top-section .img-wrapper {
+.Liked-hero-wrapper .top-section .img-wrapper {
     width: calc(var(--main-section-left-over) * 0.15);
     flex: 0 0 auto;
     display: flex;
@@ -27,25 +27,34 @@
     overflow: hidden;
 }
 
-.album-hero-wrapper .top-section img {
+.Liked-hero-wrapper .top-section img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.album-hero-wrapper .album-info {
+.Liked-hero-wrapper .album-info {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.album-hero-wrapper .btn-list {
+.Liked-hero-wrapper .album-info .title {
+    font-size: 4.2rem;
+    margin-bottom: 0.2rem;
+}
+
+.Liked-hero-wrapper .album-info .song-count{
+    font-size: 1.5rem;
+}
+
+.Liked-hero-wrapper .btn-list {
     list-style: none;
     display: flex;
     gap: 0.5rem;
 }
 
-.album-hero-wrapper .btn-list button {
+.Liked-hero-wrapper .btn-list button {
     display: flex;
     justify-content: center;
     align-items: center; /* important */
@@ -58,7 +67,7 @@
     transition: transform 0.3s ease;
 }
 
-.album-hero-wrapper .btn-list .list-btn {
+.Liked-hero-wrapper .btn-list .list-btn {
     display: flex;
     justify-content: center;
     align-items: center; /* important */
@@ -71,7 +80,7 @@
     transition: transform 0.3s ease;
 }
 
-.album-hero-wrapper .btn-list img {
+.Liked-hero-wrapper .btn-list img {
     width: 100%;
     height: 100%;
     object-fit: contain;

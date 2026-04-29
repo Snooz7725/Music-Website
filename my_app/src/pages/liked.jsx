@@ -5,15 +5,20 @@ import SongList from "../components/song_list"
 import musicData from "../data/db.json"
 
 function Liked() {
-    const { liked_songs: likedSongs, songs, albums } = musicData
+    const { songs, liked_songs, albums, artists } = musicData
 
-    const songData = likedSongs.map(({song_id}) => songs.find(song => song.id === song_id)).filter(Boolean)
+    // if any [subject] has a specified [subject] then keep it, else filter it out 
+    const songData = songs.filter(song => liked_songs.some(likedSong => likedSong.song_id === song.id))
+    const artistData = artists.filter(artist => songData.some(song => song.artist_id === artist.id))
+    const albumData = albums.filter(album => songData.some(song => song.album_id === album.id))
+
+    console.log(JSON.stringify(songData, null, 2));
 
     return (
         <div className="album-wrapper">
             <Sidebar />
             <LikedSongsHero count={songData.length} />
-            <SongList songData={songData} albumData={albums} />
+            <SongList songData={songData} albumData={albumData} artistData={artistData}/>
         </div>
     )
 }

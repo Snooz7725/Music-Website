@@ -1,9 +1,12 @@
+
+
 .song-category-card-wrapper {
     width: var(--category-card-list-width);
     background-color: aqua;
     display: flex;
     flex-direction: column;
     flex: 0 0 auto;
+    padding-bottom: 0.8rem;
 }
 
 .song-category-card-wrapper .icon-wrapper {
@@ -19,6 +22,12 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    scale: 1;
+    transition: scale ease 0.3s;
+}
+
+.song-category-card-wrapper img:hover {
+    scale: 1.1;
 }
 
 .song-category-card-wrapper .details {
@@ -26,8 +35,36 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0.5rem;
+    padding: 0 0.5rem;
+    width: 100%;
+    min-width: 0;
     font-size: 14px;
     font-weight: bold;
     gap: 0.2rem;
+}
+
+.song-category-card-wrapper .details a {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.song-category-card-wrapper .details h2,
+.song-category-card-wrapper .details h3 {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.song-category-card-wrapper .details h2 {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.song-category-card-wrapper .details h3 {
+    flex: 1;
+    font-size: 0.9rem;
 }

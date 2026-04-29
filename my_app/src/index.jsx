@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   { path: "/album/:id", element: <Album /> },
   { path: "*", element: <NoMatch /> },
   { path: "/liked-songs", element: <LikedSongs /> },
-  { path: "/profile:id", element: <CreatorProfile /> },
+  { path: "/profile/:id", element: <CreatorProfile /> },
 ])
 
 createRoot(document.getElementById('root')).render(

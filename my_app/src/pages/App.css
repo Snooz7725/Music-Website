@@ -12,13 +12,13 @@
     align-items: center;
 }
 
-.main-section {
+.app-wrapper .main-section {
     flex: 1;
     width: var(--main-section-width);
     margin-left: var(--closed-sidebar-width);
 }
 
-.main-content {
+.app-wrapper .main-content {
     display: flex;
     flex-direction: column;
     gap: 2.6vh;

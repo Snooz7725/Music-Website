@@ -2,14 +2,14 @@ import "./liked_hero.css"
 
 function LikedSongsHero({ count }) {
     return (
-        <div className="album-hero-wrapper">
+        <div className="Liked-hero-wrapper">
             <div className="top-section">
                 <div className="img-wrapper">
                     <img src="/assets/album_placeholder.jpg" alt="Album Cover"/>
                 </div>
                 <div className="album-info">
-                    <h1>Liked Songs</h1>
-                    <p>Count: {count}</p>
+                    <h1 className="title">Liked Songs</h1>
+                    <p className="song-count">Count: {count}</p>
                 </div>
             </div>
             <ul className="btn-list">
