@@ -1,4 +1,4 @@
-.error-message {
+.no-match-wrapper .error-message {
     position: absolute;
     top: 50%;
     left: calc(var(--closed-sidebar-width) + 50%);
@@ -9,7 +9,7 @@
     border: 1.5px solid rgb(56, 56, 56);
 }
 
-.error-message h1 {
+.no-match-wrapper h1 {
     font-size: 2rem;
     color: rgb(255, 255, 255);
 }

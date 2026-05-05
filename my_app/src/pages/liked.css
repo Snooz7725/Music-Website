@@ -1,4 +1,4 @@
-.album-wrapper {
+.liked-wrapper {
     display: flex;
     flex-direction: column;
     margin-left: var(--closed-sidebar-width);

@@ -12,8 +12,6 @@ function Liked() {
     const artistData = artists.filter(artist => songData.some(song => song.artist_id === artist.id))
     const albumData = albums.filter(album => songData.some(song => song.album_id === album.id))
 
-    console.log(JSON.stringify(songData, null, 2));
-
     return (
         <div className="album-wrapper">
             <Sidebar />
