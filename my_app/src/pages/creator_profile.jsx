@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom"
 import "./creator_profile.css"
 import Searchbar from "../components/searchbar"
 import Sidebar from "../components/sidebar"
@@ -8,9 +9,15 @@ import SongCategoryCard from "../components/song_category_card"
 import musicData from "../data/db.json"
 
 function CreatorProfile() {
+    const params = useParams()
+    const artistId = Number(params.id);
+
     const { albums, songs, artists } = musicData
     const albumMap = Object.fromEntries(albums.map(album => [album.id, album]))
     const artistMap = Object.fromEntries(artists.map(artist => [artist.id, artist]))
+
+    const albumCount = albums.filter(album => album.artist_id === artistId).length
+    const songCount = songs.filter(song => song.artist_id === artistId).length
 
     return (
         <div className="creator-profile-wrapper">
@@ -18,10 +25,11 @@ function CreatorProfile() {
             <div className="main-section">
                 <Searchbar />
                 <div className="main-content">
-                    <CreatorHero />
+                    <CreatorHero artistName={artistMap[artistId].name} albumCount={albumCount} songCount={songCount} />
                     <Category title="Songs">
                         {songs.map((song) => (
                             <SongCategoryCard
+                                key={song.id}
                                 songId={song.id}
                                 albumId={albumMap[song.album_id].id}
                                 title={song.title}
@@ -36,6 +44,7 @@ function CreatorProfile() {
                     <Category title="Albums">
                         {albums.map((album) => (
                             <AlbumCategoryCard
+                                key={album.id}
                                 albumId={album.id}
                                 albumTitle={album.title}
                                 artist={artistMap[album.artist_id].name}

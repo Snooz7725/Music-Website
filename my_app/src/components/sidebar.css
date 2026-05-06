@@ -44,7 +44,7 @@
     justify-content: center;
     align-items: center;
     aspect-ratio: 1 / 1;
-    outline: solid 0.18rem var(--prim-colour);
+    outline: solid 2px var(--prim-colour);
     height: calc(var(--closed-sidebar-width) * 0.8);
     overflow: hidden;
     transition: transform 0.3s ease;
@@ -70,7 +70,7 @@
     aspect-ratio: 1 / 1;
     background-color: rgb(0, 0, 0);
     border-radius: 0.5vw;
-    outline: solid 0.18rem transparent;
+    outline: solid 2px transparent;
     overflow: hidden;
     transform: scale(1);
     transition: outline-color 0.3s ease, margin 0.3s ease, max-width 0.3s ease, transform 0.3s ease;
@@ -111,7 +111,7 @@
     gap: 1.8vh;
     background-color: rgb(0, 0, 0);
     border-radius: 1vw;
-    outline: solid 0.18rem var(--prim-colour);
+    outline: solid 2px var(--prim-colour);
     padding: 1vw 0;
     width: calc(var(--closed-sidebar-width) * 0.8);
     transition: width 0.3s ease;
@@ -126,7 +126,7 @@
     all: unset;
     display: flex;
     border-radius: 1vw;
-    outline: solid 0.18rem transparent;
+    outline: solid 2px transparent;
     height: calc(var(--closed-sidebar-width) * 0.6);
     width: calc(var(--closed-sidebar-width) * 0.6);
     aspect-ratio: 1 / 1;
@@ -140,7 +140,7 @@
     align-items: center;
     height: 100%;
     aspect-ratio: 1 / 1;
-    outline: solid 0.18rem var(--prim-colour);
+    outline: solid 2px var(--prim-colour);
     border-radius: 0.5vw;
     overflow: hidden;
     transition: transform 0.3s ease, outline-color 0.3s ease;
@@ -226,6 +226,7 @@
 }
 
 .sidebar-wrapper .open-content .count {
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
     font-weight: 600;
 }

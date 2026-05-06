@@ -6,7 +6,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     padding: 6rem;
     border-radius: 10px;
-    border: 1.5px solid rgb(56, 56, 56);
+    outline: 2px solid var(--prim-colour);
 }
 
 .no-match-wrapper h1 {

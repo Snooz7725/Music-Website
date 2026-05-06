@@ -17,6 +17,8 @@
     --category-card-list-width: clamp(195px, 11vw, 228px);
 
     --creator-hero-height: 30vh;
+
+    --creator-hero-details-p-font-size: 1.2rem;
 }
 
 *, 
@@ -37,4 +39,8 @@ body {
     background: linear-gradient(to bottom, rgb(0, 34, 101), rgb(0, 3, 8));
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#root {
+    min-height: 100vh;
 }

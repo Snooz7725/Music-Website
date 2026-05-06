@@ -8,7 +8,6 @@
     display: flex;
     background-color: aquamarine;
     height: 57vh;
-    margin-top: calc(var(--searchbar-height) + 2vh);
     border-radius: 1.5vh;
 }
 

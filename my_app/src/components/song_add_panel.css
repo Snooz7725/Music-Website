@@ -1,0 +1,41 @@
+.song-add-panel-wrapper {
+    flex: 1;
+    display: flex;
+    background-color: aquamarine;
+    flex-direction: column;
+}
+
+.song-add-panel-wrapper .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 15vh;
+}
+
+.song-add-panel-wrapper .hero img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.song-add-panel-wrapper .input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-add-panel-wrapper .search-btn {
+    border: unset;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: calc(var(--main-section-width) * 0.04);
+}
+
+.song-add-panel-wrapper .search-btn img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}

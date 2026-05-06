@@ -17,7 +17,7 @@ function Sidebar() {
                 <NavLink to="/"><li className="icon-wrapper">
                     <img src="/assets/home_btn.png" alt="Home" />
                 </li></NavLink>
-                <NavLink to="/test"><li className="icon-wrapper search-btn">
+                <NavLink to="/song-add"><li className="icon-wrapper search-btn">
                     <img src="/assets/search_btn.png" alt="Search" />
                 </li></NavLink>
             </ul>

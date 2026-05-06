@@ -22,6 +22,7 @@ function App() {
                     <Category title="Songs">
                         {songs.map((song) => (
                             <SongCategoryCard
+                                key={song.id}
                                 songId={song.id}
                                 albumId={albumMap[song.album_id].id}
                                 title={song.title}
@@ -36,6 +37,7 @@ function App() {
                     <Category title="Albums">
                         {albums.map((album) => (
                             <AlbumCategoryCard
+                                key={album.id}
                                 albumId={album.id}
                                 albumTitle={album.title}
                                 artist={artistMap[album.artist_id].name}

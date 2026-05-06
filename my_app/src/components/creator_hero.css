@@ -45,4 +45,26 @@
 
 .creator-hero-wrapper .details div {
     display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    background-color: aquamarine;
+    padding: 0 0.6rem;
+}
+
+.creator-hero-wrapper .details div p {
+    font-size: var(--creator-hero-details-p-font-size);
+    white-space: nowrap;
+    width: calc(var(--creator-hero-details-p-font-size) * 5.5);
+}
+
+.creator-hero-wrapper .details h1 {
+    font-size: 3rem;
+}
+
+.creator-hero-wrapper .details div hr {
+    align-self: stretch;
+    width: 0.35rem;
+    border-radius: 1rem;
+    border: unset;
+    background-color: rgb(255, 127, 165);
 }

@@ -10,6 +10,7 @@ function Album() {
     // AlbumHero
     const { albums, songs, artists } = musicData
     const params = useParams()
+
     const routeAlbumId = Number(params.id)
     // If params not available
     if (isNaN(routeAlbumId)) {
@@ -23,6 +24,7 @@ function Album() {
     }
 
     const chosenAlbumData = albumData[0];
+
     const albumSongs = songs.filter(song => song.album_id === chosenAlbumData.id)
     const artistData = artists.filter(artist => artist.id === chosenAlbumData.artist_id)
     const artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
@@ -34,7 +36,7 @@ function Album() {
     return (
         <div className="album-wrapper">
             <Sidebar />
-            <AlbumHero albumTitle={chosenAlbumData.title ?? "Unknown Album"} artist={artistMap[chosenAlbumData.artist_id].name ?? "Unknown Artist"} releaseDate={chosenAlbumData.release_date ?? "-"} count={albumSongs.length} />
+            <AlbumHero albumId={chosenAlbumData.id} albumTitle={chosenAlbumData.title ?? "Unknown Album"} artist={artistMap[chosenAlbumData.artist_id].name ?? "Unknown Artist"} releaseDate={chosenAlbumData.release_date ?? "-"} count={albumSongs.length} />
             <SongList albumData={albumData} songData={songData} artistData={artistData} />
         </div>
     )
