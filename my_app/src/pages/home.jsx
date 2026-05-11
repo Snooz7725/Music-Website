@@ -7,7 +7,7 @@ import AlbumCategoryCard from "../components/album_category_card"
 import SongCategoryCard from "../components/song_category_card"
 import musicData from "../data/db.json"
 
-function App() {
+function HomePage() {
     const { albums, songs, artists } = musicData
     const albumMap = Object.fromEntries(albums.map(album => [album.id, album]))
     const artistMap = Object.fromEntries(artists.map(artist => [artist.id, artist]))
@@ -52,4 +52,4 @@ function App() {
     )
 }
 
-export default App
+export default HomePage
