@@ -8,7 +8,13 @@ import SongAdd from "./pages/song_add"
 
 function App() {
     return (
+        // Manages routing, including:
+        // - watches browser URL
+        // - listens for navigation
+        // - stores routing state 
+        // - exposes routing context to all underneath
         <BrowserRouter>
+            {/* This maps URLs to components, rendering pages */}
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/album/:id" element={<Album />} />
