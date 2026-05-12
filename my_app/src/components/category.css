@@ -14,8 +14,8 @@
     align-self: flex-start;
     background-color: seagreen;
     padding: 0.6rem;
-    border-top-left-radius: 1vh;
-    border-top-right-radius: 1vh;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
 }
 
 .card-list {

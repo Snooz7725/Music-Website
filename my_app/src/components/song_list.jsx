@@ -1,9 +1,6 @@
 import "./song_list.css"
 
-function SongList({ songData, albumData, artistData}) {
-    const albumMap = Object.fromEntries(albumData.map(album => [album.id, album]))
-    const artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
-
+function SongList({ songData, albumMap, artistMap}) {
     return (
         <div className="song-list-wrapper">
             <div className="song-grid">

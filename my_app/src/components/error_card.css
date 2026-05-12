@@ -1,0 +1,16 @@
+.error-card-wrapper {
+    height: 2vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 6rem;
+    border-radius: 10px;
+    outline: 2px solid var(--prim-colour);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.error-card-wrapper h1 {
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
+}

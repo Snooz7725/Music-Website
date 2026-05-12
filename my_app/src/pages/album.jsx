@@ -1,43 +1,92 @@
+import "./album.css"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Navigate } from "react-router-dom"
 import Sidebar from "../components/sidebar"
-import "./album.css"
 import AlbumHero from "../components/album_hero"
 import SongList from "../components/song_list"
-import musicData from "../data/db.json"
+import ErrorCard from "../components/error_card"
+import LoadingCard from "../components/loading_card"
 
 function Album() {
-    // AlbumHero
-    const { albums, songs, artists } = musicData
+    useEffect(() => {
+        let errorFlag = false
+
+        async function loadData() {
+            try {
+                const response = await fetch(`/api/data?type=all`, { 
+                    method: "GET"
+                })
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`)
+                }
+
+                const db = await response.json()
+                setMusicData(db.data)
+            } catch (error) {
+                console.error("Fetch failed:", error)
+                errorFlag = true
+            } finally {
+                if (errorFlag) {
+                    setLoading("errored")
+                } else setLoading("loaded")
+                
+            }
+        }
+
+        loadData()
+    }, [])
+
+    const [loadStatus, setLoading] = useState("loading")
+    const [musicData, setMusicData] = useState({
+        albums: [],
+        songs: [],
+        artists: [],
+    })
+
     const params = useParams()
 
-    const routeAlbumId = Number(params.id)
-    // If params not available
-    if (isNaN(routeAlbumId)) {
+    const albumId = Number(params.id)
+
+    // If param not available
+    if (isNaN(albumId)) {
         return <Navigate to="/" replace />;
     }
 
-    // If not found
-    const albumData = albums.filter(album => album.id === routeAlbumId)
+    // If album not found
+    const albumData = musicData.albums.filter(album => album.id == albumId)
     if (typeof albumData == "undefined") {
         return <Navigate to="/" replace />;
     }
 
     const chosenAlbumData = albumData[0];
 
-    const albumSongs = songs.filter(song => song.album_id === chosenAlbumData.id)
-    const artistData = artists.filter(artist => artist.id === chosenAlbumData.artist_id)
+    const songData = musicData.songs.filter(song => song.album_id == chosenAlbumData.id)
+    const artistData = musicData.artists.filter(artist => artist.id == chosenAlbumData.artist_id)
+
+    const albumMap = Object.fromEntries(albumData.map(album => [album.id, album]))
     const artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
-
-
-    // SongList
-    const songData = songs.filter(songData => songData.album_id === routeAlbumId)
 
     return (
         <div className="album-wrapper">
             <Sidebar />
-            <AlbumHero albumId={chosenAlbumData.id} albumTitle={chosenAlbumData.title ?? "Unknown Album"} artist={artistMap[chosenAlbumData.artist_id].name ?? "Unknown Artist"} releaseDate={chosenAlbumData.release_date ?? "-"} count={albumSongs.length} />
-            <SongList albumData={albumData} songData={songData} artistData={artistData} />
+            { loadStatus == "loaded" ? (
+                <>
+                    <AlbumHero albumId={chosenAlbumData.id} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} releaseDate={chosenAlbumData.release_date} count={albumData.length} />
+                    <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} />
+                </>
+            ) : loadStatus == "errored" ? (
+                <>
+                    <AlbumHero albumId={albumId} albumTitle={"ERROR"} artist={""} releaseDate={"YYYY-MM-DD"} count={""} />
+                    <ErrorCard />
+                </>
+            ) : (
+                <>
+                    <AlbumHero albumId={albumId} albumTitle={"Loading..."} artist={""} releaseDate={"YYYY-MM-DD"} count={""} />
+                    <LoadingCard />
+                </>
+            )}
         </div>
     )
 }

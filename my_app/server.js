@@ -31,6 +31,15 @@ app.delete("/albums/:id", (req, res) => {
   res.json({ message: "Album deleted" }); // response to front
 });
 
+app.get("/data", (req, res) => {
+  const { type } = req.query;
+
+  if (type == "all") {
+    const db = JSON.parse(fs.readFileSync(dbPath, "utf8"));
+    res.json({ data: db });
+  }
+});
+
 app.listen(5000, () => {
   console.log("Backend running on http://localhost:5000");
 });

@@ -7,9 +7,9 @@ function AlbumHero({ albumId, albumTitle, artist, releaseDate, count }) {
     async function handleDelete(id) {
         await fetch(`/api/albums/${id}`, {
             method: "DELETE"
-        });
+        })
 
-        navigate("/");
+        navigate("/")
     }
 
     const navigate = useNavigate();

@@ -15,20 +15,6 @@
       "thumbnail": "album_placeholder.jpg"
     },
     {
-      "id": 3,
-      "title": "good kid, m.A.A.d city",
-      "artist_id": 0,
-      "release_date": "2012-10-22",
-      "thumbnail": "album_placeholder.jpg"
-    },
-    {
-      "id": 4,
-      "title": "To Pimp a Butterfly",
-      "artist_id": 0,
-      "release_date": "2015-03-15",
-      "thumbnail": "album_placeholder.jpg"
-    },
-    {
       "id": 5,
       "title": "Mr. Morale & the Big Steppers",
       "artist_id": 0,
@@ -54,66 +40,12 @@
       "thumbnail": "album_placeholder.jpg"
     },
     {
-      "id": 1,
-      "album_id": 1,
-      "title": "man at the garden",
-      "artist_id": 0,
-      "release_date": "2024-11-22",
-      "duration": 233,
-      "thumbnail": "album_placeholder.jpg"
-    },
-    {
       "id": 2,
       "album_id": 0,
       "title": "HUMBLE.",
       "artist_id": 0,
       "release_date": "2017-03-30",
       "duration": 177,
-      "thumbnail": "album_placeholder.jpg"
-    },
-    {
-      "id": 3,
-      "album_id": 3,
-      "title": "Swimming Pools (Drank)",
-      "artist_id": 0,
-      "release_date": "2012-07-31",
-      "duration": 313,
-      "thumbnail": "album_placeholder.jpg"
-    },
-    {
-      "id": 4,
-      "album_id": 3,
-      "title": "Money Trees",
-      "artist_id": 0,
-      "release_date": "2012-10-22",
-      "duration": 386,
-      "thumbnail": "album_placeholder.jpg"
-    },
-    {
-      "id": 5,
-      "album_id": 3,
-      "title": "Bitch, Don't Kill My Vibe",
-      "artist_id": 0,
-      "release_date": "2012-10-22",
-      "duration": 310,
-      "thumbnail": "album_placeholder.jpg"
-    },
-    {
-      "id": 6,
-      "album_id": 4,
-      "title": "Alright",
-      "artist_id": 0,
-      "release_date": "2015-03-15",
-      "duration": 219,
-      "thumbnail": "album_placeholder.jpg"
-    },
-    {
-      "id": 7,
-      "album_id": 4,
-      "title": "King Kunta",
-      "artist_id": 0,
-      "release_date": "2015-03-15",
-      "duration": 234,
       "thumbnail": "album_placeholder.jpg"
     },
     {
