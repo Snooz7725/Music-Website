@@ -1,7 +1,6 @@
 import "./album_hero.css"
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
 
 function AlbumHero({ albumId, albumTitle, artist, releaseDate, count }) {
     async function handleDelete(id) {

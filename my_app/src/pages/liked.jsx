@@ -27,8 +27,8 @@ function Liked() {
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoading("errored")
-                } else setLoading("loaded")
+                    setLoadStatus("errored")
+                } else setLoadStatus("loaded")
                 
             }
         }
@@ -36,7 +36,7 @@ function Liked() {
         loadData()
     }, [])
 
-    const [loadStatus, setLoading] = useState("loading")
+    const [loadStatus, setLoadStatus] = useState("loading")
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],

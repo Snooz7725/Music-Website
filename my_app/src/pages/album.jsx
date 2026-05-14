@@ -29,8 +29,8 @@ function Album() {
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoading("errored")
-                } else setLoading("loaded")
+                    setLoadStatus("errored")
+                } else setLoadStatus("loaded")
                 
             }
         }
@@ -38,7 +38,7 @@ function Album() {
         loadData()
     }, [])
 
-    const [loadStatus, setLoading] = useState("loading")
+    const [loadStatus, setLoadStatus] = useState("loading")
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
@@ -56,7 +56,8 @@ function Album() {
 
     // If album not found
     const albumData = musicData.albums.filter(album => album.id == albumId)
-    if (typeof albumData == "undefined") {
+    console.log(JSON.stringify(albumData, null, 2), typeof albumData)
+    if (albumData.length == 0) {
         return <Navigate to="/" replace />;
     }
 

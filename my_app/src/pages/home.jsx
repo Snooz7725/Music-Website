@@ -30,8 +30,8 @@ function HomePage() {
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoading("errored")
-                } else setLoading("loaded")
+                    setLoadStatus("errored")
+                } else setLoadStatus("loaded")
                 
             }
         }
@@ -39,15 +39,20 @@ function HomePage() {
         loadData()
     }, [])
 
-    const [loadStatus, setLoading] = useState("loading")
+    const [loadStatus, setLoadStatus] = useState("loading")
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
         artists: [],
     })
 
-    const albumMap = Object.fromEntries(musicData.albums.map(album => [album.id, album]))
-    const artistMap = Object.fromEntries(musicData.artists.map(artist => [artist.id, artist]))
+    let albumMap = {}
+    let artistMap = {}
+
+    if (musicData.albums.length != 0) {
+        albumMap = Object.fromEntries(musicData.albums.map(album => [album.id, album]))
+        artistMap = Object.fromEntries(musicData.artists.map(artist => [artist.id, artist]))
+    }
 
     return (
         <div className="home-wrapper">
@@ -88,6 +93,8 @@ function HomePage() {
                                 ))}
                             </Category>
                         </>
+                    ) : loadStatus == "loading" ? (
+                        <LoadingCard />
                     ) : (
                         <ErrorCard />
                     )}
