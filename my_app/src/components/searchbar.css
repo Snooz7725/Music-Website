@@ -9,18 +9,24 @@
     top: 0.2rem;
     left: calc(var(--closed-sidebar-width) + 30vw);
     display: flex;
-    gap: 9px;
-    border-radius: 20px;
+    flex-direction: column;
+    border-radius: 20rem;
     min-width: 30vw;
     width: 40%;
-    height: var(--searchbar-height);
     margin: 0px auto;
+}
+
+.searchbar-wrapper .input-section {
+    display: flex;
+    gap: 9px;
+    border-radius: 20rem;
+    height: var(--searchbar-height);
     background-color: rgb(80, 115, 186);
     outline: solid 0.2rem transparent;
     transition: outline 0.3s ease-in-out;
 }
 
-.searchbar-wrapper:focus-within {
+.searchbar-wrapper .input-section:focus-within {
     outline-color: rgb(201, 222, 255);
 }
 

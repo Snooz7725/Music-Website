@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import './searchbar.css'
+import SearchbarList from './searchbar_list'
+import LoadingCard from './loading_card'
+import ErrorCard from './error_card'
 
 function Searchbar() {
     async function handleSearch(keyword) {
         try {
-            const response = await fetch(`/api/data?type=searchAll?keyword=${keyword}`, { 
+            const response = await fetch(`/api/data?type=searchAll&keyword=${keyword}`, { 
                 method: "GET" 
             })
 
@@ -12,20 +15,11 @@ function Searchbar() {
                 throw new Error(`HTTP error: ${response.status}`)
             }
 
-            const searches = await response.json()
+            setSearchResults(await response.json())
         } catch (error) {
             console.error("Fetch failed:", error)
-            errorFlag = true
-        } finally {
-            if (errorFlag) {
-                setLoadStatus("errored")
-            } else setLoadStatus("loaded")
-            
         }
     }
-
-    const [loadStatus, setLoadStatus] = useState("loading")
-    let errorFlag = false
 
     // `inputValue` stores exactly what the user is typing right now.
     // This updates immediately on every keypress so the input feels responsive.
@@ -36,40 +30,57 @@ function Searchbar() {
     // It changes only after the user stops typing for a short time.
     const [debouncedValue, setDebouncedValue] = useState('')
 
+    const [searchResults, setSearchResults] = useState({})
+
+    // These useEffect events are split to differentiate 
     useEffect(() => {
         // Timer starts every time input is entered
         const timer = setTimeout(() => {
             // Save debounced value
-            setDebouncedValue(inputValue)
+            if (inputValue.length > 0) setDebouncedValue(inputValue)
         }, 500)
 
         return () => clearTimeout(timer)
     }, [inputValue])
 
     useEffect(() => {
+        const trimmedSearch = debouncedValue.trim()
+        if (!trimmedSearch) {
+            setSearchResults({})
+            return
+        }
+
         console.log('Search using:', debouncedValue)
-        handleSearch
+
+        handleSearch(trimmedSearch)
     }, [debouncedValue])
 
     return (
         <div className="searchbar-wrapper">
-            <label className="icon-wrapper" htmlFor="searchField">
-                <img src="/assets/search_btn.png" alt="Search" />
-            </label>
+            <section className='input-section'>
+                <label className="icon-wrapper" htmlFor="searchField">
+                    <img src="/assets/search_btn.png" alt="Search" />
+                </label>
 
-            <input
-                id="searchField"
-                type="text"
-                
-                // The input's displayed value is controlled by React state.
-                // This keeps the textbox and your logic in sync.
-                value={inputValue}
+                <input
+                    id="searchField"
+                    type="text"
+                    
+                    // The input's displayed value is controlled by React state.
+                    // This keeps the textbox and your logic in sync.
+                    value={inputValue}
 
-                // This keep input memory updated
-                onChange={(e) => setInputValue(e.target.value)}
-                
-                placeholder="Search songs/albums.."
-            />
+                    // This keep input memory updated
+                    onChange={(e) => setInputValue(e.target.value)}
+                    
+                    placeholder="Search songs/albums.."
+                />
+            </section>
+            
+            { console.log(JSON.stringify(searchResults, null, 2))}
+            {searchResults.data.length > 0 && (
+                <SearchbarList searchResults={ searchResults.data } />
+            )}
         </div>
     )
 }

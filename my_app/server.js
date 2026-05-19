@@ -38,6 +38,64 @@ app.get("/data", (req, res) => {
     const db = JSON.parse(fs.readFileSync(dbPath, "utf8"));
     res.json({ data: db });
   }
+
+  else if (type == "searchAll") {
+    const whiteListedTables = ["artists", "songs", "albums"];
+    const db = JSON.parse(fs.readFileSync(dbPath, "utf8"));
+    const dbArr = Object.entries(db);
+    const loweredKeyword = req.query.keyword?.toLowerCase() ?? "";
+
+
+    // Go through each top level property and then find relevant results, 
+    // then search through other properties if not enough
+    let resultsCount = 0;
+    let searchResults = [];
+
+    if (resultsCount < 6) searchResults = dbArr.map(([tableName, arrVal]) => { // Replace the key value pairs with filtered results
+      if (!whiteListedTables.includes(tableName)) return []; // Prevent looping through tables not white listed
+
+      if (arrVal.length < 1) return [];
+      
+      let colName = "";
+      if ("name" in arrVal[0]) {
+        colName = "name";
+      } else colName = "title";
+
+      // Per table loop (run until result count limit reached)
+      let filteredResults = arrVal.filter(
+        row => 
+        resultsCount < 6 && row[colName]?.toLowerCase().includes(loweredKeyword)
+      );
+
+      let mappedResults = [];
+      if (filteredResults.length > 0) {
+        mappedResults = filteredResults.map(row => {
+            let obj = {"id": row["id"]};
+            obj[`${colName}`] = row[`${colName}`];
+            return obj;
+          }
+        )
+
+        resultsCount += mappedResults.length; 
+      }
+      
+
+      return mappedResults;
+    })
+
+    // Join up the arrs of results into one arr
+    let joinedResults = [];
+    for (let i of searchResults) {
+      joinedResults.push(...i);
+    }
+
+    res.json({ data: joinedResults });
+  }
+
+  else {
+    console.log("Invalid request: /data")
+    res.json({ data: null });
+  }
 });
 
 app.listen(5000, () => {

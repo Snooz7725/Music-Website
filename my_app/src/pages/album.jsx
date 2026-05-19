@@ -56,7 +56,6 @@ function Album() {
 
     // If album not found
     const albumData = musicData.albums.filter(album => album.id == albumId)
-    console.log(JSON.stringify(albumData, null, 2), typeof albumData)
     if (albumData.length == 0) {
         return <Navigate to="/" replace />;
     }
