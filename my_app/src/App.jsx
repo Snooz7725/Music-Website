@@ -7,6 +7,8 @@ import CreatorProfile from "./pages/creator_profile"
 import SongAdd from "./pages/song_add"
 
 function App() {
+    console.log(new Date().toString())
+
     return (
         // Manages routing, including:
         // - watches browser URL
@@ -15,6 +17,7 @@ function App() {
         // - exposes routing context to all underneath
         <BrowserRouter>
             {/* This maps URLs to components, rendering pages */}
+            {/* http://localhost:5173/album/0 */}
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/album/:id" element={<Album />} />

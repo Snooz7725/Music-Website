@@ -70,30 +70,38 @@ app.get("/data", (req, res) => {
       let mappedResults = [];
       if (filteredResults.length > 0) {
         mappedResults = filteredResults.map(row => {
-            let obj = {"id": row["id"]};
+            let obj = {};
+
+            obj.id = resultsCount;
+            if (tableName === "songs" || tableName === "albums") {
+              obj.album_id = row.album_id;
+              obj.artist_id = row.artist_id;
+              obj.artist_name = db.artists[row.artist_id].name;
+            } else {
+              obj.name = row.name;
+            }
+
             obj[`${colName}`] = row[`${colName}`];
+            
+            resultsCount += 1;
             return obj;
           }
         )
-
-        resultsCount += mappedResults.length; 
       }
       
 
       return mappedResults;
     })
 
-    // Join up the arrs of results into one arr
     let joinedResults = [];
     for (let i of searchResults) {
       joinedResults.push(...i);
     }
 
-    res.json({ data: joinedResults });
+    res.json({ data: joinedResults });    
   }
 
   else {
-    console.log("Invalid request: /data")
     res.json({ data: null });
   }
 });

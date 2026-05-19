@@ -14,6 +14,7 @@
     min-width: 30vw;
     width: 40%;
     margin: 0px auto;
+    gap: 0.5rem;
 }
 
 .searchbar-wrapper .input-section {

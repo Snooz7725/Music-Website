@@ -30,23 +30,23 @@ function Searchbar() {
     // It changes only after the user stops typing for a short time.
     const [debouncedValue, setDebouncedValue] = useState('')
 
-    const [searchResults, setSearchResults] = useState({})
+    const [searchResults, setSearchResults] = useState([])
 
     // These useEffect events are split to differentiate 
     useEffect(() => {
         // Timer starts every time input is entered
         const timer = setTimeout(() => {
             // Save debounced value
-            if (inputValue.length > 0) setDebouncedValue(inputValue)
+            setDebouncedValue(inputValue)
         }, 500)
 
         return () => clearTimeout(timer)
-    }, [inputValue])
+    }, [inputValue]) // If this value changed, useEffect runs on next re-render
 
     useEffect(() => {
         const trimmedSearch = debouncedValue.trim()
         if (!trimmedSearch) {
-            setSearchResults({})
+            setSearchResults([])
             return
         }
 
@@ -76,10 +76,9 @@ function Searchbar() {
                     placeholder="Search songs/albums.."
                 />
             </section>
-            
-            { console.log(JSON.stringify(searchResults, null, 2))}
-            {searchResults.data.length > 0 && (
-                <SearchbarList searchResults={ searchResults.data } />
+            {console.log("SearchResults.data:", JSON.stringify(searchResults.data, null, 2))}
+            {"data" in searchResults && searchResults.data.length > 0 && (
+                <SearchbarList searchResultsData={ searchResults.data } />
             )}
         </div>
     )

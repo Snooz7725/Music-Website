@@ -48,6 +48,7 @@ function Album() {
     const params = useParams()
 
     const albumId = Number(params.id)
+    console.log(params.id)
 
     // If param not available
     if (isNaN(albumId)) {
@@ -55,18 +56,24 @@ function Album() {
     }
 
     // If album not found
-    const albumData = musicData.albums.filter(album => album.id == albumId)
-    if (albumData.length == 0) {
-        return <Navigate to="/" replace />;
+    let albumData = []
+    let chosenAlbumData = []
+    let songData = []
+    let artistData = []
+    let albumMap = []
+    let artistMap = []
+    if (loadStatus == "loaded") {
+        albumData = musicData.albums.filter(album => album.id == albumId)
+
+        chosenAlbumData = albumData[0];
+
+        songData = musicData.songs.filter(song => song.album_id == chosenAlbumData.id)
+        artistData = musicData.artists.filter(artist => artist.id == chosenAlbumData.artist_id)
+
+        albumMap = Object.fromEntries(albumData.map(album => [album.id, album]))
+        artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
     }
 
-    const chosenAlbumData = albumData[0];
-
-    const songData = musicData.songs.filter(song => song.album_id == chosenAlbumData.id)
-    const artistData = musicData.artists.filter(artist => artist.id == chosenAlbumData.artist_id)
-
-    const albumMap = Object.fromEntries(albumData.map(album => [album.id, album]))
-    const artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
 
     return (
         <div className="album-wrapper">
@@ -78,12 +85,12 @@ function Album() {
                 </>
             ) : loadStatus == "errored" ? (
                 <>
-                    <AlbumHero albumId={albumId} albumTitle={"ERROR"} artist={""} releaseDate={"YYYY-MM-DD"} count={""} />
+                    <AlbumHero albumId={"ERROR"} albumTitle={"ERROR"} artist={""} releaseDate={"YYYY-MM-DD"} count={""} />
                     <ErrorCard />
                 </>
             ) : (
                 <>
-                    <AlbumHero albumId={albumId} albumTitle={"Loading..."} artist={""} releaseDate={"YYYY-MM-DD"} count={""} />
+                    <AlbumHero albumId={"loading..."} albumTitle={"Loading..."} artist={""} releaseDate={"YYYY-MM-DD"} count={""} />
                     <LoadingCard />
                 </>
             )}
