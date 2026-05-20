@@ -56,14 +56,18 @@ function Album() {
     }
 
     // If album not found
-    let albumData = []
+    let albumData = null
     let chosenAlbumData = []
-    let songData = []
-    let artistData = []
-    let albumMap = []
-    let artistMap = []
+    let songData = null
+    let artistData = null
+    let albumMap = {}
+    let artistMap = {}
     if (loadStatus == "loaded") {
         albumData = musicData.albums.filter(album => album.id == albumId)
+
+        if (albumData.length === 0) {
+            return <Navigate to="/" replace />
+        }
 
         chosenAlbumData = albumData[0];
 

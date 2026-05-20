@@ -9,9 +9,9 @@ function SongAddPanel() {
             <div className="input-wrapper">
                 <input type="text"/>
                 <input type="text"/>
-                <div>
-                    <button>Album</button>
-                    <button>Song</button>
+                <div className='button-wrapper'>
+                    <button className='album'>Album</button>
+                    <button className='song'>Song</button>
                 </div>
             </div>
             <hr></hr>

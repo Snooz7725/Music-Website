@@ -50,8 +50,6 @@ function Searchbar() {
             return
         }
 
-        console.log('Search using:', debouncedValue)
-
         handleSearch(trimmedSearch)
     }, [debouncedValue])
 
@@ -76,7 +74,6 @@ function Searchbar() {
                     placeholder="Search songs/albums.."
                 />
             </section>
-            {console.log("SearchResults.data:", JSON.stringify(searchResults.data, null, 2))}
             {"data" in searchResults && searchResults.data.length > 0 && (
                 <SearchbarList searchResultsData={ searchResults.data } />
             )}

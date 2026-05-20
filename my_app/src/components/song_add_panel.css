@@ -3,6 +3,10 @@
     display: flex;
     background-color: aquamarine;
     flex-direction: column;
+    border-radius: 2vw;
+    overflow: hidden;
+    padding: 1.6vw;
+    gap: 2.5vh;
 }
 
 .song-add-panel-wrapper .hero {
@@ -11,6 +15,7 @@
     align-items: center;
     overflow: hidden;
     height: 15vh;
+    border-radius: 1.4vw;
 }
 
 .song-add-panel-wrapper .hero img {
@@ -22,20 +27,65 @@
 .song-add-panel-wrapper .input-wrapper {
     display: flex;
     flex-direction: column;
+    width: 45%;
+    min-width: 12rem;
+    gap: 2.5vh; 
+}
+
+.song-add-panel-wrapper input {
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    padding: 0 0.3rem;
+}
+
+.song-add-panel-wrapper .button-wrapper {
+    display: flex;
+    width: 10rem;
+    height: 2.5rem;
+}
+
+.song-add-panel-wrapper .button-wrapper button {
+    flex: 1;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+}
+
+.song-add-panel-wrapper .button-wrapper .album {
+    border-right: unset;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.song-add-panel-wrapper .button-wrapper .song {
+    border-left: unset;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.song-add-panel-wrapper hr {
+    height: 1.2vh;
+    width: 100%;
+    border-radius: 1vh;
+    background-color: blue;
+    border: unset;
 }
 
 .song-add-panel-wrapper .search-btn {
     border: unset;
+    border-radius: 0.5vw;
     background-color: rgb(0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: calc(var(--main-section-width) * 0.04);
+    width: 30%;
+    height: 10%;
+    min-height: 60px;
+    padding: 0.1vh;
 }
 
 .song-add-panel-wrapper .search-btn img {
-    height: 100%;
-    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: 70%;
     object-fit: contain;
 }
