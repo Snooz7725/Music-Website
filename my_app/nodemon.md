@@ -1,0 +1,1 @@
+`npx nodemon server.js --verbose`: npx is a tool for running package commands without installing them globally. This command shows you information about the package

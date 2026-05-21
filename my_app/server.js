@@ -88,7 +88,6 @@ app.get("/data", (req, res) => {
           }
         )
       }
-      
 
       return mappedResults;
     })
