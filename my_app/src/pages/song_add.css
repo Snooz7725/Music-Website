@@ -32,10 +32,11 @@
     align-items: center;
     overflow: hidden;
     border-radius: 2vw;
+    border: 1px solid var(--prim-colour);
 }
 
 .song-add-wrapper .main-content img {
     height: 100%;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }

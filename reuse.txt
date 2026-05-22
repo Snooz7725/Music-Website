@@ -1,2 +1,2 @@
 // For dumping objs
-console.log(JSON.stringify(value, null, 2));
+console.log("name:\n" + JSON.stringify(name, null, 2))

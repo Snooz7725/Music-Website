@@ -15,7 +15,7 @@ function SongAdd() {
                 <Searchbar />
                 <div className="main-content">
                     <div className="img-wrapper">
-                        <img src="" alt="" />
+                        <img src="/assets/drummer.jpg" alt="" />
                     </div>
                     <SongAddPanel />
                 </div>

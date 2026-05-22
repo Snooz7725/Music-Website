@@ -1,7 +1,8 @@
 .song-add-panel-wrapper {
     flex: 1;
     display: flex;
-    background-color: aquamarine;
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(0, 24, 71));
+    border: 1px solid var(--prim-colour);
     flex-direction: column;
     border-radius: 2vw;
     overflow: hidden;
@@ -16,12 +17,27 @@
     overflow: hidden;
     height: 15vh;
     border-radius: 1.4vw;
+    border: 1px solid var(--prim-colour);
+    position: relative;
 }
 
 .song-add-panel-wrapper .hero img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+    filter: blur(5px);
+}
+
+.song-add-panel-wrapper .hero span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2.3rem;
+    white-space: nowrap;
+    /* text-shadow: x-offset y-offset blur-radius color */
+    text-shadow: 0 0.25rem 0.5rem rgba(80, 115, 186, 0.9);
 }
 
 .song-add-panel-wrapper .input-wrapper {
@@ -35,70 +51,107 @@
 .song-add-panel-wrapper input {
     height: 2.5rem;
     border-radius: 0.5rem;
-    padding: 0 0.3rem;
+    padding: 0 0.5rem;
+    background-color: transparent; 
+    color: white;
+    border: 1px solid var(--prim-colour);
+    font-size: 1.05rem;
+    transition: box-shadow ease 0.3s, border-color ease 0.3s;
+}
+
+.song-add-panel-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.05rem;
+}
+
+.song-add-panel-wrapper input:hover {
+    border-color: rgba(255, 255, 255, 0.671);
+    /* box-shadow: x-offset y-offset blur-radius spread-radius color */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); 
+}
+
+.song-add-panel-wrapper input:focus-within {
+    outline: unset;
+    border-color: rgb(255, 255, 255);
 }
 
 .song-add-panel-wrapper .button-wrapper {
     display: flex;
     width: 10rem;
     height: 2.5rem;
+    border-radius: 0.7rem;
+    transition: box-shadow ease 0.3s;
+}
+
+.song-add-panel-wrapper .button-wrapper:hover {
+    /* box-shadow: x-offset y-offset blur-radius spread-radius color */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); 
 }
 
 .song-add-panel-wrapper .button-wrapper button {
     flex: 1;
     border-radius: 0.7rem;
     font-size: 1rem;
-}
-
-.song-add-panel-wrapper .button-wrapper .album {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    background-color: transparent; 
-    color: white;
-    border: 1px solid var(--prim-colour);
-}
-
-.song-add-panel-wrapper .button-wrapper .song {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
     background-color: transparent; 
     color: white;
     border: 1px solid var(--prim-colour);
     transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
+.song-add-panel-wrapper .button-wrapper .album {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.song-add-panel-wrapper .button-wrapper .song {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: transparent; 
+}
+
 .song-add-panel-wrapper .button-wrapper .album.selected {
     background-color: rgb(255, 255, 255);
     color: black;
-    border: unset;
+    border-color: transparent;
 }
 
 .song-add-panel-wrapper .button-wrapper .song.selected {
     background-color: rgb(255, 255, 255);
     color: black;
-    border: unset;
+    border-color: transparent;
 }
 
 .song-add-panel-wrapper hr {
     height: 1.2vh;
     width: 100%;
-    border-radius: 1vh;
-    background-color: blue;
+    border-radius: 0.2vh;
+    background-color: rgb(80, 115, 186);
     border: unset;
 }
 
 .song-add-panel-wrapper .search-btn {
-    border: unset;
-    border-radius: 0.5vw;
+    border: 1px solid var(--prim-colour);
+    border-radius: 0.8vw;
     background-color: rgb(0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    width: 30%;
+    width: 40%;
     height: 10%;
     min-height: 60px;
     padding: 0.1vh;
+    transition: box-shadow ease 0.3s, background-color ease 0.3s;
+}
+
+.song-add-panel-wrapper .search-btn:hover {
+    background-color: rgb(13, 19, 31);
+    /* box-shadow: x-offset y-offset blur-radius spread-radius color */
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); 
+}
+
+.song-add-panel-wrapper .search-btn:active {
+    background-color: rgb(22, 33, 53);
 }
 
 .song-add-panel-wrapper .search-btn img {
