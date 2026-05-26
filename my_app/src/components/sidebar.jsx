@@ -9,7 +9,7 @@ function Sidebar() {
     return (
         // State/class controlled width + transition + potentially translateX for fluidity
         // Record closed sidebar width
-        <nav className={open ? "open sidebar-wrapper" : "sidebar-wrapper"}>
+        <nav className={open ? 'open sidebar-wrapper' : 'sidebar-wrapper'}>
             <ul className="topbar-list">
                 <NavLink to="/"><li className="logo-wrapper">
                     <img src="/assets/logo.png" alt="Logo" />
@@ -26,7 +26,7 @@ function Sidebar() {
                     <div className="icon-wrapper">
                         <img src="/assets/sidebar_btn.png" alt="Sidebar" />
                     </div>
-                    <div className={open ? "open-content" : "open-content hidden"}>
+                    <div className={open ? 'open-content' : 'open-content hidden'}>
                         <h2 className="title">Liked-List</h2>
                     </div>
                 </button></li>
@@ -35,7 +35,7 @@ function Sidebar() {
                     <div className="icon-wrapper">
                         <img src="/assets/transparent_heart_btn.png" alt="Liked Songs" />
                     </div>
-                    <div className={open ? "open-content" : "open-content hidden"}>
+                    <div className={open ? 'open-content' : 'open-content hidden'}>
                         <span className="name">Liked Songs</span>
                         <span className="count">Count: <span>90</span></span>
                     </div>
@@ -45,7 +45,7 @@ function Sidebar() {
                     <div className="icon-wrapper">
                         <img src="/assets/album_placeholder.jpg" alt="Album" />
                     </div>
-                    <div className={open ? "open-content" : "open-content hidden"}>
+                    <div className={open ? 'open-content' : 'open-content hidden'}>
                         <span className="name">Album</span>
                         <span className="count">Count: <span>90</span></span>
                     </div>

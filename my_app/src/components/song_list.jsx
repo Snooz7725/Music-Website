@@ -1,4 +1,4 @@
-import "./song_list.css"
+import './song_list.css'
 
 function SongList({ songData, albumMap, artistMap}) {
     return (
@@ -21,7 +21,7 @@ function SongList({ songData, albumMap, artistMap}) {
                             </div>
 
                             <div className="song-thumbnail-wrapper">
-                                <img src={"/assets/" + song.thumbnail} alt={song.title} />
+                                <img src={'/assets/' + song.thumbnail} alt={song.title} />
                             </div>
                             <div className="song-details">
                                 <span className="title">{song.title}</span>

@@ -8,7 +8,7 @@ function Searchbar() {
     async function handleSearch(keyword) {
         try {
             const response = await fetch(`/api/data?type=searchAll&keyword=${keyword}`, { 
-                method: "GET" 
+                method: 'GET' 
             })
 
             if (!response.ok) {
@@ -17,7 +17,7 @@ function Searchbar() {
 
             setSearchResults(await response.json())
         } catch (error) {
-            console.error("Fetch failed:", error)
+            console.error('Fetch failed:', error)
         }
     }
 
@@ -55,7 +55,7 @@ function Searchbar() {
 
     return (
         <div className="searchbar-wrapper">
-            <section className='input-section'>
+            <section className="input-section">
                 <label className="icon-wrapper" htmlFor="searchField">
                     <img src="/assets/search_btn.png" alt="Search" />
                 </label>
@@ -74,7 +74,7 @@ function Searchbar() {
                     placeholder="Search songs/albums.."
                 />
             </section>
-            {"data" in searchResults && searchResults.data.length > 0 && (
+            {'data' in searchResults && searchResults.data.length > 0 && (
                 <SearchbarList searchResultsData={ searchResults.data } />
             )}
         </div>

@@ -1,10 +1,10 @@
-import "./album.css"
-import { useState, useEffect } from "react"
-import Sidebar from "../components/sidebar"
-import LikedSongsHero from "../components/liked_hero"
-import SongList from "../components/song_list"
-import ErrorCard from "../components/error_card"
-import LoadingCard from "../components/loading_card"
+import './album.css'
+import { useState, useEffect } from 'react'
+import Sidebar from '../components/sidebar'
+import LikedSongsHero from '../components/liked_hero'
+import SongList from '../components/song_list'
+import ErrorCard from '../components/error_card'
+import LoadingCard from '../components/loading_card'
 
 function Liked() {
     useEffect(() => {
@@ -13,7 +13,7 @@ function Liked() {
         async function loadData() {
             try {
                 const response = await fetch(`/api/data?type=all`, { 
-                    method: "GET"
+                    method: 'GET'
                 })
 
                 if (!response.ok) {
@@ -23,12 +23,12 @@ function Liked() {
                 const db = await response.json()
                 setMusicData(db.data)
             } catch (error) {
-                console.error("Fetch failed:", error)
+                console.error('Fetch failed:', error)
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoadStatus("errored")
-                } else setLoadStatus("loaded")
+                    setLoadStatus('errored')
+                } else setLoadStatus('loaded')
                 
             }
         }
@@ -36,7 +36,7 @@ function Liked() {
         loadData()
     }, [])
 
-    const [loadStatus, setLoadStatus] = useState("loading")
+    const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
@@ -54,19 +54,19 @@ function Liked() {
     return (
         <div className="album-wrapper">
             <Sidebar />
-            { loadStatus == "loaded" ? (
+            { loadStatus == 'loaded' ? (
                 <>
                     <LikedSongsHero count={songData.length} />
                     <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} />
                 </>
-            ) : loadStatus == "errored" ? (
+            ) : loadStatus == 'errored' ? (
                 <>
-                    <LikedSongsHero count={"ERROR"} />
+                    <LikedSongsHero count="ERROR" />
                     <ErrorCard />
                 </>
             ) : (
                 <>
-                    <LikedSongsHero count={"Loading..."} />
+                    <LikedSongsHero count="Loading..." />
                     <LoadingCard />
                 </>
             )}

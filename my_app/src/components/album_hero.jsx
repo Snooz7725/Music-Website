@@ -1,14 +1,14 @@
-import "./album_hero.css"
+import './album_hero.css'
 import { Link } from 'react-router-dom'
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 
 function AlbumHero({ albumId, albumTitle, artist, releaseDate, count }) {
     async function handleDelete(id) {
         await fetch(`/api/albums/${id}`, {
-            method: "DELETE"
+            method: 'DELETE'
         })
 
-        navigate("/")
+        navigate('/')
     }
 
     const navigate = useNavigate();

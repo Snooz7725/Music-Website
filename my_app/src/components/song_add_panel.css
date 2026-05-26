@@ -75,52 +75,6 @@
     border-color: rgb(255, 255, 255);
 }
 
-.song-add-panel-wrapper .button-wrapper {
-    display: flex;
-    width: 10rem;
-    height: 2.5rem;
-    border-radius: 0.7rem;
-    transition: box-shadow ease 0.3s;
-}
-
-.song-add-panel-wrapper .button-wrapper:hover {
-    /* box-shadow: x-offset y-offset blur-radius spread-radius color */
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); 
-}
-
-.song-add-panel-wrapper .button-wrapper button {
-    flex: 1;
-    border-radius: 0.7rem;
-    font-size: 1rem;
-    background-color: transparent; 
-    color: white;
-    border: 1px solid var(--prim-colour);
-    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
-}
-
-.song-add-panel-wrapper .button-wrapper .album {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.song-add-panel-wrapper .button-wrapper .song {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    background-color: transparent; 
-}
-
-.song-add-panel-wrapper .button-wrapper .album.selected {
-    background-color: rgb(255, 255, 255);
-    color: black;
-    border-color: transparent;
-}
-
-.song-add-panel-wrapper .button-wrapper .song.selected {
-    background-color: rgb(255, 255, 255);
-    color: black;
-    border-color: transparent;
-}
-
 .song-add-panel-wrapper hr {
     height: 1.2vh;
     width: 100%;

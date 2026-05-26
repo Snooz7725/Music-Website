@@ -5,7 +5,7 @@ function SearchbarList({ searchResultsData = [] }) {
     return (
         <div className="searchbar-list-wrapper">
             {searchResultsData.map(result => {
-                if ("album_id" in result) {
+                if ('album_id' in result) {
                     return (
                         // http://localhost:5173/album/0
                         <Link to={`/album/${result.album_id}`} className="search-row three-cols" key={`song-${result.id}`}>
@@ -16,7 +16,7 @@ function SearchbarList({ searchResultsData = [] }) {
                     )
                 }
 
-                if ("name" in result) { 
+                if ('name' in result) { 
                     return (
                         <Link to={`/profile/${result.id}`} className="search-row" key={`artist-${result.id}`}>
                             <span>ARTIST</span>

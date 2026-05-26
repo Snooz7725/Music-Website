@@ -1,4 +1,4 @@
-import "./liked_hero.css"
+import './liked_hero.css'
 
 function LikedSongsHero({ count }) {
     return (

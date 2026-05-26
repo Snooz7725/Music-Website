@@ -1,5 +1,5 @@
-import Sidebar from "../components/sidebar"
-import "./no_match.css"
+import Sidebar from '../components/sidebar'
+import './no_match.css'
 
 function NoMatch() {
     return (

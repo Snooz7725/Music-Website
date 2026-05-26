@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react"
-import { Navigate, useParams } from "react-router-dom"
-import "./creator_profile.css"
-import Searchbar from "../components/searchbar"
-import Sidebar from "../components/sidebar"
-import CreatorHero from "../components/creator_hero"
-import Category from "../components/category"
-import AlbumCategoryCard from "../components/album_category_card"
-import SongCategoryCard from "../components/song_category_card"
-import ErrorCard from "../components/error_card"
-import LoadingCard from "../components/loading_card"
+import { useEffect, useState } from 'react'
+import { Navigate, useParams } from 'react-router-dom'
+import './creator_profile.css'
+import Searchbar from '../components/searchbar'
+import Sidebar from '../components/sidebar'
+import CreatorHero from '../components/creator_hero'
+import Category from '../components/category'
+import AlbumCategoryCard from '../components/album_category_card'
+import SongCategoryCard from '../components/song_category_card'
+import ErrorCard from '../components/error_card'
+import LoadingCard from '../components/loading_card'
 
 function CreatorProfile() {
     useEffect(() => {
@@ -17,7 +17,7 @@ function CreatorProfile() {
         async function loadData() {
             try {
                 const response = await fetch(`/api/data?type=all`, {
-                    method: "GET"
+                    method: 'GET'
                 })
 
                 if (!response.ok) {
@@ -27,13 +27,13 @@ function CreatorProfile() {
                 const db = await response.json()
                 setMusicData(db.data)
             } catch (error) {
-                console.error("Fetch failed:", error)
+                console.error('Fetch failed:', error)
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoadStatus("errored")
+                    setLoadStatus('errored')
                 } else {
-                    setLoadStatus("loaded")
+                    setLoadStatus('loaded')
                 }
             }
         }
@@ -41,7 +41,7 @@ function CreatorProfile() {
         loadData()
     }, [])
 
-    const [loadStatus, setLoadStatus] = useState("loading")
+    const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
@@ -61,7 +61,7 @@ function CreatorProfile() {
     let albumMap = {}
     let artistMap = {}
 
-    if (loadStatus === "loaded") {
+    if (loadStatus === 'loaded') {
         artistData = musicData.artists.find(artist => artist.id === artistId)
 
         if (!artistData) {
@@ -81,7 +81,7 @@ function CreatorProfile() {
             <div className="main-section">
                 <Searchbar />
                 <div className="main-content">
-                    {loadStatus === "loaded" ? (
+                    {loadStatus === 'loaded' ? (
                         <>
                             <CreatorHero
                                 artistName={artistData.name}
@@ -116,7 +116,7 @@ function CreatorProfile() {
                                 ))}
                             </Category>
                         </>
-                    ) : loadStatus === "errored" ? (
+                    ) : loadStatus === 'errored' ? (
                         <ErrorCard />
                     ) : (
                         <LoadingCard />

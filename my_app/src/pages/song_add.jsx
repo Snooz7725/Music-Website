@@ -1,8 +1,8 @@
-import "./song_add.css"
-import { useState } from "react"
-import Searchbar from "../components/searchbar"
-import Sidebar from "../components/sidebar"
-import SongAddPanel from "../components/song_add_panel"
+import './song_add.css'
+import { useState } from 'react'
+import Searchbar from '../components/searchbar'
+import Sidebar from '../components/sidebar'
+import SongAddPanel from '../components/song_add_panel'
 
 function SongAdd() {
     // Callback reporting from child -> parent

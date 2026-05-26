@@ -1,12 +1,12 @@
-import "./album.css"
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { Navigate } from "react-router-dom"
-import Sidebar from "../components/sidebar"
-import AlbumHero from "../components/album_hero"
-import SongList from "../components/song_list"
-import ErrorCard from "../components/error_card"
-import LoadingCard from "../components/loading_card"
+import './album.css'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
+import Sidebar from '../components/sidebar'
+import AlbumHero from '../components/album_hero'
+import SongList from '../components/song_list'
+import ErrorCard from '../components/error_card'
+import LoadingCard from '../components/loading_card'
 
 function Album() {
     useEffect(() => {
@@ -15,7 +15,7 @@ function Album() {
         async function loadData() {
             try {
                 const response = await fetch(`/api/data?type=all`, { 
-                    method: "GET"
+                    method: 'GET'
                 })
 
                 if (!response.ok) {
@@ -25,12 +25,12 @@ function Album() {
                 const db = await response.json()
                 setMusicData(db.data)
             } catch (error) {
-                console.error("Fetch failed:", error)
+                console.error('Fetch failed:', error)
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoadStatus("errored")
-                } else setLoadStatus("loaded")
+                    setLoadStatus('errored')
+                } else setLoadStatus('loaded')
                 
             }
         }
@@ -38,7 +38,7 @@ function Album() {
         loadData()
     }, [])
 
-    const [loadStatus, setLoadStatus] = useState("loading")
+    const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
@@ -62,7 +62,7 @@ function Album() {
     let artistData = null
     let albumMap = {}
     let artistMap = {}
-    if (loadStatus == "loaded") {
+    if (loadStatus == 'loaded') {
         albumData = musicData.albums.filter(album => album.id == albumId)
 
         if (albumData.length === 0) {
@@ -82,19 +82,19 @@ function Album() {
     return (
         <div className="album-wrapper">
             <Sidebar />
-            { loadStatus == "loaded" ? (
+            { loadStatus == 'loaded' ? (
                 <>
                     <AlbumHero albumId={chosenAlbumData.id} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} releaseDate={chosenAlbumData.release_date} count={albumData.length} />
                     <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} />
                 </>
-            ) : loadStatus == "errored" ? (
+            ) : loadStatus == 'errored' ? (
                 <>
-                    <AlbumHero albumId={"ERROR"} albumTitle={"ERROR"} artist={""} releaseDate={"YYYY-MM-DD"} count={""} />
+                    <AlbumHero albumId="ERROR" albumTitle="ERROR" artist="" releaseDate="YYYY-MM-DD" count="" />
                     <ErrorCard />
                 </>
             ) : (
                 <>
-                    <AlbumHero albumId={"loading..."} albumTitle={"Loading..."} artist={""} releaseDate={"YYYY-MM-DD"} count={""} />
+                    <AlbumHero albumId="loading..." albumTitle="Loading..." artist="" releaseDate="YYYY-MM-DD" count="" />
                     <LoadingCard />
                 </>
             )}

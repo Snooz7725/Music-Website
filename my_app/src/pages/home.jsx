@@ -1,13 +1,13 @@
-import "./home.css"
-import { useState, useEffect } from "react"
-import Searchbar from "../components/searchbar"
-import Sidebar from "../components/sidebar"
-import Hero from "../components/hero"
-import Category from "../components/category"
-import AlbumCategoryCard from "../components/album_category_card"
-import SongCategoryCard from "../components/song_category_card"
-import LoadingCard from "../components/loading_card"
-import ErrorCard from "../components/error_card"
+import './home.css'
+import { useState, useEffect } from 'react'
+import Searchbar from '../components/searchbar'
+import Sidebar from '../components/sidebar'
+import Hero from '../components/hero'
+import Category from '../components/category'
+import AlbumCategoryCard from '../components/album_category_card'
+import SongCategoryCard from '../components/song_category_card'
+import LoadingCard from '../components/loading_card'
+import ErrorCard from '../components/error_card'
 
 function HomePage() {
     useEffect(() => { // useEffects are for running things after the rendering process
@@ -16,7 +16,7 @@ function HomePage() {
         async function loadData() {
             try {
                 const response = await fetch(`/api/data?type=all`, { 
-                    method: "GET"
+                    method: 'GET'
                 })
 
                 if (!response.ok) {
@@ -26,12 +26,12 @@ function HomePage() {
                 const db = await response.json()
                 setMusicData(db.data)
             } catch (error) {
-                console.error("Fetch failed:", error)
+                console.error('Fetch failed:', error)
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoadStatus("errored")
-                } else setLoadStatus("loaded")
+                    setLoadStatus('errored')
+                } else setLoadStatus('loaded')
                 
             }
         }
@@ -39,7 +39,7 @@ function HomePage() {
         loadData()
     }, [])
 
-    const [loadStatus, setLoadStatus] = useState("loading")
+    const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
@@ -61,9 +61,9 @@ function HomePage() {
                 <Searchbar />
                 <div className="main-content">
                     <Hero />
-                    {loadStatus == "loading" ? (
+                    {loadStatus == 'loading' ? (
                         <LoadingCard />
-                    ) : loadStatus == "loaded" ? (
+                    ) : loadStatus == 'loaded' ? (
                         <>
                             <Category title="Songs">
                                 {musicData.songs.map((song) => (
@@ -93,7 +93,7 @@ function HomePage() {
                                 ))}
                             </Category>
                         </>
-                    ) : loadStatus == "loading" ? (
+                    ) : loadStatus == 'loading' ? (
                         <LoadingCard />
                     ) : (
                         <ErrorCard />

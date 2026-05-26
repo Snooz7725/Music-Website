@@ -6,7 +6,7 @@ function SongCategoryCard({ artistId, songId, albumId, albumTitle, title, artist
         // TODO: ADD ROUTES
         <li className="song-category-card-wrapper">
             <Link to={`/`}><div className="icon-wrapper">
-                <img src={"/assets/" + filePath} alt="Album cover" />
+                <img src={'/assets/' + filePath} alt="Album cover" />
             </div></Link>
             <div className="details">
                 <Link to={`/`}><h2>{title}</h2></Link>

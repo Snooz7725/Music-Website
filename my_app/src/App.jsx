@@ -1,10 +1,10 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import HomePage from "./pages/home"
-import NoMatch from "./pages/no_match"
-import Album from "./pages/album"
-import LikedSongs from "./pages/liked"
-import CreatorProfile from "./pages/creator_profile"
-import SongAdd from "./pages/song_add"
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import HomePage from './pages/home'
+import NoMatch from './pages/no_match'
+import Album from './pages/album'
+import LikedSongs from './pages/liked'
+import CreatorProfile from './pages/creator_profile'
+import SongAdd from './pages/song_add'
 
 function App() {
     console.log(new Date().toString())
