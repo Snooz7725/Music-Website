@@ -3,48 +3,37 @@ import fs from 'fs'; // reads and writes files
 import path from 'path'; // builds safe file paths
 import { fileURLToPath } from 'url'; // helps get currren folder when using ES modules
 
-async function fetchSongInfo(artist, song, albums) {
-  let data = {
-    songData: {},
-    albumData: {title: null}
+async function fetchSongData(track, artist) {
+  const query = `remaster track:${track} artist:${artist}`;
+  const type = `track`;
+
+  // Network Error Pitfall
+  let res;
+  try {
+    res = await fetch(
+      `https://api.spotify.com/v1/search?q=${query}&type=${type}`
+    )
+  } catch (error) {
+    return { 
+      success: false,
+      error: error
+    };
+  }
+
+  // HTTP Error Pitfall
+  if (!res.ok) return {
+      success: false,
+      error: {
+        status: res.status,
+        statusText: res.statusText
+      }
   };
 
-  const res = await fetch(
-    `https://musicbrainz.org/ws/2/recording/?query=` +
-    `recording:${encodeURIComponent(song)}%20AND%20artist:${encodeURIComponent(artist)}` +
-    `&fmt=json`,
-    {
-      headers: {
-        'User-Agent': 'MyApp/1.0 (me@example.com)'
-      }
-    }
-  ).then(res => {
-    let albumData = {};
-    const albumTitle = res["release-group"].title;
-    if (albums.some(x => x.title == res["release-group"].title)) {
-      albumData = fetch(
-        `https://musicbrainz.org/ws/2/release-group/?query=` +
-        `release:${encodeURIComponent(albumTitle)}%20AND%20artist:${encodeURIComponent(artist)}` +
-        `&fmt=json`,
-        {
-          headers: {
-            'User-Agent': 'MyApp/1.0 (me@example.com)'
-          }
-        }
-      )
-
-      data.albumData = albumData;
-      data.newAlbumFlag = true;
-    } else {
-      data.albumData.title = albumData;
-      data.newAlbumFlag = false;
-    }
-
-    data["songData"] = res;
-    return data;
-  });
-
-  return res;
+  // Return if successful
+  return {
+    success: true,
+    data: res
+  };
 }
 
 const app = express(); // server obj
@@ -150,18 +139,23 @@ app.get('/data', (req, res) => {
 
     res.json({ data: joinedResults });    
   }
-  else if (type == 'addSong') {
-    // Checks if the album of the song being aded is available already, if not, add it. Then add the song
-    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-    const { artist, song } =  req.query;
-    const data = fetchSongInfo(artist, song, db.album);
-
-    res.json({ data: data });
-  }
   else { // Return nothing if the type matches nothing
     res.json({ data: null });
   }
 });
+
+app.post('/data', async (req, res) => {
+  const { type } = req.query;
+
+  if (type == 'addSong') {
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+    const { data } = req.body;
+
+    const fetchedData = await fetchSongData();
+
+    res.json({ data: fetchedData })
+  }
+})
 
 app.listen(5000, () => {
   console.log('Backend running on http://localhost:5000');

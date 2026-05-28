@@ -95,7 +95,7 @@
     height: 10%;
     min-height: 60px;
     padding: 0.1vh;
-    transition: box-shadow ease 0.3s, background-color ease 0.3s;
+    transition: box-shadow ease 0.3s, background-color ease 0.3s, border ease 0.3s;
 }
 
 .song-add-panel-wrapper .search-btn:hover {
@@ -112,4 +112,16 @@
     aspect-ratio: 1 / 1;
     height: 70%;
     object-fit: contain;
+}
+
+.song-add-panel-wrapper .search-btn.disabled {
+    background-color: rgb(91, 91, 91);
+}
+
+.song-add-panel-wrapper .search-btn.disabled:hover {
+    background-color: rgb(91, 91, 91);
+}
+
+.song-add-panel-wrapper .search-btn.disabled:active {
+    background-color: rgb(91, 91, 91);
 }
