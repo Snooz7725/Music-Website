@@ -1,6 +1,6 @@
 {
     "albums": [
-        {"id": 0, "title": "DAMN.", "artist_id": 0, "release_date": "2017", "thumbnail": "album_placeholder.jpg"},
+        {"id": 0, "title": "DAMN.", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 1, "title": "GNX", "artist_id": 0, "release_date": "2024", "thumbnail": "album_placeholder.jpg"},
         {"id": 2, "title": "C4", "artist_id": 0, "release_date": "2009", "thumbnail": "album_placeholder.jpg"},
         {"id": 3, "title": "good kid, m.A.A.d city", "artist_id": 0, "release_date": "2012", "thumbnail": "album_placeholder.jpg"},

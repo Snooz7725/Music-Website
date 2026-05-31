@@ -6,19 +6,18 @@ import ErrorCard from './error_card'
 
 function Searchbar() {
     async function handleSearch(keyword) {
+        // The try-except + error raising method: this makes the custom message come up as an error in console
+        // By default, this catches network errors
         try {
-            const response = await fetch(`/api/data?type=searchAll&keyword=${keyword}`, { 
+            const res = await fetch(`/api/data?type=searchAll&keyword=${keyword}`, { 
                 method: 'GET' 
             })
 
-            if (!response.ok) {
-                throw new Error(`HTTP error: ${response.status}`)
-            }
+            // Catches HTTP errors
+            if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
 
-            setSearchResults(await response.json())
-        } catch (error) {
-            console.error('Fetch failed:', error)
-        }
+            setSearchResults(await res.json())
+        } catch (error) {console.error('Fetch failed:', error)}
     }
 
     // `inputValue` stores exactly what the user is typing right now.

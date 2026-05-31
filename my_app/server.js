@@ -3,39 +3,6 @@ import fs from 'fs'; // reads and writes files
 import path from 'path'; // builds safe file paths
 import { fileURLToPath } from 'url'; // helps get currren folder when using ES modules
 
-async function fetchSongData(track, artist) {
-  const query = `remaster track:${track} artist:${artist}`;
-  const type = `track`;
-
-  // Network Error Pitfall
-  let res;
-  try {
-    res = await fetch(
-      `https://api.spotify.com/v1/search?q=${query}&type=${type}`
-    )
-  } catch (error) {
-    return { 
-      success: false,
-      error: error
-    };
-  }
-
-  // HTTP Error Pitfall
-  if (!res.ok) return {
-      success: false,
-      error: {
-        status: res.status,
-        statusText: res.statusText
-      }
-  };
-
-  // Return if successful
-  return {
-    success: true,
-    data: res
-  };
-}
-
 const app = express(); // server obj
 app.use(express.json()); // configures server to parse json files
 
@@ -151,9 +118,7 @@ app.post('/data', async (req, res) => {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
     const { data } = req.body;
 
-    const fetchedData = await fetchSongData();
-
-    res.json({ data: fetchedData })
+    res.json({ data: "" })
   }
 })
 
