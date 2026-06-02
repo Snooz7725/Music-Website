@@ -10,7 +10,7 @@ function LikedSongsHero({ count }) {
                 </div>
                 <div className="liked-info">
                     <h1 className="title">Liked Songs</h1>
-                    <p className="song-count">Count: {count}</p>
+                    <p className="song-count">{`Count | ${count}`}</p>
                 </div>
             </div>
             <ul className="btn-list">

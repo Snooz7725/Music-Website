@@ -40,9 +40,11 @@ function Album() {
 
     const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
-        albums: [],
-        songs: [],
-        artists: [],
+        albums: {},
+        songs: {},
+        artists: {},
+        liked_songs: {},
+        liked_albums: {}
     })
 
     const params = useParams()
@@ -84,7 +86,7 @@ function Album() {
             { loadStatus == 'loaded' ? (
                 <>
                     <AlbumHero albumId={chosenAlbumData.id} thumbnail={albumMap[chosenAlbumData.id].thumbnail} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
-                    <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} />
+                    <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={musicData.liked_songs} />
                 </>
             ) : loadStatus == 'errored' ? (
                 <>

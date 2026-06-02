@@ -8,6 +8,7 @@
     flex: 0 0 auto;
     padding-bottom: 0.8rem;
     box-shadow: 0 0 6px rgba(255, 255, 255, 0.3); 
+    border-radius: 0.1vh;
 }
 
 .song-category-card-wrapper .icon-wrapper {
@@ -19,6 +20,7 @@
     aspect-ratio: 1 / 1;
     overflow: hidden;
     padding: 0.2vw;
+    border-radius: 0.1vh;
 }
 
 .song-category-card-wrapper img {

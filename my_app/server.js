@@ -19,8 +19,8 @@ app.delete('/albums/:id', (req, res) => {
 
   // Filter out the albums and songs that are not related to the specified album
   // and replace the original tables with them to remove the album and its songs
-  db.albums = db.albums.filter(album => album.id !== id);
-  db.songs = db.songs.filter(song => song.album_id !== id);
+  db.albums = db.albums.data.filter(album => album?.id !== id);
+  db.songs = db.songs.data.filter(song => song?.album_id !== id);
 
   // stringify(
   //  value: any, // value being stringified
@@ -53,20 +53,22 @@ app.get('/data', (req, res) => {
 
     // As long as results limit not reached, and table is white-listed, check if table has rows that match the
     // keyword
-    filteredResults = dbArr.map(([tableName, arrVal]) => { 
+    filteredResults = dbArr.map(([tableName, tableArr]) => { 
       if (!whiteListedTables.includes(tableName)) return []; // Prevent looping through tables not white-listed
 
-      if (arrVal.length < 1) return [];
+      tableData = tableArr.data;
+
+      if (tableData.length < 1) return [];
       
       let colName = '';
-      if ('name' in arrVal[0]) {
+      if ('name' in tableData[0]) {
         colName = 'name';
       } else colName = 'title';
 
       // Check table for name/title that match keyword
-      const matchingResults = arrVal.filter(
+      const matchingResults = tableData.filter(
         row => 
-        resultsCount < 6 && row[colName]?.toLowerCase().includes(loweredKeyword)
+        resultsCount < 6 && row?.colName?.toLowerCase().includes(loweredKeyword)
       );
 
       let mappedResults = [];
@@ -75,23 +77,25 @@ app.get('/data', (req, res) => {
         // row as reference, then return it to the matchingResults array before returning it
         // to the filteredResults array
         mappedResults = matchingResults.map(row => {
-            let obj = {};
+          // To ignore the ID register
+          if (typeof row != 'object') return null;
 
-            obj.id = resultsCount;
-            if (tableName === 'songs' || tableName === 'albums') {
-              obj.album_id = row.album_id;
-              obj.artist_id = row.artist_id;
-              obj.artist_name = db.artists[row.artist_id].name;
-            } else {
-              obj.name = row.name;
-            }
+          let obj = {};
 
-            obj[`${colName}`] = row[`${colName}`];
-            
-            resultsCount += 1;
-            return obj;
+          obj.id = resultsCount;
+          if (tableName === 'songs' || tableName === 'albums') {
+            obj.album_id = row.album_id;
+            obj.artist_id = row.artist_id;
+            obj.artist_name = db.artists[row.artist_id].name;
+          } else {
+            obj.name = row.name;
           }
-        )
+
+          obj[`${colName}`] = row[`${colName}`];
+          
+          resultsCount += 1;
+          return obj;
+        })
       }
 
       return mappedResults;
@@ -118,7 +122,38 @@ app.post('/data', async (req, res) => {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
     const { data } = req.body;
 
-    res.json({ data: "" })
+    res.json({ data: null })
+  }
+})
+
+app.patch('/liked-songs', async (req, res) => {
+  const { type, songId } = req.query;
+
+  if (type == 'addSongToLiked') {
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+    const song = db.songs.data.find(song => Number(song?.id) === Number(songId));
+
+    // If nothing is found (which should be impossible) return to avoid server errors
+    if (song === undefined) {
+      res.json({ data: null });
+      return;
+    }
+
+    const chosenId = Number(db.liked_songs[0]);
+
+    db.liked_songs.data.push({
+      id: chosenId,
+      song_id: Number(songId)
+    });
+
+    db.liked_songs.newId++;
+
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+
+    res.json({ data: true })
+  } else {
+    res.json({ data: null })
   }
 })
 

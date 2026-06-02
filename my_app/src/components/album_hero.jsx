@@ -24,8 +24,8 @@ function AlbumHero({ albumId, albumTitle, artist, releaseDate, count, thumbnail 
                 </div>
                 <div className="album-info">
                     <h1 className="title">{albumTitle}</h1>
-                    <p className="artist-name">{artist}</p>
-                    <p className="song-count">Count: {count}</p>
+                    <p className="artist-name">{`Artist | ${artist}`}</p>
+                    <p className="song-count">{`Count | ${count}`}</p>
                 </div>
             </div>
             <ul className="btn-list">

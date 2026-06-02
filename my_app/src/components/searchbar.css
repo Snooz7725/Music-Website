@@ -24,12 +24,16 @@
     border-radius: 20rem;
     height: var(--searchbar-height);
     background-color: rgb(80, 115, 186);
-    outline: solid 0.2rem transparent;
+    outline: solid 2px transparent;
     transition: outline 0.3s ease-in-out;
 }
 
+.searchbar-wrapper .input-section:hover {
+    outline-color: rgba(255, 255, 255, 0.5);
+}
+
 .searchbar-wrapper .input-section:focus-within {
-    outline-color: rgb(201, 222, 255);
+    outline-color: rgba(255, 255, 255, 0.9);
 }
 
 .searchbar-wrapper .icon-wrapper {

@@ -73,6 +73,8 @@
     width: 3.5rem;
     aspect-ratio: 1 / 1;
     overflow: hidden;
+    background-color: transparent;
+    border: unset;
 }
 
 .song-list-wrapper .like-btn-wrapper img {

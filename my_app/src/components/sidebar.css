@@ -14,6 +14,7 @@
     padding: 1vw;
     width: var(--closed-sidebar-width);
     z-index: 999;
+    outline: 1px solid var(--prim-colour);
 }
 
 .open.sidebar-wrapper {
@@ -44,14 +45,15 @@
     justify-content: center;
     align-items: center;
     aspect-ratio: 1 / 1;
-    outline: solid 2px var(--prim-colour);
+    outline: 2px solid var(--prim-colour);
     height: calc(var(--closed-sidebar-width) * 0.8);
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: outline-color ease 0.3s;
 }
 
 .sidebar-wrapper .topbar-list .logo-wrapper:hover {
-    transform: scale(1.1);
+    outline-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
 }
 
 .sidebar-wrapper .topbar-list .logo-wrapper img {
@@ -73,7 +75,7 @@
     outline: solid 2px transparent;
     overflow: hidden;
     transform: scale(1);
-    transition: outline-color 0.3s ease, margin 0.3s ease, max-width 0.3s ease, transform 0.3s ease;
+    transition: outline-color 0.3s ease, margin 0.3s ease, max-width 0.3s ease;
 }
 
 .open.sidebar-wrapper .topbar-list .icon-wrapper {
@@ -82,14 +84,14 @@
     margin: 0 0.7rem;
 }
 
+.sidebar-wrapper .topbar-list .icon-wrapper:hover {
+    outline-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+}
+
 .open.sidebar-wrapper .topbar-list .search-btn {
     margin-left: 0.15rem;
 }
-
-.sidebar-wrapper .topbar-list .icon-wrapper:hover {
-    transform: scale(1.1);
-}
-
 .sidebar-wrapper .topbar-list .icon-wrapper img {
     width: 70%;
     height: 70%;
@@ -114,7 +116,7 @@
     outline: solid 2px var(--prim-colour);
     padding: 1vw 0;
     width: calc(var(--closed-sidebar-width) * 0.8);
-    transition: width 0.3s ease;
+    transition: width 0.3s ease, outline-color 0.3s ease;
     color: var(--prim-text-colour);
 }
 
@@ -122,15 +124,21 @@
     width: calc(var(--open-sidebar-width) * 0.8);
 }
 
+.sidebar-wrapper .btn-list:hover {
+    outline-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+}
+
 .sidebar-wrapper .btn {
     all: unset;
     display: flex;
-    border-radius: 1vw;
+    border-radius: 0.5vw;
     outline: solid 2px transparent;
     height: calc(var(--closed-sidebar-width) * 0.6);
     width: calc(var(--closed-sidebar-width) * 0.6);
     aspect-ratio: 1 / 1;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease, outline-color 0.3s ease;
+    overflow: hidden;
 }
 
 .sidebar-wrapper .btn .icon-wrapper {
@@ -140,7 +148,7 @@
     align-items: center;
     height: 100%;
     aspect-ratio: 1 / 1;
-    outline: solid 2px var(--prim-colour);
+    outline: solid 1px var(--prim-colour);
     border-radius: 0.5vw;
     overflow: hidden;
     transition: transform 0.3s ease, outline-color 0.3s ease;
@@ -151,8 +159,15 @@
     outline-color: rgb(0, 0, 0);
 }
 
-.sidebar-wrapper .btn .icon-wrapper:hover {
-    transform: scale(1.1);
+.sidebar-wrapper .btn:hover,
+.sidebar-wrapper .btn:hover > * {
+    outline-color: rgba(255, 255, 255, 0.7) !important;
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.2); 
+}
+
+.sidebar-wrapper .btn:hover .icon-wrapper {
+    outline-color: rgba(255, 255, 255, 0.7) !important;
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-wrapper .btn .icon-wrapper img {
@@ -170,10 +185,22 @@
 .sidebar-wrapper .btn-list .toggle-btn .open-content,
 .sidebar-wrapper .btn-list .toggle-btn .icon-wrapper {
     outline: unset;
+    box-shadow: unset;
+}
+
+.sidebar-wrapper .btn-list .toggle-btn {
+    overflow: visible;
 }
 
 .sidebar-wrapper .btn-list .toggle-btn .icon-wrapper {
+    outline: 2px solid transparent;
     background-color: transparent;
+    transition: outline-color ease 0.3s;
+}
+
+.sidebar-wrapper .btn-list .toggle-btn .icon-wrapper:hover {
+    outline-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
 }
 
 .sidebar-wrapper .btn-list .toggle-btn img,
@@ -204,15 +231,13 @@
     max-width: 200px;
     overflow: hidden;
     opacity: 1;
-    /* transform: translateX(0); */
-    transition: max-width 0.3s ease, opacity 0.3s ease; /* , transform 0.3s ease */
+    transition: max-width 0.3s ease, opacity 0.3s ease;
     padding: 0 0.75rem;
 }
 
 .sidebar-wrapper .open-content.hidden {
     max-width: 0;
     opacity: 0;
-    /* transform: translateX(-0.6vw); */
 }
 
 .sidebar-wrapper .open-content .title {
