@@ -48,7 +48,7 @@ function Album() {
     const params = useParams()
 
     const albumId = Number(params.id)
-    console.log(params.id)
+    // console.log(params.id)
 
     // If param not available
     if (isNaN(albumId)) {
@@ -74,17 +74,16 @@ function Album() {
         songData = musicData.songs.filter(song => song.album_id == chosenAlbumData.id)
         artistData = musicData.artists.filter(artist => artist.id == chosenAlbumData.artist_id)
 
-        albumMap = Object.fromEntries(albumData.map(album => [album.id, album]))
+        albumMap = Object.fromEntries(albumData.map(album => [album.id, album, album.thumbnail]))
         artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
     }
-
 
     return (
         <div className="album-wrapper">
             <Sidebar />
             { loadStatus == 'loaded' ? (
                 <>
-                    <AlbumHero albumId={chosenAlbumData.id} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} releaseDate={chosenAlbumData.release_date} count={albumData.length} />
+                    <AlbumHero albumId={chosenAlbumData.id} thumbnail={albumMap[chosenAlbumData.id].thumbnail} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
                     <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} />
                 </>
             ) : loadStatus == 'errored' ? (

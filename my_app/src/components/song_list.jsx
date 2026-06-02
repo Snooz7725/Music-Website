@@ -8,8 +8,6 @@ function SongList({ songData, albumMap, artistMap}) {
                     <div className="song-title"><span>Title</span></div>
                     <hr/>
                     <div className="song-album"><span>Album</span></div>
-                    <hr/>
-                    <div className="song-duration"><span>Duration</span></div>
                 </div>
                 {songData.map(song => (
                     <div key={song.id} className="song-row">
@@ -30,8 +28,6 @@ function SongList({ songData, albumMap, artistMap}) {
                         </div>
                         <hr/>
                         <div className="song-album"><span>{albumMap[song.album_id].title}</span></div>
-                        <hr/>
-                        <div className="song-duration"><span>{Math.floor(song.duration / 60)}:{String(song.duration % 60).padStart(2, '0')}</span></div>
                     </div>
                 ))}
             </div>

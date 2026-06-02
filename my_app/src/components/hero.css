@@ -5,10 +5,16 @@
 }
 
 .hero-wrapper {
+    background-image: url('/assets/concert.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     display: flex;
-    background-color: aquamarine;
     height: 57vh;
     border-radius: 1.5vh;
+    margin-right: 1vw;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.3); 
 }
 
 .hero-wrapper .left-panel {
@@ -16,26 +22,36 @@
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
-    background-color: lightcoral;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 
     width: clamp(421px, 35%, 500px);
     border-radius: 1.5vh;
 }
 
+.hero-wrapper .left-panel h1,
+.hero-wrapper .left-panel p {
+    color: white;
+}
+
 .hero-wrapper .left-panel h1 {
-    font-size: 4.5rem;
+    font-size: 4.1rem;
     font-weight: 800;
     margin-bottom: 1rem;
+    text-shadow: 0px 3px 10px rgba(255, 255, 255, 0.3);
 }
 
 .hero-wrapper .left-panel p {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 500;
 }
 
 .hero-wrapper .left-panel hr {
     width: 100%;
-    height: clamp(10px, 2rem, 32px);
-    background-color: white;
+    height: clamp(18px, 2vh, 25px);
+    background-color: rgb(80, 115, 186);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 
+    border-radius: 0.4vh;
     border: unset;
 }
 
@@ -53,6 +69,7 @@
     padding: 0.75rem;
     font-weight: 800;
     border-radius: 0.5rem;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.3); 
 }
 
 .hero-wrapper .left-panel .github-btn {

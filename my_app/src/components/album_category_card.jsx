@@ -12,7 +12,7 @@ function CategoryCard({ artistId, albumId, albumTitle, artist, filePath }) {
                     <h2>{albumTitle}</h2>
                 </Link>
                 <Link to={`/profile/${artistId}`}>
-                    <h3>{artist}</h3>
+                    <h3>{`By | ${artist}`}</h3>
                 </Link>
             </div>
         </li>

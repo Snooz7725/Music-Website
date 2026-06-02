@@ -14,8 +14,8 @@ function SongAdd() {
             <div className="main-section">
                 <Searchbar />
                 <div className="main-content">
-                    <div className="img-wrapper">
-                        <img src="/assets/drummer.jpg" alt="" />
+                    <div className="panel-img-wrapper">
+                        <img src="/assets/microphone.jpg" alt="" />
                     </div>
                     <SongAddPanel />
                 </div>

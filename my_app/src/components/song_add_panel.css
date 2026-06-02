@@ -95,7 +95,7 @@
     gap: 0.6rem;
 }
 
-.song-add-panel-wrapper label {
+.song-add-panel-wrapper .details {
     color: white;
 }
 
@@ -164,7 +164,21 @@
 }
 
 .song-add-panel-wrapper .thumbnail-output {
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vh;
+    transition: height ease 0.3s;
+}
+
+.song-add-panel-wrapper .paste-thumbnail-btn.toggled {
+    background-color: rgb(22, 33, 53);
+}
+
+.song-add-panel-wrapper .thumbnail-output .img-wrapper {
+    overflow: hidden;
+    border: 1px solid var(--prim-colour);
+    border-radius: 0.5vw;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
 }
 
 .song-add-panel-wrapper .main-hr {

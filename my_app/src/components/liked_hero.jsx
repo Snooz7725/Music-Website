@@ -2,12 +2,13 @@ import './liked_hero.css'
 
 function LikedSongsHero({ count }) {
     return (
-        <div className="Liked-hero-wrapper">
+        <div className="liked-hero-wrapper">
+            <div className="liked-hero-bg"/>
             <div className="top-section">
                 <div className="img-wrapper">
-                    <img src="/assets/album_placeholder.jpg" alt="Album Cover"/>
+                    <img src="/assets/transparent_heart_btn.png" alt="Album Cover"/>
                 </div>
-                <div className="album-info">
+                <div className="liked-info">
                     <h1 className="title">Liked Songs</h1>
                     <p className="song-count">Count: {count}</p>
                 </div>

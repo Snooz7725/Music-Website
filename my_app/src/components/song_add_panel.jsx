@@ -42,21 +42,20 @@ function SongAddPanel() {
     const [ thumbnailCheckbox, setThumbnailCheckbox ] = useState(false)
     const [ pasteFlag, setPasteFlag ] = useState(false)
     const [ imgURL, setImgURL ] = useState('')
+    const [ toggleFlag, setToggleFlag ] = useState(false)
 
     const addBtn =
         searchData.songName.trim() !== ''
         && searchData.artistName.trim() !== ''
         && ((!albumCheckbox) || searchData.albumName.trim() !== '')
 
-    let pasteLock = true;
-
     document.addEventListener('paste', async (e) => {
         // pasteFlag is for checking if the checkbox for thumbnails is selected
-        // pasteLock is for preventing paste spamming by making it paste-per-click 
+        // toggleFlag + thumbnailCheckbox is for preventing paste spamming by making it paste-per-click 
         // (holding the button continuously fires off the event)
-        if (!pasteFlag || pasteLock) return 
-        pasteLock = true
+        if (!pasteFlag || !thumbnailCheckbox || !toggleFlag) return
         setPasteFlag(false)
+        setToggleFlag(false)
 
         console.log('Paste detected')
 
@@ -89,7 +88,7 @@ function SongAddPanel() {
     return (
         <div className="song-add-panel-wrapper">
             <div className="hero">
-                <img src="./assets/drummer.jpg" alt=""/>
+                <img src="./assets/microphone.jpg" alt=""/>
                 <span>Looking For Something?</span>
             </div>
             <div className="input-wrapper">
@@ -104,7 +103,7 @@ function SongAddPanel() {
                 <hr/>
                 <div className="album-input">
                     <button className={ albumCheckbox ? "active checkbox" : "checkbox"} onClick={() => setAlbumCheckbox(prev => !prev)}></button>
-                    <label>Create an album/Add song to an existing album</label>
+                    <label className="details">Create an album/Add song to an existing album</label>
                 </div>
                 <input type="text" placeholder="Enter album" className={ albumCheckbox ? 'text-input' : 'disabled text-input'} disabled={ !albumCheckbox } onChange={(e) => setSearchData(prev => ({
                     ...prev,
@@ -113,20 +112,31 @@ function SongAddPanel() {
                 <hr/>
                 <div className="thumbnail-input">
                     <button className={ thumbnailCheckbox ? "active checkbox" : "checkbox"} onClick={() => setThumbnailCheckbox(prev => !prev)}></button>
-                    <label>Add thumbnail</label>
+                    <label className="details">Add thumbnail</label>
                 </div>
                 <div className="thumbnail-output">
                     { searchData.thumbnailData == '' ? (
-                        <button className={ thumbnailCheckbox ? "btn paste-thumbnail-btn" : "disabled btn paste-thumbnail-btn"} onClick={() => setPasteFlag(true)} onKeyUp={() => pasteLock = false}>
+                        <button className={ 
+                            thumbnailCheckbox && !toggleFlag ? "btn paste-thumbnail-btn"
+                            : thumbnailCheckbox && toggleFlag ? "btn paste-thumbnail-btn toggled"
+                            : "btn paste-thumbnail-btn disabled"
+
+                        } onClick={() => {
+                            setPasteFlag(true)
+                            setToggleFlag(true)
+                        }}>
                             <img src="./assets/white_paste.png"></img>
                         </button>
                     ) : (
                         <>
-                            <span>Pasted image:</span>
+                            <span className="details">Pasted image:</span>
                             <div className="img-wrapper">
                                 <img src={ imgURL }></img>
                             </div>
-                            <button className="btn cancel-thumbnail-btn"></button>
+                            <button className="btn cancel-thumbnail-btn" onClick={() => setSearchData(prev => ({
+                                ...prev,
+                                "thumbnailData": ''
+                            }))}></button>
                         </>
                     )}
                 </div>

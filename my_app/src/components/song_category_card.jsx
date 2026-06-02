@@ -11,10 +11,10 @@ function SongCategoryCard({ artistId, songId, albumId, albumTitle, title, artist
             <div className="details">
                 <Link to={`/`}><h2>{title}</h2></Link>
                 <Link to={`/album/${albumId}`}>
-                    <h3>{albumTitle}</h3>
+                    <h3>{`From | ${albumTitle}`}</h3>
                 </Link>
                 <Link to={`/profile/${artistId}`}>
-                    <h3>{artist}</h3>
+                    <h3>{`By | ${artist}`}</h3>
                 </Link>
             </div>
         </li>

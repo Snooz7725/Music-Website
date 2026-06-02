@@ -1,8 +1,7 @@
 import './album_hero.css'
-import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
-function AlbumHero({ albumId, albumTitle, artist, releaseDate, count }) {
+function AlbumHero({ albumId, albumTitle, artist, releaseDate, count, thumbnail }) {
     async function handleDelete(id) {
         await fetch(`/api/albums/${id}`, {
             method: 'DELETE'
@@ -11,10 +10,14 @@ function AlbumHero({ albumId, albumTitle, artist, releaseDate, count }) {
         navigate('/')
     }
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     return (
         <div className="album-hero-wrapper">
+            <div
+                className="album-hero-bg"
+                style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9)), url('/assets/${thumbnail}')` }}
+            />
             <div className="top-section">
                 <div className="img-wrapper">
                     <img src="/assets/album_placeholder.jpg" alt="Album Cover"/>
@@ -22,7 +25,6 @@ function AlbumHero({ albumId, albumTitle, artist, releaseDate, count }) {
                 <div className="album-info">
                     <h1 className="title">{albumTitle}</h1>
                     <p className="artist-name">{artist}</p>
-                    <p className="release-date">Release Date: {releaseDate}</p>
                     <p className="song-count">Count: {count}</p>
                 </div>
             </div>
