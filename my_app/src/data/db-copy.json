@@ -1,5 +1,5 @@
 {
-    "albums": [7, [
+    "albums": {"newId": 7, "data": [
         {"id": 0, "title": "DAMN.", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 1, "title": "GNX", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 2, "title": "C4", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
@@ -7,9 +7,9 @@
         {"id": 4, "title": "To Pimp a Butterfly", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 5, "title": "Mr. Morale & the Big Steppers", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 6, "title": "Section.80", "artist_id": 0, "thumbnail": "album_placeholder.jpg"}
-    ]],
+    ]},
 
-    "songs": [13, [
+    "songs": {"newId": 13, "data": [
         {"id": 0, "album_id": 2, "title": "Famous Pipe Game", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 1, "album_id": 1, "title": "man at the garden", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 2, "album_id": 0, "title": "HUMBLE.", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
@@ -23,21 +23,21 @@
         {"id": 10, "album_id": 5, "title": "N95", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 11, "album_id": 5, "title": "Count Me Out", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 12, "album_id": 6, "title": "A.D.H.D", "artist_id": 0, "thumbnail": "album_placeholder.jpg"}
-    ]],
+    ]},
 
-    "artists": [1, [
+    "artists": {"newId": 1, "data": [
         {"id": 0, "name": "Kendrick Lamar", "profile_pic": "github.svg"}
-    ]],
+    ]},
 
-    "liked_songs": [3, [
+    "liked_songs": {"newId": 3, "data": [
         {"id": 0, "song_id": 0},
         {"id": 1, "song_id": 1},
         {"id": 2, "song_id": 2}
-    ]],
+    ]},
 
-    "liked_albums": [3, [
+    "liked_albums": {"newId": 3, "data": [
         {"id": 0, "album_id": 0},
         {"id": 1, "album_id": 1},
         {"id": 2, "album_id": 2}
-    ]]
+    ]}
 }

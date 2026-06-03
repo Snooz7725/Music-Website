@@ -53,7 +53,7 @@
 
 .sidebar-wrapper .topbar-list .logo-wrapper:hover {
     outline-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.4); 
 }
 
 .sidebar-wrapper .topbar-list .logo-wrapper img {
@@ -86,7 +86,7 @@
 
 .sidebar-wrapper .topbar-list .icon-wrapper:hover {
     outline-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.4); 
 }
 
 .open.sidebar-wrapper .topbar-list .search-btn {
@@ -126,7 +126,7 @@
 
 .sidebar-wrapper .btn-list:hover {
     outline-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.4); 
 }
 
 .sidebar-wrapper .btn {
@@ -162,12 +162,12 @@
 .sidebar-wrapper .btn:hover,
 .sidebar-wrapper .btn:hover > * {
     outline-color: rgba(255, 255, 255, 0.7) !important;
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.4); 
 }
 
 .sidebar-wrapper .btn:hover .icon-wrapper {
     outline-color: rgba(255, 255, 255, 0.7) !important;
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.4);
 }
 
 .sidebar-wrapper .btn .icon-wrapper img {
@@ -200,7 +200,7 @@
 
 .sidebar-wrapper .btn-list .toggle-btn .icon-wrapper:hover {
     outline-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.4); 
 }
 
 .sidebar-wrapper .btn-list .toggle-btn img,

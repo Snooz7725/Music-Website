@@ -41,17 +41,20 @@ function HomePage() {
 
     const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
-        albums: [],
-        songs: [],
-        artists: [],
+        albums: null,
+        songs: null,
+        artists: null,
+        liked_songs: null,
+        liked_albums: null
     })
 
     let albumMap = {}
     let artistMap = {}
 
-    if (musicData.albums.length != 0) {
-        albumMap = Object.fromEntries(musicData.albums.map(album => [album.id, album]))
-        artistMap = Object.fromEntries(musicData.artists.map(artist => [artist.id, artist]))
+    console.log(JSON.stringify(musicData.albums, null, 2))
+    if (musicData.albums.data?.length ?? 0 != 0) {
+        albumMap = Object.fromEntries(musicData.albums.data.map(album => [album.id, album]))
+        artistMap = Object.fromEntries(musicData.artists.data.map(artist => [artist.id, artist]))
     }
 
     return (
@@ -66,7 +69,7 @@ function HomePage() {
                     ) : loadStatus == 'loaded' ? (
                         <>
                             <Category title="Songs">
-                                {musicData.songs.map((song) => (
+                                {musicData.songs.data.map((song) => (
                                     <SongCategoryCard
                                         key={song.id}
                                         songId={song.id}
@@ -81,7 +84,7 @@ function HomePage() {
                             </Category>
 
                             <Category title="Albums">
-                                {musicData.albums.map((album) => (
+                                {musicData.albums.data.map((album) => (
                                     <AlbumCategoryCard
                                         key={album.id}
                                         albumId={album.id}

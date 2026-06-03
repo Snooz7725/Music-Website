@@ -40,11 +40,11 @@ function Album() {
 
     const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
-        albums: {},
-        songs: {},
-        artists: {},
-        liked_songs: {},
-        liked_albums: {}
+        albums: [],
+        songs: [],
+        artists: [],
+        liked_songs: [],
+        liked_albums: []
     })
 
     const params = useParams()
@@ -65,7 +65,7 @@ function Album() {
     let albumMap = {}
     let artistMap = {}
     if (loadStatus == 'loaded') {
-        albumData = musicData.albums.filter(album => album.id == albumId)
+        albumData = musicData.albums.data.filter(album => album.id == albumId)
 
         if (albumData.length === 0) {
             return <Navigate to="/" replace />
@@ -73,8 +73,8 @@ function Album() {
 
         chosenAlbumData = albumData[0];
 
-        songData = musicData.songs.filter(song => song.album_id == chosenAlbumData.id)
-        artistData = musicData.artists.filter(artist => artist.id == chosenAlbumData.artist_id)
+        songData = musicData.songs.data.filter(song => song.album_id == chosenAlbumData.id)
+        artistData = musicData.artists.data.filter(artist => artist.id == chosenAlbumData.artist_id)
 
         albumMap = Object.fromEntries(albumData.map(album => [album.id, album, album.thumbnail]))
         artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
@@ -86,7 +86,7 @@ function Album() {
             { loadStatus == 'loaded' ? (
                 <>
                     <AlbumHero albumId={chosenAlbumData.id} thumbnail={albumMap[chosenAlbumData.id].thumbnail} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
-                    <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={musicData.liked_songs} />
+                    <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={musicData.liked_songs.data} />
                 </>
             ) : loadStatus == 'errored' ? (
                 <>

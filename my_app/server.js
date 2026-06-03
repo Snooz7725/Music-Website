@@ -1,6 +1,8 @@
+import { timeStamp } from 'console';
 import express from 'express'; // server and routes
 import fs from 'fs'; // reads and writes files
 import path from 'path'; // builds safe file paths
+import { data } from 'react-router-dom';
 import { fileURLToPath } from 'url'; // helps get currren folder when using ES modules
 
 const app = express(); // server obj
@@ -9,6 +11,17 @@ app.use(express.json()); // configures server to parse json files
 const __filename = fileURLToPath(import.meta.url); // setting file path (filename = file path)
 const __dirname = path.dirname(__filename); // setting the file dir name
 const dbPath = path.join(__dirname, 'src', 'data', 'db.json');
+
+// ==============
+// Routes
+// ==============
+
+// Response structure:
+// {
+//   success: bool, // Informs you of if the request failed
+//   msg: '' | null, // Gives additional context on the completion/failure of the request
+//   data: {} | null, // Stores returned data
+// }
 
 // A route that listens for the method 'DELETE' and the path '/albums/:id'
 // 'req' is the obj that holds the info passed form the front
@@ -28,7 +41,11 @@ app.delete('/albums/:id', (req, res) => {
   //  space?: string | number | undefined // indentation
   // ): string (+1 overload)
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
-  res.json({ message: 'Album deleted' }); // response to front
+  res.json({
+    success: true,
+    msg: 'Album successfully deleted',
+    data: null,
+  });
 });
 
 app.get('/data', (req, res) => {
@@ -36,7 +53,12 @@ app.get('/data', (req, res) => {
 
   if (type == 'all') {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-    res.json({ data: db });
+
+    res.json({
+      success: true,
+      msg: 'DB successfully retrieved',
+      data: db,
+    });
   }
 
   else if (type == 'searchAll') {
@@ -108,10 +130,18 @@ app.get('/data', (req, res) => {
       joinedResults.push(...i);
     }
 
-    res.json({ data: joinedResults });    
+    res.json({
+      success: true,
+      msg: 'Search-all was successful',
+      data: joinedResults,
+    });   
   }
-  else { // Return nothing if the type matches nothing
-    res.json({ data: null });
+  else {
+    res.status(404).json({
+      success: false,
+      msg: 'Invalid route for HTTP method GET',
+      data: null,
+    });
   }
 });
 
@@ -119,10 +149,15 @@ app.post('/data', async (req, res) => {
   const { type } = req.query;
 
   if (type == 'addSong') {
+    // TODO: finish adding the add-song system
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
     const { data } = req.body;
-
-    res.json({ data: null })
+  } else {
+    res.status(404).json({
+      success: false,
+      msg: 'Invalid route for HTTP method POST',
+      data: null,
+    });
   }
 })
 
@@ -136,24 +171,39 @@ app.patch('/liked-songs', async (req, res) => {
 
     // If nothing is found (which should be impossible) return to avoid server errors
     if (song === undefined) {
-      res.json({ data: null });
+      res.status(404).json({
+        success: false,
+        msg: 'Song ID did not match any available songs',
+        data: db,
+      });
       return;
     }
 
     const chosenId = Number(db.liked_songs[0]);
 
+    // Add song to liked songs object
     db.liked_songs.data.push({
       id: chosenId,
       song_id: Number(songId)
     });
 
+    // Update newId register for later use
     db.liked_songs.newId++;
 
+    // Save back to DB
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
 
-    res.json({ data: true })
+    res.json({
+      success: true,
+      msg: 'Song successfully added to liked',
+      data: null,
+    });
   } else {
-    res.json({ data: null })
+    res.status(404).json({
+      success: false,
+      msg: 'Invalid route for HTTP method PATCH',
+      data: null,
+    });
   }
 })
 
