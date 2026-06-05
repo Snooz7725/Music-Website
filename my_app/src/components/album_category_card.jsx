@@ -5,7 +5,8 @@ function CategoryCard({ artistId, albumId, albumTitle, artist, filePath }) {
     return (
         <li className="album-category-card-wrapper">
             <Link to={`/album/${albumId}`}><div className="icon-wrapper">
-                <img src={'/assets/' + filePath} alt="Album cover" />
+                <img className="thumbnail" src={'/assets/' + filePath} alt="Album cover" />
+                <img className="background-thumbnail" src={'/assets/' + filePath} alt="Album cover" />
             </div></Link>
             <div className="details">
                 <Link to={`/album/${albumId}`}>

@@ -101,7 +101,7 @@
 
 .album-hero-wrapper .btn-list button:hover {
     border-color: rgba(255, 255, 255, 0.671);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.4); 
 }
 
 .album-hero-wrapper .btn-list .like-btn {

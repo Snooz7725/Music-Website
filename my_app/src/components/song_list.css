@@ -106,7 +106,7 @@
 
 .song-list-wrapper .song-row:hover {
     border-color: rgba(255, 255, 255, 0.671);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.4); 
 }
 
 .song-list-wrapper .song-row hr {

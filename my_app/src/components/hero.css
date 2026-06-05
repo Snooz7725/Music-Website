@@ -49,7 +49,7 @@
 .hero-wrapper .left-panel hr {
     width: 100%;
     height: clamp(18px, 2vh, 25px);
-    background-color: rgb(80, 115, 186);
+    background-color: rgb(133, 174, 255);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 
     border-radius: 0.4vh;
     border: unset;
@@ -69,17 +69,19 @@
     padding: 0.75rem;
     font-weight: 800;
     border-radius: 0.5rem;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.1); 
+    transition: box-shadow ease 0.3s;
+}
+
+.hero-wrapper .left-panel .btn:hover {
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); 
+    cursor: pointer;
 }
 
 .hero-wrapper .left-panel .github-btn {
     gap: 0.4rem;
     background-color: black;
     color: white;
-}
-
-.hero-wrapper .left-panel .github-btn:hover {
-    cursor: pointer;
 }
 
 .hero-wrapper .left-panel .github-btn .icon-wrapper {

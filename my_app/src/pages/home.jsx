@@ -52,7 +52,9 @@ function HomePage() {
     let artistMap = {}
 
     console.log(JSON.stringify(musicData.albums, null, 2))
-    if (musicData.albums.data?.length ?? 0 != 0) {
+    
+    // Optional chaining stops null or undefined values from throwing
+    if (musicData.albums?.data?.length ?? 0 != 0) {
         albumMap = Object.fromEntries(musicData.albums.data.map(album => [album.id, album]))
         artistMap = Object.fromEntries(musicData.artists.data.map(artist => [artist.id, artist]))
     }

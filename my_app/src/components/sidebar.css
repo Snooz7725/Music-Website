@@ -162,12 +162,12 @@
 .sidebar-wrapper .btn:hover,
 .sidebar-wrapper .btn:hover > * {
     outline-color: rgba(255, 255, 255, 0.7) !important;
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.4); 
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.4); 
 }
 
 .sidebar-wrapper .btn:hover .icon-wrapper {
     outline-color: rgba(255, 255, 255, 0.7) !important;
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.4);
 }
 
 .sidebar-wrapper .btn .icon-wrapper img {
