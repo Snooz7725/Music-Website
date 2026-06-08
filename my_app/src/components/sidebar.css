@@ -86,7 +86,7 @@
 
 .sidebar-wrapper .topbar-list .icon-wrapper:hover {
     outline-color: rgba(255, 255, 255, 0.7);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.4); 
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); 
 }
 
 .open.sidebar-wrapper .topbar-list .search-btn {
