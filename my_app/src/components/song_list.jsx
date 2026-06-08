@@ -3,11 +3,17 @@ import { useState } from 'react'
 
 function SongList({ songData, albumMap, artistMap, likedSongs}) {
     async function handleAddSongToLiked(isLiked, song) {
-        const resJson = {}
+        console.log("handleAddSongToLiked running..")
+        let resJson = {}
         if (isLiked) {
-            // Take song from liked
+            // Take remove song from liked
             try {
-                const res = fetch(`/api/liked-songs?type=removeSongFromLiked&songId=${song.id}`)
+                const res = await fetch(
+                    `/api/liked-songs?type=removeSongFromLiked&songId=${song.id}`, 
+                    {
+                        method: "DELETE"
+                    }
+                )
 
                 if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
 
@@ -16,16 +22,24 @@ function SongList({ songData, albumMap, artistMap, likedSongs}) {
         } else {
             // Add song to liked
             try {
-                const res = fetch(`/api/liked-songs?type=addSongToLiked&songId=${song.id}`)
+                const res = await fetch(
+                    `/api/liked-songs?type=addSongToLiked&songId=${song.id}`,
+                    {
+                        method: "POST"
+                    }
+                )
 
                 if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
 
                 resJson = (await res).json()
             } catch (error) {console.error('Fetch failed:', error)}
         }
+
+        setReloadKey(prev => prev + 1)
+        console.log("handleAddSongToLiked finished running")
     }
 
-    const [ reloadKey, setReloadKey ] = useState()
+    const [ reloadKey, setReloadKey ] = useState(0)
 
     return (
         <div className="song-list-wrapper">

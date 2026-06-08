@@ -41,11 +41,43 @@ app.delete('/albums/:id', (req, res) => {
   //  space?: string | number | undefined // indentation
   // ): string (+1 overload)
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
-  res.json({
+  res.status(204).json({
     success: true,
     msg: 'Album successfully deleted',
     data: null,
   });
+});
+
+app.delete('/liked-songs', (req, res) => {
+  const { type } = req.query;
+  
+  if (type == 'removeSongFromLiked') {
+    const { songId } = req.query;
+
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+    let songToRemoveIndex = null;
+    const songToRemove = db.liked_songs.data.find((song, index) => {
+      if (song.song_id == songId) {
+        songToRemoveIndex = index;
+        return true;
+      } else return false;
+    });
+
+    delete db.liked_songs.data[songToRemoveIndex];
+
+    res.status(204).json({
+      success: true,
+      msg: 'Liked song successfully removed from liked',
+      data: null,
+    });
+  } else {
+    res.status(404).json({
+      success: false,
+      msg: 'Invalid route for HTTP method DELETE',
+      data: null,
+    });
+  }
 });
 
 app.get('/data', (req, res) => {
@@ -54,7 +86,7 @@ app.get('/data', (req, res) => {
   if (type == 'all') {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
 
-    res.json({
+    res.status(200).json({
       success: true,
       msg: 'DB successfully retrieved',
       data: db,
@@ -130,7 +162,7 @@ app.get('/data', (req, res) => {
       joinedResults.push(...i);
     }
 
-    res.json({
+    res.status(200).json({
       success: true,
       msg: 'Search-all was successful',
       data: joinedResults,
@@ -161,7 +193,7 @@ app.post('/data', async (req, res) => {
   }
 })
 
-app.patch('/liked-songs', async (req, res) => {
+app.post('/liked-songs', async (req, res) => {
   const { type, songId } = req.query;
 
   if (type == 'addSongToLiked') {
@@ -174,12 +206,12 @@ app.patch('/liked-songs', async (req, res) => {
       res.status(404).json({
         success: false,
         msg: 'Song ID did not match any available songs',
-        data: db,
+        data: null,
       });
       return;
     }
 
-    const chosenId = Number(db.liked_songs[0]);
+    const chosenId = Number(db.liked_songs.newId);
 
     // Add song to liked songs object
     db.liked_songs.data.push({
@@ -193,7 +225,7 @@ app.patch('/liked-songs', async (req, res) => {
     // Save back to DB
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
 
-    res.json({
+    res.status(204).json({
       success: true,
       msg: 'Song successfully added to liked',
       data: null,
@@ -201,12 +233,17 @@ app.patch('/liked-songs', async (req, res) => {
   } else {
     res.status(404).json({
       success: false,
-      msg: 'Invalid route for HTTP method PATCH',
+      msg: 'Invalid route for HTTP method POST',
       data: null,
     });
   }
 })
 
 app.listen(5000, () => {
-  console.log('Backend running on http://localhost:5000');
+  // Checks if the DB fails or not after the backend startup
+  const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+  const universalDate = new Date().toUTCString();
+
+  console.log('DB data loaded');
+  console.log(`Backend running on http://localhost:5000 on:\n${universalDate}`);
 });

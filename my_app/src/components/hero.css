@@ -50,7 +50,7 @@
     width: 100%;
     height: clamp(18px, 2vh, 25px);
     background-color: rgb(133, 174, 255);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4); 
     border-radius: 0.4vh;
     border: unset;
 }

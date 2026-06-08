@@ -33,6 +33,7 @@
     overflow: hidden;
     border-radius: 2vw;
     border: 1px solid var(--prim-colour);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); 
 }
 
 .song-add-wrapper .main-content img {

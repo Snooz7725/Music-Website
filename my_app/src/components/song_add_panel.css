@@ -8,6 +8,7 @@
     overflow: hidden;
     padding: 1.6vw;
     gap: 2.5vh;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); 
 }
 
 .song-add-panel-wrapper .hero {
@@ -19,6 +20,7 @@
     border-radius: 1.4vw;
     border: 1px solid var(--prim-colour);
     position: relative;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); 
 }
 
 .song-add-panel-wrapper .hero img {
@@ -35,6 +37,7 @@
     transform: translate(-50%, -50%);
     color: white;
     font-size: 2.3rem;
+    font-weight: bold;
     white-space: nowrap;
     /* text-shadow: x-offset y-offset blur-radius color */
     text-shadow: 0 0.25rem 0.5rem rgba(80, 115, 186, 0.9);
@@ -187,4 +190,6 @@
     border-radius: 0.2vh;
     background-color: rgb(80, 115, 186);
     border: unset;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); 
+    background-color: rgb(133, 174, 255);
 }
