@@ -115,10 +115,11 @@
     padding-bottom: 0.3rem;
     box-shadow: 0 0 18px rgba(0, 0, 0, 0.8); 
     flex: 0 0 auto;
+    transition: width ease 0.2s;
 }
 
 .clone-album-category-card-wrapper:hover {
-    width: 400px;
+    width: 350px;
 }
 
 .clone-album-category-card-wrapper:hover .icon-wrapper {

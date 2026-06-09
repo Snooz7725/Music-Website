@@ -32,8 +32,8 @@ app.delete('/albums/:id', (req, res) => {
 
   // Filter out the albums and songs that are not related to the specified album
   // and replace the original tables with them to remove the album and its songs
-  db.albums = db.albums.data.filter(album => album?.id !== id);
-  db.songs = db.songs.data.filter(song => song?.album_id !== id);
+  db.albums.data = db.albums.data.filter(album => album?.id !== id);
+  db.songs.data = db.songs.data.filter(song => song?.album_id !== id);
 
   // stringify(
   //  value: any, // value being stringified
@@ -41,6 +41,7 @@ app.delete('/albums/:id', (req, res) => {
   //  space?: string | number | undefined // indentation
   // ): string (+1 overload)
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  
   res.status(200).json({
     success: true,
     msg: 'Album successfully deleted',

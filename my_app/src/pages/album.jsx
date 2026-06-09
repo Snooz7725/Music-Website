@@ -1,6 +1,6 @@
 import './album.css'
 import { useEffect, useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate, useParams, useNavigate } from 'react-router-dom'
 import Sidebar from '../components/sidebar'
 import AlbumHero from '../components/album_hero'
 import SongList from '../components/song_list'
@@ -21,6 +21,8 @@ function Album() {
         liked_songs: [],
         liked_albums: []
     })
+
+    const navigate = useNavigate()
 
     const params = useParams()
 
@@ -101,6 +103,24 @@ function Album() {
         reload()
         console.log("handleAddSongToLiked finished")
     }
+
+    const handleDeleteAlbum = async (id) => {
+        let resJson = {}
+        try {
+            const res = await fetch(
+                `/api/albums/${id}`,
+                {
+                    method: "DELETE"
+                }
+            )
+
+            if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
+
+            resJson = await res.json()
+        } catch (error) {console.error('Fetch failed:', error)}
+
+        navigate('/')
+    }
     
     useEffect(() => {
         let errorFlag = false
@@ -135,17 +155,17 @@ function Album() {
             <Sidebar />
             { loadStatus == 'loaded' ? (
                 <>
-                    <AlbumHero albumId={chosenAlbumData.id} thumbnail={albumMap[chosenAlbumData.id].thumbnail} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
+                    <AlbumHero handleDeleteAlbum={handleDeleteAlbum} albumId={chosenAlbumData.id} thumbnail={albumMap[chosenAlbumData.id].thumbnail} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
                     <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={likedSongs} />
                 </>
             ) : loadStatus == 'errored' ? (
                 <>
-                    <AlbumHero albumId="ERROR" albumTitle="ERROR" artist="" releaseDate="YYYY-MM-DD" count="" />
+                    <AlbumHero handleDeleteAlbum={handleDeleteAlbum} albumId="ERROR" albumTitle="ERROR" artist="" releaseDate="YYYY-MM-DD" count="" />
                     <ErrorCard />
                 </>
             ) : (
                 <>
-                    <AlbumHero albumId="loading..." albumTitle="Loading..." artist="" releaseDate="YYYY-MM-DD" count="" />
+                    <AlbumHero handleDeleteAlbum={handleDeleteAlbum} albumId="loading..." albumTitle="Loading..." artist="" releaseDate="YYYY-MM-DD" count="" />
                     <LoadingCard />
                 </>
             )}

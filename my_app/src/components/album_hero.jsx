@@ -1,17 +1,7 @@
 import './album_hero.css'
 import { useNavigate } from 'react-router-dom'
 
-function AlbumHero({ albumId, albumTitle, artist, releaseDate, count, thumbnail }) {
-    async function handleDelete(id) {
-        await fetch(`/api/albums/${id}`, {
-            method: 'DELETE'
-        })
-
-        navigate('/')
-    }
-
-    const navigate = useNavigate()
-
+function AlbumHero({ handleDeleteAlbum, albumId, albumTitle, artist, releaseDate, count, thumbnail }) {
     return (
         <div className="album-hero-wrapper">
             <div
@@ -31,7 +21,7 @@ function AlbumHero({ albumId, albumTitle, artist, releaseDate, count, thumbnail 
             <ul className="btn-list">
                 <li><button className="list-btn"><img src="/assets/list_btn.png" alt="Format Icon" /></button></li>
                 <li><button className="like-btn"><img src="/assets/empty_heart_btn.png" alt="Like Icon" /></button></li>
-                <li><button className="delete-btn" onClick={() => handleDelete(albumId)}><img src="/assets/white_closed_bin.png" alt="" /></button></li>
+                <li><button className="delete-btn" onClick={() => handleDeleteAlbum(albumId)}><img src="/assets/white_closed_bin.png" alt="" /></button></li>
             </ul>
         </div>
     )

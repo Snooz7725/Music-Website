@@ -41,7 +41,7 @@ function Sidebar() {
                     </div>
                 </NavLink></li>
 
-                <li><NavLink to="/album/1" className="album-btn btn">
+                {/* <li><NavLink to="/album/1" className="album-btn btn">
                     <div className="icon-wrapper">
                         <img src="/assets/album_placeholder.jpg" alt="Album" />
                     </div>
@@ -49,7 +49,7 @@ function Sidebar() {
                         <span className="name">Album</span>
                         <span className="count">Count: <span>90</span></span>
                     </div>
-                </NavLink></li>
+                </NavLink></li> */}
             </ul>
         </nav>
     )
