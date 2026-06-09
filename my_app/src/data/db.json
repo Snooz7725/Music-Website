@@ -153,31 +153,15 @@
     ]
   },
   "liked_songs": {
-    "newId": 6,
+    "newId": 8,
     "data": [
       {
         "id": 0,
         "song_id": 0
       },
       {
-        "id": 1,
-        "song_id": 1
-      },
-      {
         "id": 2,
         "song_id": 2
-      },
-      {
-        "id": 3,
-        "song_id": 1
-      },
-      {
-        "id": 4,
-        "song_id": 1
-      },
-      {
-        "id": 5,
-        "song_id": 1
       }
     ]
   },

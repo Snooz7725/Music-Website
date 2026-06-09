@@ -1,9 +1,8 @@
 import './song_list.css'
 import { useState } from 'react'
 
-function SongList({ songData, albumMap, artistMap, likedSongs}) {
+function SongList({ refreshParent, songData, albumMap, artistMap, likedSongs}) {
     async function handleAddSongToLiked(isLiked, song) {
-        console.log("handleAddSongToLiked running..")
         let resJson = {}
         if (isLiked) {
             // Take remove song from liked
@@ -17,7 +16,7 @@ function SongList({ songData, albumMap, artistMap, likedSongs}) {
 
                 if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
 
-                resJson = (await res).json()
+                resJson = await res.json()
             } catch (error) {console.error('Fetch failed:', error)}
         } else {
             // Add song to liked
@@ -31,15 +30,15 @@ function SongList({ songData, albumMap, artistMap, likedSongs}) {
 
                 if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
 
-                resJson = (await res).json()
+                resJson = await res.json()
             } catch (error) {console.error('Fetch failed:', error)}
         }
 
-        setReloadKey(prev => prev + 1)
-        console.log("handleAddSongToLiked finished running")
+        refreshParent()
     }
 
-    const [ reloadKey, setReloadKey ] = useState(0)
+    // console.log(JSON.stringify(likedSongs, null, 2))
+    console.log("Child rendered")
 
     return (
         <div className="song-list-wrapper">
@@ -50,7 +49,7 @@ function SongList({ songData, albumMap, artistMap, likedSongs}) {
                     <div className="song-album"><span>Album</span></div>
                 </div>
                 {songData.map(song => {
-                    const isLiked = likedSongs.some(likedSong => likedSong == song)
+                    const isLiked = likedSongs.some(likedSong => likedSong.song_id == song.id)
 
                     return (
                         <div key={song.id} className="song-row">

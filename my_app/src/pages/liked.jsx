@@ -36,6 +36,9 @@ function Liked() {
         loadData()
     }, [])
 
+    const [count, setCount] = useState(0)
+    const refreshParent = () => setCount(c => ++c)
+
     const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
@@ -57,7 +60,7 @@ function Liked() {
             { loadStatus == 'loaded' ? (
                 <>
                     <LikedSongsHero count={songData.length} />
-                    <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} />
+                    <SongList refreshParent={refreshParent} songData={songData} albumMap={albumMap} artistMap={artistMap} />
                 </>
             ) : loadStatus == 'errored' ? (
                 <>

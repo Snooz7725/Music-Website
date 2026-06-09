@@ -41,7 +41,7 @@ app.delete('/albums/:id', (req, res) => {
   //  space?: string | number | undefined // indentation
   // ): string (+1 overload)
   fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
-  res.status(204).json({
+  res.status(200).json({
     success: true,
     msg: 'Album successfully deleted',
     data: null,
@@ -64,9 +64,20 @@ app.delete('/liked-songs', (req, res) => {
       } else return false;
     });
 
-    delete db.liked_songs.data[songToRemoveIndex];
+    // If nothing is found (which should be impossible) return to avoid server errors
+    if (songToRemove === undefined) {
+      res.status(404).json({
+        success: false,
+        msg: 'Song ID did not match any available songs',
+        data: null,
+      });
+      return;
+    }
 
-    res.status(204).json({
+    db.liked_songs.data.splice(songToRemoveIndex, 1);
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+
+    res.status(200).json({
       success: true,
       msg: 'Liked song successfully removed from liked',
       data: null,
@@ -225,11 +236,13 @@ app.post('/liked-songs', async (req, res) => {
     // Save back to DB
     fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
 
-    res.status(204).json({
+    res.status(200).json({
       success: true,
       msg: 'Song successfully added to liked',
       data: null,
     });
+
+    console.log("Response returned");
   } else {
     res.status(404).json({
       success: false,

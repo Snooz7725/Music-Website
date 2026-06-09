@@ -38,6 +38,11 @@ function Album() {
         loadData()
     }, [])
 
+    console.log("Parent rendered");
+
+    const [count, setCount] = useState(0)
+    const refreshParent = () => setCount(c => ++c)
+
     const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
@@ -86,7 +91,7 @@ function Album() {
             { loadStatus == 'loaded' ? (
                 <>
                     <AlbumHero albumId={chosenAlbumData.id} thumbnail={albumMap[chosenAlbumData.id].thumbnail} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
-                    <SongList songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={musicData.liked_songs.data} />
+                    <SongList refreshParent={refreshParent} songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={musicData.liked_songs.data} />
                 </>
             ) : loadStatus == 'errored' ? (
                 <>
