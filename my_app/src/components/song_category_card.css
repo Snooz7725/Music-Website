@@ -22,11 +22,10 @@
     justify-content: center;
     align-items: center;
     /* Flexboxes are controlling the height with "flex: 1" */
-    height: 205px;
-    width: 205px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     padding: 0.2vw;
-    transition: height ease 0.3s;
 }
 
 .song-category-card-wrapper .icon-wrapper::after {
@@ -36,7 +35,6 @@
     inset: 0;
     z-index: 999;
     background: linear-gradient(to bottom, transparent, transparent);
-    transition: opacity ease 0.3s;
 }
 
 .song-category-card-wrapper .background-thumbnail {
@@ -46,7 +44,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity ease 0.3s;
 }
 
 .song-category-card-wrapper .thumbnail {
@@ -65,11 +62,6 @@
     width: 100%;
     min-width: 0;
     gap: 0.4rem;
-    transition: padding ease 0.3s, gap ease 0.3s;
-}
-
-.song-category-card-wrapper .details * {
-    transition: font-size ease 0.3s;
 }
 
 .song-category-card-wrapper .details a {
@@ -82,6 +74,8 @@
 
 .song-category-card-wrapper .details h2,
 .song-category-card-wrapper .details h3 {
+    flex: 1;
+    font-size: 0.9rem;
     width: 100%;
     min-width: 0;
     overflow: hidden;
@@ -89,15 +83,7 @@
     white-space: nowrap;
 }
 
-.song-category-card-wrapper .details h2 {
-    flex: 1;
-    font-size: 1rem;
-    font-weight: 700;
-}
-
 .song-category-card-wrapper .details h3 {
-    flex: 1;
-    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.5);
 }
 
@@ -115,16 +101,16 @@
     padding-bottom: 0.3rem;
     box-shadow: 0 0 18px rgba(0, 0, 0, 0.8); 
     flex: 0 0 auto;
-    transition: width ease 0.2s;
 }
 
 .clone-song-category-card-wrapper:hover {
-    width: 350px;
+    width: 280px;
+    transition: width ease 0.2s;
 }
 
 .clone-song-category-card-wrapper:hover .icon-wrapper {
     height: 165px;
-    width: 100%;
+    transition: height ease 0.3s;
 }
 
 .clone-song-category-card-wrapper:hover .thumbnail {
@@ -134,20 +120,24 @@
 
 .clone-song-category-card-wrapper:hover .background-thumbnail {
     opacity: 1;
+    transition: opacity ease 1.2s;
 }
 
 .clone-song-category-card-wrapper:hover .icon-wrapper::after {
     background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.9));
     opacity: 1;
+    transition: opacity ease 0.3s;
 }
 
 .clone-song-category-card-wrapper:hover .details {
     padding: 1rem;
     gap: 0.6rem;
+    transition: padding ease 0.3s, gap ease 0.3s;
 }
 
 .clone-song-category-card-wrapper:hover .details * {
-    font-size: 1.25rem;
+    font-size: 1rem;
+    transition: font-size ease 0.3s;
 }
 
 .clone-song-category-card-wrapper .icon-wrapper {
@@ -158,11 +148,10 @@
     justify-content: center;
     align-items: center;
     /* Flexboxes are controlling the height with "flex: 1" */
-    height: 205px;
-    width: 205px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     padding: 0.2vw;
-    transition: height ease 0.3s;
 }
 
 .clone-song-category-card-wrapper .icon-wrapper::after {
@@ -172,7 +161,6 @@
     inset: 0;
     z-index: 999;
     background: linear-gradient(to bottom, transparent, transparent);
-    transition: opacity ease 0.3s;
 }
 
 .clone-song-category-card-wrapper .background-thumbnail {
@@ -182,7 +170,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity ease 1.2s;
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.6); 
 }
 
@@ -202,11 +189,6 @@
     width: 100%;
     min-width: 0;
     gap: 0.4rem;
-    transition: padding ease 0.3s, gap ease 0.3s;
-}
-
-.clone-song-category-card-wrapper .details * {
-    transition: font-size ease 0.3s;
 }
 
 .clone-song-category-card-wrapper .details a {
@@ -219,21 +201,15 @@
 
 .clone-song-category-card-wrapper .details h2,
 .clone-song-category-card-wrapper .details h3 {
+    flex: 1;
     width: 100%;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.clone-song-category-card-wrapper .details h2 {
-    flex: 1;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 0.9rem;
 }
 
 .clone-song-category-card-wrapper .details h3 {
-    flex: 1;
-    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.5);
 }
