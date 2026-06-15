@@ -49,7 +49,7 @@ function Album() {
     let likedAlbumsData = []
     let songData = []
     let artistData = []
-    let albumMap = {}
+    let filteredAlbumMap = {}
     let artistMap = {}
     if (musicData.loadState == 'loaded') {
         albumData = musicData.albums
@@ -77,10 +77,10 @@ function Album() {
             return song
         })
 
-        albumMap = Object.fromEntries(Object.entries(filteredAlbumData))
+        filteredAlbumMap = Object.fromEntries(filteredAlbumData.map(album => [album.id, album]))
 
         artistData = musicData.artists.filter(artist => artist.id == chosenAlbumData.artist_id)
-        artistMap = Object.fromEntries(Object.entries(artistData))
+        artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
     }
 
     const handleRemoveLikedSong = async (songId) => {
@@ -207,7 +207,7 @@ function Album() {
             {musicData.loadState == 'loaded' ? (
                 <>
                     <AlbumHero handleRemoveLikedAlbum={handleRemoveLikedAlbum} handleAddAlbumToLiked={handleAddAlbumToLiked} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={chosenAlbumData} artist={artistMap[chosenAlbumData.artist_id].name} count={filteredAlbumData.length} />
-                    <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={likedSongs} />
+                    <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={filteredAlbumMap} artistMap={artistMap} />
                 </>
             ) : musicData.loadState == 'errored' ? (
                 <>

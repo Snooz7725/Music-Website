@@ -46,8 +46,8 @@ function Liked() {
             ...likedSong,
             isLiked: true
         }));
-
-        albumMap = Object.fromEntries(albumData.map(album => [album.id, album, album.thumbnail]))
+        
+        albumMap = Object.fromEntries(albumData.map(album => [album.id, album]))
         
         artistData = musicData.artists.filter(artist => songData.some(song => song.artist_id == artist.id))
         artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
@@ -133,7 +133,7 @@ function Liked() {
             {musicData.loadState == 'loaded' ? (
                 <>
                     <LikedSongsHero count={songData.length} />
-                    <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={likedSongs} />
+                    <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} />
                 </>
             ) : musicData.loadState == 'errored' ? (
                 <>

@@ -1,7 +1,6 @@
 import './song_list.css'
-import { useState } from 'react'
 
-function SongList({ handleRemoveLikedSong, handleAddSongToLiked, songData, albumMap, artistMap, likedSongs}) {
+function SongList({ handleRemoveLikedSong, handleAddSongToLiked, songData, albumMap, artistMap}) {
     return (
         <div className="song-list-wrapper">
             <div className="song-grid">
