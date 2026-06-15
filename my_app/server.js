@@ -1,8 +1,6 @@
-import { timeStamp } from 'console';
 import express from 'express'; // server and routes
 import fs from 'fs'; // reads and writes files
 import path from 'path'; // builds safe file paths
-import { data } from 'react-router-dom';
 import { fileURLToPath } from 'url'; // helps get currren folder when using ES modules
 
 const app = express(); // server obj
@@ -12,9 +10,9 @@ const __filename = fileURLToPath(import.meta.url); // setting file path (filenam
 const __dirname = path.dirname(__filename); // setting the file dir name
 const dbPath = path.join(__dirname, 'src', 'data', 'db.json');
 
-// ==============
+// ================
 // Routes
-// ==============
+// ================
 
 // Response structure:
 // {
@@ -92,6 +90,50 @@ app.delete('/liked-songs', (req, res) => {
   }
 });
 
+app.delete('/liked-albums', (req, res) => {
+  const { type } = req.query;
+  console.log("Album removed from liked")
+  
+  if (type == 'removeAlbumFromLiked') {
+    const { albumId } = req.query;
+
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+    let albumToRemoveIndex = null;
+    const albumToRemove = db.liked_albums.data.find((album, index) => {
+      if (album.album_id == albumId) {
+        albumToRemoveIndex = index;
+        return true;
+      } else return false;
+    });
+
+    // If nothing is found (which should be impossible) return to avoid server errors
+    if (albumToRemove === undefined) {
+      res.status(404).json({
+        success: false,
+        msg: 'Album ID did not match any available albums',
+        data: null,
+      });
+      return;
+    }
+
+    db.liked_albums.data.splice(albumToRemoveIndex, 1);
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+
+    res.status(200).json({
+      success: true,
+      msg: 'Liked Album successfully removed from liked',
+      data: null,
+    });
+  } else {
+    res.status(404).json({
+      success: false,
+      msg: 'Invalid route for HTTP method DELETE',
+      data: null,
+    });
+  }
+});
+
 app.get('/data', (req, res) => {
   const { type } = req.query;
 
@@ -122,7 +164,7 @@ app.get('/data', (req, res) => {
     filteredResults = dbArr.map(([tableName, tableArr]) => { 
       if (!whiteListedTables.includes(tableName)) return []; // Prevent looping through tables not white-listed
 
-      tableData = tableArr.data;
+      let tableData = tableArr.data;
 
       if (tableData.length < 1) return [];
       
@@ -243,7 +285,54 @@ app.post('/liked-songs', async (req, res) => {
       data: null,
     });
 
-    console.log("Response returned");
+  } else {
+    res.status(404).json({
+      success: false,
+      msg: 'Invalid route for HTTP method POST',
+      data: null,
+    });
+  }
+})
+
+app.post('/liked-albums', async (req, res) => {
+  const { type, albumId } = req.query;
+  console.log("Album added to liked")
+
+  if (type == 'addAlbumToLiked') {
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+    const album = db.albums.data.find(album => Number(album?.id) === Number(albumId));
+
+    // If nothing is found (which should be impossible) return to avoid server errors
+    if (album === undefined) {
+      res.status(404).json({
+        success: false,
+        msg: 'album ID did not match any available albums',
+        data: null,
+      });
+      return;
+    }
+
+    const chosenId = Number(db.liked_albums.newId);
+
+    // Add album to liked albums object
+    db.liked_albums.data.push({
+      id: chosenId,
+      album_id: Number(albumId)
+    });
+
+    // Update newId register for later use
+    db.liked_albums.newId++;
+
+    // Save back to DB
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+
+    res.status(200).json({
+      success: true,
+      msg: 'Album successfully added to liked',
+      data: null,
+    });
+
   } else {
     res.status(404).json({
       success: false,

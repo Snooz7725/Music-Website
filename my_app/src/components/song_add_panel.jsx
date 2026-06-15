@@ -2,7 +2,7 @@ import './song_add_panel.css'
 import { useState } from "react"
 
 function SongAddPanel() {
-    async function handleSongAdd(artistName, songName, albumName, albumNameFlag) {
+    async function handleAddNewSong(artistName, songName, albumName, albumNameFlag) {
         let data = {}
         if (albumNameFlag) {
             data = {
@@ -31,7 +31,7 @@ function SongAddPanel() {
         } catch (error) {console.error('Fetch failed:', error)}
     }
 
-    const [ searchData, setSearchData ] = useState({
+    const [ newSongData, setnewSongData ] = useState({
         artistName: '',
         songName: '',
         albumName: '',
@@ -45,9 +45,9 @@ function SongAddPanel() {
     const [ toggleFlag, setToggleFlag ] = useState(false)
 
     const addBtn =
-        searchData.songName.trim() !== ''
-        && searchData.artistName.trim() !== ''
-        && ((!albumCheckbox) || searchData.albumName.trim() !== '')
+        newSongData.songName.trim() !== ''
+        && newSongData.artistName.trim() !== ''
+        && ((!albumCheckbox) || newSongData.albumName.trim() !== '')
 
     document.addEventListener('paste', async (e) => {
         // pasteFlag is for checking if the checkbox for thumbnails is selected
@@ -70,7 +70,7 @@ function SongAddPanel() {
                     const blob = item.getAsFile();
                     // getAsFile() fails silently
                     if (!blob) continue;
-                    setSearchData(prev => ({ 
+                    setnewSongData(prev => ({ 
                         ...prev, 
                         thumbnailData: blob 
                     }))
@@ -92,11 +92,11 @@ function SongAddPanel() {
                 <span>Looking For Something?</span>
             </div>
             <div className="input-wrapper">
-                <input type="text" placeholder="Enter artist" className="text-input" onChange={(e) => setSearchData(prev => ({
+                <input type="text" placeholder="Enter artist" className="text-input" onChange={(e) => setnewSongData(prev => ({
                     ...prev,
                     "artistName": e.target.value
                 }))}/>
-                <input type="text" placeholder="Enter song" className="text-input" onChange={(e) => setSearchData(prev => ({
+                <input type="text" placeholder="Enter song" className="text-input" onChange={(e) => setnewSongData(prev => ({
                     ...prev,
                     "songName": e.target.value
                 }))}/>
@@ -105,7 +105,7 @@ function SongAddPanel() {
                     <button className={ albumCheckbox ? "active checkbox" : "checkbox"} onClick={() => setAlbumCheckbox(prev => !prev)}></button>
                     <label className="details">Create an album/Add song to an existing album</label>
                 </div>
-                <input type="text" placeholder="Enter album" className={ albumCheckbox ? 'text-input' : 'disabled text-input'} disabled={ !albumCheckbox } onChange={(e) => setSearchData(prev => ({
+                <input type="text" placeholder="Enter album" className={ albumCheckbox ? 'text-input' : 'disabled text-input'} disabled={ !albumCheckbox } onChange={(e) => setnewSongData(prev => ({
                     ...prev,
                     "albumName": e.target.value
                 }))}/>
@@ -115,7 +115,7 @@ function SongAddPanel() {
                     <label className="details">Add thumbnail</label>
                 </div>
                 <div className="thumbnail-output">
-                    { searchData.thumbnailData == '' ? (
+                    { newSongData.thumbnailData == '' ? (
                         <button className={ 
                             thumbnailCheckbox && !toggleFlag ? "btn paste-thumbnail-btn"
                             : thumbnailCheckbox && toggleFlag ? "btn paste-thumbnail-btn toggled"
@@ -133,16 +133,18 @@ function SongAddPanel() {
                             <div className="img-wrapper">
                                 <img src={ imgURL }></img>
                             </div>
-                            <button className="btn cancel-thumbnail-btn" onClick={() => setSearchData(prev => ({
+                            <button className="btn cancel-thumbnail-btn" onClick={() => setnewSongData(prev => ({
                                 ...prev,
                                 "thumbnailData": ''
-                            }))}></button>
+                            }))}>
+                                <img src="./assets/white_closed_bin.png" alt="delete" />
+                            </button>
                         </>
                     )}
                 </div>
             </div>
             <hr className="main-hr"/>
-                <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleSongAdd(searchData.artistName, searchData.songName, searchData.albumName, albumCheckbox)}>
+                <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong(newSongData.artistName, newSongData.songName, newSongData.albumName, newSongData.thumbnail, albumCheckbox)}>
                     <img src="/assets/white_plus.png" alt="" />
                 </button>
         </div>

@@ -7,19 +7,26 @@ import SongList from '../components/song_list'
 import ErrorCard from '../components/error_card'
 import LoadingCard from '../components/loading_card'
 
+// ================
+// Flow
+// ================
+//
+// - First render has no data -> immediate re-render to pull data
+// - Handlers run -> re-render, then immediate re-render to pull data
+
 function Album() {
     function reload() {
         setCount(prev => ++prev)
     }
 
     const [count, setCount] = useState(0)
-    const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
         artists: [],
         liked_songs: [],
-        liked_albums: []
+        liked_albums: [],
+        loadState: "loading"
     })
 
     const navigate = useNavigate()
@@ -27,7 +34,6 @@ function Album() {
     const params = useParams()
 
     const albumId = Number(params.id)
-    // console.log(params.id)
 
     // If param not available
     if (isNaN(albumId)) {
@@ -35,29 +41,35 @@ function Album() {
     }
 
     // If album not found
-    let albumData = null
+    let albumData = []
     let chosenAlbumData = []
     let likedSongs = []
-    let songData = null
-    let artistData = null
+    let likedAlbums = []
+    let songData = []
+    let artistData = []
     let albumMap = {}
     let artistMap = {}
-    if (loadStatus == 'loaded') {
+    if (musicData.loadState == 'loaded') {
         albumData = musicData.albums.data.filter(album => album.id == albumId)
+        likedAlbums = musicData.liked_albums.data
+
+        chosenAlbumData = albumData[0]
+
+        if (likedAlbums.some(likedAlbum => likedAlbum.album_id === chosenAlbumData.id)) {
+            chosenAlbumData = {...chosenAlbumData, isLiked: true}
+        } else chosenAlbumData = {...chosenAlbumData, isLiked: false}
 
         if (albumData.length === 0) {
             return <Navigate to="/" replace />
         }
 
-        chosenAlbumData = albumData[0];
-
-        likedSongs = musicData.liked_songs.data;
+        likedSongs = musicData.liked_songs.data
         songData = musicData.songs.data.filter(song => song.album_id == chosenAlbumData.id).map(song => {
             if (likedSongs.some(likedSong => likedSong.song_id == song.id)) {
-                song.isLiked = true;
-            } else song.isLiked = false;
+                song.isLiked = true
+            } else song.isLiked = false
 
-            return song;
+            return song
         })
 
         albumMap = Object.fromEntries(albumData.map(album => [album.id, album, album.thumbnail]))
@@ -67,7 +79,6 @@ function Album() {
     }
 
     const handleRemoveLikedSong = async (songId) => {
-        let resJson = {}
         try {
             const res = await fetch(
                 `/api/liked-songs?type=removeSongFromLiked&songId=${songId}`, 
@@ -77,16 +88,12 @@ function Album() {
             )
 
             if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
-
-            resJson = await res.json()
         } catch (error) {console.error('Fetch failed:', error)}
 
         reload()
     }
 
     const handleAddSongToLiked = async (songId) => {
-        console.log("handleAddSongToLiked running..")
-        let resJson = {}
         try {
             const res = await fetch(
                 `/api/liked-songs?type=addSongToLiked&songId=${songId}`,
@@ -96,16 +103,42 @@ function Album() {
             )
 
             if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
-
-            resJson = await res.json()
         } catch (error) {console.error('Fetch failed:', error)}
 
         reload()
-        console.log("handleAddSongToLiked finished")
+    }
+
+    const handleRemoveLikedAlbum = async (albumId) => {
+        try {
+            const res = await fetch(
+                `/api/liked-albums?type=removeAlbumFromLiked&albumId=${albumId}`, 
+                {
+                    method: "DELETE"
+                }
+            )
+
+            if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
+        } catch (error) {console.error('Fetch failed:', error)}
+
+        reload()
+    }
+
+    const handleAddAlbumToLiked = async (albumId) => {
+        try {
+            const res = await fetch(
+                `/api/liked-albums?type=addAlbumToLiked&albumId=${albumId}`,
+                {
+                    method: "POST"
+                }
+            )
+
+            if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
+        } catch (error) {console.error('Fetch failed:', error)}
+
+        reload()
     }
 
     const handleDeleteAlbum = async (id) => {
-        let resJson = {}
         try {
             const res = await fetch(
                 `/api/albums/${id}`,
@@ -115,16 +148,15 @@ function Album() {
             )
 
             if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
-
-            resJson = await res.json()
         } catch (error) {console.error('Fetch failed:', error)}
 
         navigate('/')
     }
     
     useEffect(() => {
-        let errorFlag = false
-        async function loadData(errorFlag) {
+        async function loadData() {
+            let errorFlag = false
+            let db = {}
             try {
                 const response = await fetch(`/api/data?type=all`, { 
                     method: 'GET'
@@ -134,17 +166,27 @@ function Album() {
                     throw new Error(`HTTP error: ${response.status}`)
                 }
 
-                const db = await response.json()
-                setMusicData(db.data)
+                db = await response.json()
             } catch (error) {
                 console.error('Fetch failed:', error)
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoadStatus('errored')
-                } else setLoadStatus('loaded')
-                
+                    setMusicData({
+                        albums: [],
+                        songs: [],
+                        artists: [],
+                        liked_songs: [],
+                        liked_albums: [],
+                        loadState: 'errored'
+                    })
+                } else setMusicData({
+                        ...db.data,
+                        loadState: 'loaded'
+                })
             }
+
+            // console.log(JSON.stringify(db, null, 2))
         }
 
         loadData()
@@ -153,19 +195,19 @@ function Album() {
     return (
         <div className="album-wrapper">
             <Sidebar />
-            { loadStatus == 'loaded' ? (
+            {musicData.loadState == 'loaded' ? (
                 <>
-                    <AlbumHero handleDeleteAlbum={handleDeleteAlbum} albumId={chosenAlbumData.id} thumbnail={albumMap[chosenAlbumData.id].thumbnail} albumTitle={chosenAlbumData.title} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
+                    <AlbumHero handleRemoveLikedAlbum={handleRemoveLikedAlbum} handleAddAlbumToLiked={handleAddAlbumToLiked} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={chosenAlbumData} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
                     <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={likedSongs} />
                 </>
-            ) : loadStatus == 'errored' ? (
+            ) : musicData.loadState == 'errored' ? (
                 <>
-                    <AlbumHero handleDeleteAlbum={handleDeleteAlbum} albumId="ERROR" albumTitle="ERROR" artist="" releaseDate="YYYY-MM-DD" count="" />
+                    <AlbumHero handleRemoveLikedAlbum={() => {}} handleAddAlbumToLiked={() => {}} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={{}} artist="" count="" />
                     <ErrorCard />
                 </>
             ) : (
                 <>
-                    <AlbumHero handleDeleteAlbum={handleDeleteAlbum} albumId="loading..." albumTitle="Loading..." artist="" releaseDate="YYYY-MM-DD" count="" />
+                    <AlbumHero handleRemoveLikedAlbum={() => {}} handleAddAlbumToLiked={() => {}} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={{}} artist="" count="" />
                     <LoadingCard />
                 </>
             )}
