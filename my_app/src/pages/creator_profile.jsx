@@ -77,7 +77,7 @@ function CreatorProfile() {
 
     return (
         <div className="creator-profile-wrapper">
-            <Sidebar />
+            <Sidebar likedAlbumsData={likedAlbumsData} />
             <div className="main-section">
                 <Searchbar />
                 <div className="main-content">

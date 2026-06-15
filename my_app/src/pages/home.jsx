@@ -1,6 +1,5 @@
 import './home.css'
 import { useState, useEffect } from 'react'
-import { data, useLocation } from 'react-router-dom';
 import Searchbar from '../components/searchbar'
 import Sidebar from '../components/sidebar'
 import Hero from '../components/hero'
@@ -12,70 +11,76 @@ import ErrorCard from '../components/error_card'
 
 function HomePage() {
     const [musicData, setMusicData] = useState({
-        state: 'loading',
-        data: null
+        albums: [],
+        songs: [],
+        artists: [],
+        liked_albums: [],
+        loadState: 'loading',
     })
 
-    let albumMap = {}
+    let albumData = []
     let artistMap = {}
+    let albumMap = {}
+    let likedAlbumsData = []
+    if (musicData.loadState == 'loaded') {
+        albumData = musicData.albums
+        likedAlbumsData = albumData.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
 
-    // Optional chaining stops null or undefined values from throwing
-    if (
-        musicData.state == 'loaded' 
-        && ((musicData.data?.albums?.data.length ?? 0) > 0)
-        && ((musicData.data?.artists?.data.length ?? 0) > 0)) 
-    {
-        albumMap = Object.fromEntries(musicData.data.albums.data.map(album => [album.id, album]))
-        artistMap = Object.fromEntries(musicData.data.artists.data.map(artist => [artist.id, artist]))
+        albumMap = Object.fromEntries(Object.entries(albumData))
+        artistMap = Object.fromEntries(Object.entries(musicData.artists))
     }
 
-    const location = useLocation();
-
-    useEffect(() => { // useEffects are for running things after the rendering process
+    useEffect(() => {
         async function loadData() {
             let errorFlag = false
-            let resJson = {};
-
+            let db = {}
             try {
-                const res = await fetch(`/api/data?type=all`, { 
+                const response = await fetch(`/api/data?type=all`, { 
                     method: 'GET'
                 })
 
-                if (!res.ok) {
-                    throw new Error(`HTTP error: ${res.status}`)
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`)
                 }
 
-                resJson = await res.json()
+                db = await response.json()
             } catch (error) {
                 console.error('Fetch failed:', error)
                 errorFlag = true
             } finally {
                 if (errorFlag) {
                     setMusicData({
-                    state: 'error',
-                    data: null
-                })
+                        albums: [],
+                        songs: [],
+                        artists: [],
+                        liked_albums: [],
+                        loadState: 'errored'
+                    })
                 } else setMusicData({
-                    state: 'loaded',
-                    data: resJson.data
+                    albums: db.data.albums.data,
+                    songs: db.data.songs.data,
+                    artists: db.data.artists.data,
+                    liked_albums: db.data.liked_albums.data,
+                    loadState: 'loaded'
                 })
+                
             }
         }
 
         loadData()
-    }, [location])
+    })
 
     return (
         <div className="home-wrapper">
-            <Sidebar />
+            <Sidebar likedAlbumsData={likedAlbumsData} />
             <div className="main-section">
                 <Searchbar />
                 <div className="main-content">
                     <Hero />
-                    {(musicData.state == 'loaded') ? (
+                    {(musicData.loadState == 'loaded') ? (
                         <>
                             <Category title="Songs">
-                                {musicData.data.songs.data.map((song) => (
+                                {musicData.songs.map(song => (
                                     <SongCategoryCard
                                         key={song.id}
                                         songId={song.id}
@@ -90,7 +95,7 @@ function HomePage() {
                             </Category>
 
                             <Category title="Albums">
-                                {musicData.data.albums.data.map((album) => (
+                                {albumData.map(album => (
                                     <AlbumCategoryCard
                                         key={album.id}
                                         albumId={album.id}
@@ -102,7 +107,7 @@ function HomePage() {
                                 ))}
                             </Category>
                         </>
-                    ) : (musicData.state == 'loading') ? (
+                    ) : (musicData.loadState == 'loading') ? (
                         <LoadingCard />
                     ) : (
                         <ErrorCard />

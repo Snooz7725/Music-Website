@@ -52,9 +52,9 @@ function Album() {
     let albumMap = {}
     let artistMap = {}
     if (musicData.loadState == 'loaded') {
-        albumData = musicData.albums.data
+        albumData = musicData.albums
         filteredAlbumData = albumData.filter(album => album.id == albumId)
-        likedAlbums = musicData.liked_albums.data
+        likedAlbums = musicData.liked_albums
 
         likedAlbumsData = albumData.filter(album => likedAlbums.some(likedAlbum => likedAlbum.album_id === album.id))
 
@@ -68,8 +68,8 @@ function Album() {
             return <Navigate to="/" replace />
         }
 
-        likedSongs = musicData.liked_songs.data
-        songData = musicData.songs.data.filter(song => song.album_id == chosenAlbumData.id).map(song => {
+        likedSongs = musicData.liked_songs
+        songData = musicData.songs.filter(song => song.album_id == chosenAlbumData.id).map(song => {
             if (likedSongs.some(likedSong => likedSong.song_id == song.id)) {
                 song.isLiked = true
             } else song.isLiked = false
@@ -77,10 +77,10 @@ function Album() {
             return song
         })
 
-        albumMap = Object.fromEntries(filteredAlbumData.map(album => [album.id, album, album.thumbnail]))
+        albumMap = Object.fromEntries(Object.entries(filteredAlbumData))
 
-        artistData = musicData.artists.data.filter(artist => artist.id == chosenAlbumData.artist_id)
-        artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
+        artistData = musicData.artists.filter(artist => artist.id == chosenAlbumData.artist_id)
+        artistMap = Object.fromEntries(Object.entries(artistData))
     }
 
     const handleRemoveLikedSong = async (songId) => {
@@ -186,7 +186,11 @@ function Album() {
                         loadState: 'errored'
                     })
                 } else setMusicData({
-                    ...db.data,
+                    albums: db.data.albums.data,
+                    songs: db.data.songs.data,
+                    artists: db.data.artists.data,
+                    liked_songs: db.data.liked_songs.data,
+                    liked_albums: db.data.liked_albums.data,
                     loadState: 'loaded'
                 })
             }

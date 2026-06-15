@@ -32,8 +32,8 @@ function Liked() {
     let albumMap = {}
     let artistMap = {}
     if (musicData.loadState == 'loaded') {
-        albumData = musicData.albums.data
-        likedAlbums = musicData.liked_albums.data
+        albumData = musicData.albums
+        likedAlbums = musicData.liked_albums
 
         likedAlbumsData = albumData.filter(album => likedAlbums.some(likedAlbum => likedAlbum.album_id === album.id))
 
@@ -41,15 +41,15 @@ function Liked() {
             return <Navigate to="/" replace />
         }
 
-        likedSongs = musicData.liked_songs.data
-        songData = musicData.songs.data.filter(song => likedSongs.some(likedSong => likedSong.song_id == song.id)).map(likedSong => ({
+        likedSongs = musicData.liked_songs
+        songData = musicData.songs.filter(song => likedSongs.some(likedSong => likedSong.song_id == song.id)).map(likedSong => ({
             ...likedSong,
             isLiked: true
         }));
 
         albumMap = Object.fromEntries(albumData.map(album => [album.id, album, album.thumbnail]))
         
-        artistData = musicData.artists.data.filter(artist => songData.some(song => song.artist_id == artist.id))
+        artistData = musicData.artists.filter(artist => songData.some(song => song.artist_id == artist.id))
         artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
     }
 
@@ -113,7 +113,11 @@ function Liked() {
                         loadState: 'errored'
                     })
                 } else setMusicData({
-                    ...db.data,
+                    albums: db.data.albums.data,
+                    songs: db.data.songs.data,
+                    artists: db.data.artists.data,
+                    liked_songs: db.data.liked_songs.data,
+                    liked_albums: db.data.liked_albums.data,
                     loadState: 'loaded'
                 })
                 
