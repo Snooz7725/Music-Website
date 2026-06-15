@@ -68,7 +68,7 @@ function HomePage() {
         }
 
         loadData()
-    })
+    }, [])
 
     return (
         <div className="home-wrapper">
