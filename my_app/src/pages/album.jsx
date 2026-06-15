@@ -42,24 +42,29 @@ function Album() {
 
     // If album not found
     let albumData = []
+    let filteredAlbumData = []
     let chosenAlbumData = []
     let likedSongs = []
     let likedAlbums = []
+    let likedAlbumsData = []
     let songData = []
     let artistData = []
     let albumMap = {}
     let artistMap = {}
     if (musicData.loadState == 'loaded') {
-        albumData = musicData.albums.data.filter(album => album.id == albumId)
+        albumData = musicData.albums.data
+        filteredAlbumData = albumData.filter(album => album.id == albumId)
         likedAlbums = musicData.liked_albums.data
 
-        chosenAlbumData = albumData[0]
+        likedAlbumsData = albumData.filter(album => likedAlbums.some(likedAlbum => likedAlbum.album_id === album.id))
+
+        chosenAlbumData = filteredAlbumData[0]
 
         if (likedAlbums.some(likedAlbum => likedAlbum.album_id === chosenAlbumData.id)) {
             chosenAlbumData = {...chosenAlbumData, isLiked: true}
         } else chosenAlbumData = {...chosenAlbumData, isLiked: false}
 
-        if (albumData.length === 0) {
+        if (filteredAlbumData.length === 0) {
             return <Navigate to="/" replace />
         }
 
@@ -72,7 +77,7 @@ function Album() {
             return song
         })
 
-        albumMap = Object.fromEntries(albumData.map(album => [album.id, album, album.thumbnail]))
+        albumMap = Object.fromEntries(filteredAlbumData.map(album => [album.id, album, album.thumbnail]))
 
         artistData = musicData.artists.data.filter(artist => artist.id == chosenAlbumData.artist_id)
         artistMap = Object.fromEntries(artistData.map(artist => [artist.id, artist]))
@@ -181,8 +186,8 @@ function Album() {
                         loadState: 'errored'
                     })
                 } else setMusicData({
-                        ...db.data,
-                        loadState: 'loaded'
+                    ...db.data,
+                    loadState: 'loaded'
                 })
             }
 
@@ -194,10 +199,10 @@ function Album() {
 
     return (
         <div className="album-wrapper">
-            <Sidebar />
+            <Sidebar likedAlbumsData={likedAlbumsData} />
             {musicData.loadState == 'loaded' ? (
                 <>
-                    <AlbumHero handleRemoveLikedAlbum={handleRemoveLikedAlbum} handleAddAlbumToLiked={handleAddAlbumToLiked} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={chosenAlbumData} artist={artistMap[chosenAlbumData.artist_id].name} count={albumData.length} />
+                    <AlbumHero handleRemoveLikedAlbum={handleRemoveLikedAlbum} handleAddAlbumToLiked={handleAddAlbumToLiked} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={chosenAlbumData} artist={artistMap[chosenAlbumData.artist_id].name} count={filteredAlbumData.length} />
                     <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={likedSongs} />
                 </>
             ) : musicData.loadState == 'errored' ? (

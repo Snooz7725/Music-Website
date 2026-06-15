@@ -13,24 +13,29 @@ function Liked() {
     }
 
     const [count, setCount] = useState(0)
-    const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
         artists: [],
         liked_songs: [],
-        liked_albums: []
+        liked_albums: [],
+        loadState: [],
     })
 
     // If album not found
-    let albumData = null
+    let albumData = []
     let likedSongs = []
-    let songData = null
-    let artistData = null
+    let likedAlbums = []
+    let likedAlbumsData = []
+    let songData = []
+    let artistData = []
     let albumMap = {}
     let artistMap = {}
-    if (loadStatus == 'loaded') {
+    if (musicData.loadState == 'loaded') {
         albumData = musicData.albums.data
+        likedAlbums = musicData.liked_albums.data
+
+        likedAlbumsData = albumData.filter(album => likedAlbums.some(likedAlbum => likedAlbum.album_id === album.id))
 
         if (albumData.length === 0) {
             return <Navigate to="/" replace />
@@ -49,7 +54,6 @@ function Liked() {
     }
 
     const handleRemoveLikedSong = async (songId) => {
-        let resJson = {}
         try {
             const res = await fetch(
                 `/api/liked-songs?type=removeSongFromLiked&songId=${songId}`, 
@@ -59,8 +63,6 @@ function Liked() {
             )
 
             if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
-
-            resJson = await res.json()
         } catch (error) {console.error('Fetch failed:', error)}
 
         reload()
@@ -68,7 +70,6 @@ function Liked() {
 
     const handleAddSongToLiked = async (songId) => {
         console.log("handleAddSongToLiked running..")
-        let resJson = {}
         try {
             const res = await fetch(
                 `/api/liked-songs?type=addSongToLiked&songId=${songId}`,
@@ -78,8 +79,6 @@ function Liked() {
             )
 
             if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
-
-            resJson = await res.json()
         } catch (error) {console.error('Fetch failed:', error)}
 
         reload()
@@ -87,8 +86,9 @@ function Liked() {
     }
     
     useEffect(() => {
-        let errorFlag = false
-        async function loadData(errorFlag) {
+        async function loadData() {
+            let errorFlag = false
+            let db = {}
             try {
                 const response = await fetch(`/api/data?type=all`, { 
                     method: 'GET'
@@ -98,15 +98,24 @@ function Liked() {
                     throw new Error(`HTTP error: ${response.status}`)
                 }
 
-                const db = await response.json()
-                setMusicData(db.data)
+                db = await response.json()
             } catch (error) {
                 console.error('Fetch failed:', error)
                 errorFlag = true
             } finally {
                 if (errorFlag) {
-                    setLoadStatus('errored')
-                } else setLoadStatus('loaded')
+                    setMusicData({
+                        albums: [],
+                        songs: [],
+                        artists: [],
+                        liked_songs: [],
+                        liked_albums: [],
+                        loadState: 'errored'
+                    })
+                } else setMusicData({
+                    ...db.data,
+                    loadState: 'loaded'
+                })
                 
             }
         }
@@ -116,13 +125,13 @@ function Liked() {
 
     return (
         <div className="liked-wrapper">
-            <Sidebar />
-            { loadStatus == 'loaded' ? (
+            <Sidebar likedAlbumsData={likedAlbumsData} />
+            {musicData.loadState == 'loaded' ? (
                 <>
                     <LikedSongsHero count={songData.length} />
                     <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} likedSongs={likedSongs} />
                 </>
-            ) : loadStatus == 'errored' ? (
+            ) : musicData.loadState == 'errored' ? (
                 <>
                     <LikedSongsHero count="ERROR" />
                     <ErrorCard />

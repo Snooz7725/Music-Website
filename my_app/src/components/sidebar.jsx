@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import './sidebar.css'
 
 
-function Sidebar() {
+function Sidebar({ likedAlbumsData }) {
     const [open, setOpen] = useState(false)
 
     return (
@@ -41,15 +41,17 @@ function Sidebar() {
                     </div>
                 </NavLink></li>
 
-                {/* <li><NavLink to="/album/1" className="album-btn btn">
-                    <div className="icon-wrapper">
-                        <img src="/assets/album_placeholder.jpg" alt="Album" />
-                    </div>
-                    <div className={open ? 'open-content' : 'open-content hidden'}>
-                        <span className="name">Album</span>
-                        <span className="count">Count: <span>90</span></span>
-                    </div>
-                </NavLink></li> */}
+                {likedAlbumsData.map(likedAlbum => 
+                    <li key={likedAlbum.id}><NavLink to={'/album/' + likedAlbum.id} className="album-btn btn">
+                        <div className="icon-wrapper">
+                            <img src={'/assets/' + likedAlbum.thumbnail} alt="Album" />
+                        </div>
+                        <div className={open ? 'open-content' : 'open-content hidden'}>
+                            <span className="name">Album</span>
+                            <span className="count">Count: <span>90</span></span>
+                        </div>
+                    </NavLink></li>
+                )}
             </ul>
         </nav>
     )
