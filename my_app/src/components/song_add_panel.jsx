@@ -62,7 +62,7 @@ function SongAddPanel() {
         <div className="song-add-panel-wrapper">
             <div className="hero">
                 <img src="./assets/microphone.jpg" alt=""/>
-                <span>Looking For Something?</span>
+                <span>Wanna Add A New Song?</span>
             </div>
             <div className="input-wrapper">
                 <input type="text" placeholder="Enter artist" className="text-input" onChange={(e) => setnewSongData(prev => ({
@@ -117,9 +117,13 @@ function SongAddPanel() {
                 </div>
             </div>
             <hr className="main-hr"/>
+            <div className="btn-list">
                 <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong}>
                     <img src="/assets/white_plus.png" alt="" />
                 </button>
+                <button className="btn">
+                </button>
+            </div>
         </div>
     )
 };

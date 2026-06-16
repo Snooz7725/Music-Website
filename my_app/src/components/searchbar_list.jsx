@@ -7,9 +7,8 @@ function SearchbarList({ searchResultsData = [] }) {
             {searchResultsData.map(result => {
                 if (result.type === 'songs') {
                     return (
-                        // http://localhost:5173/album/0
-                        <Link to={`/album/${result.album_id}`} className="search-row three-cols" key={`song-${result.id}`}>
-                            <span>SONG</span>
+                        <Link to={`/album/${result.album_id}`} className="search-row" key={`song-${result.id}`}>
+                            <span>Song</span>
                             <span>{result.artist_name}</span>
                             <span>{result.title}</span>
                         </Link>
@@ -19,7 +18,7 @@ function SearchbarList({ searchResultsData = [] }) {
                 if (result.type === 'artists') { 
                     return (
                         <Link to={`/profile/${result.id}`} className="search-row" key={`artist-${result.id}`}>
-                            <span>ARTIST</span>
+                            <span>Artist</span>
                             <span>{result.artist_name}</span>
                             <span></span>
                         </Link>
@@ -28,8 +27,8 @@ function SearchbarList({ searchResultsData = [] }) {
 
                 if (result.type === 'albums') {
                     return (
-                        <Link to={`/album/${result.id}`} className="search-row three-cols" key={`album-${result.id}`}>
-                            <span>ALBUM</span>
+                        <Link to={`/album/${result.id}`} className="search-row" key={`album-${result.id}`}>
+                            <span>Album</span>
                             <span>{result.artist_name}</span>
                             <span>{result.title}</span>
                         </Link>

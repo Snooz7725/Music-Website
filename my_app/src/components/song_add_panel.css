@@ -121,6 +121,11 @@
     background-color: white;
 }
 
+.song-add-panel-wrapper .btn-list {
+    display: flex;
+    gap: 1vw;
+}
+
 .song-add-panel-wrapper .btn {
     border: 1px solid var(--prim-colour);
     border-radius: 0.8vw;

@@ -47,6 +47,7 @@ function Album() {
     let likedSongs = []
     let likedAlbums = []
     let likedAlbumsData = []
+    let likedSongsCount = null
     let songData = []
     let artistData = []
     let filteredAlbumMap = {}
@@ -57,6 +58,19 @@ function Album() {
         likedAlbums = musicData.liked_albums
 
         likedAlbumsData = albumData.filter(album => likedAlbums.some(likedAlbum => likedAlbum.album_id === album.id))
+        likedAlbumsData = likedAlbumsData.map(likedAlbum => {
+            // Count amount of songs that share album id and include it into the likedAlbumsData
+            let songCount = musicData.songs.reduce((acc, song) => {
+                if (song.album_id === likedAlbum.id) {
+                    return ++acc
+                } else return acc
+            }, 0)
+
+            likedAlbum.count = songCount
+            return likedAlbum
+        })
+
+        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
 
         chosenAlbumData = filteredAlbumData[0]
 
@@ -203,7 +217,7 @@ function Album() {
 
     return (
         <div className="album-wrapper">
-            <Sidebar likedAlbumsData={likedAlbumsData} />
+            <Sidebar likedAlbumsData={likedAlbumsData} likedSongsCount={likedSongsCount} />
             {musicData.loadState == 'loaded' ? (
                 <>
                     <AlbumHero setListFormat={setListFormat} handleRemoveLikedAlbum={handleRemoveLikedAlbum} handleAddAlbumToLiked={handleAddAlbumToLiked} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={chosenAlbumData} artist={artistMap[chosenAlbumData.artist_id].name} count={songData.length} />

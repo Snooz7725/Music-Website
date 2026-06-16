@@ -15,6 +15,7 @@ function HomePage() {
         songs: [],
         artists: [],
         liked_albums: [],
+        liked_songs: [],
         loadState: 'loading',
     })
 
@@ -22,9 +23,23 @@ function HomePage() {
     let artistMap = {}
     let albumMap = {}
     let likedAlbumsData = []
+    let likedSongsCount = null
     if (musicData.loadState == 'loaded') {
         albumData = musicData.albums
         likedAlbumsData = albumData.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
+        likedAlbumsData = likedAlbumsData.map(likedAlbum => {
+            // Count amount of songs that share album id and include it into the likedAlbumsData
+            let songCount = musicData.songs.reduce((acc, song) => {
+                if (song.album_id === likedAlbum.id) {
+                    return ++acc
+                } else return acc
+            }, 0)
+
+            likedAlbum.count = songCount
+            return likedAlbum
+        })
+
+        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
 
         albumMap = Object.fromEntries(Object.entries(albumData))
         artistMap = Object.fromEntries(Object.entries(musicData.artists))
@@ -54,6 +69,7 @@ function HomePage() {
                         songs: [],
                         artists: [],
                         liked_albums: [],
+                        liked_songs: db.data.liked_songs.data,
                         loadState: 'errored'
                     })
                 } else setMusicData({
@@ -61,6 +77,7 @@ function HomePage() {
                     songs: db.data.songs.data,
                     artists: db.data.artists.data,
                     liked_albums: db.data.liked_albums.data,
+                    liked_songs: db.data.liked_songs.data,
                     loadState: 'loaded'
                 })
                 
@@ -72,7 +89,7 @@ function HomePage() {
 
     return (
         <div className="home-wrapper">
-            <Sidebar likedAlbumsData={likedAlbumsData} />
+            <Sidebar likedAlbumsData={likedAlbumsData} likedSongsCount={likedSongsCount} />
             <div className="main-section">
                 <Searchbar />
                 <div className="main-content">

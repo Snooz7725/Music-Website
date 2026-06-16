@@ -240,18 +240,23 @@
     opacity: 0;
 }
 
+.sidebar-wrapper .open-content {
+    white-space: nowrap;
+    min-width: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .sidebar-wrapper .open-content .title {
-    font-weight: 900;
+    font-weight: bold;
     font-size: 0.9rem;
 }
 
 .sidebar-wrapper .open-content .name {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.05rem;
 }
 
 .sidebar-wrapper .open-content .count {
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.85rem;
 }

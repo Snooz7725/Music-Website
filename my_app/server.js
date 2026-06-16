@@ -8,7 +8,7 @@ app.use(express.json()); // configures server to parse json files
 
 const __filename = fileURLToPath(import.meta.url); // setting file path (filename = file path)
 const __dirname = path.dirname(__filename); // setting the file dir name
-const dbPath = path.join(__dirname, 'src', 'data', 'db.json');
+const dbPath = path.join(__dirname, 'data', 'db.json');
 
 // ================
 // Routes

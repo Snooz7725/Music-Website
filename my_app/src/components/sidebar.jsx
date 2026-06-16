@@ -3,9 +3,8 @@ import { NavLink } from 'react-router-dom'
 import './sidebar.css'
 
 
-function Sidebar({ likedAlbumsData }) {
+function Sidebar({ likedAlbumsData, likedSongsCount }) {
     const [open, setOpen] = useState(false)
-
     return (
         // State/class controlled width + transition + potentially translateX for fluidity
         // Record closed sidebar width
@@ -18,7 +17,7 @@ function Sidebar({ likedAlbumsData }) {
                     <img src="/assets/home_btn.png" alt="Home" />
                 </li></NavLink>
                 <NavLink to="/song-add"><li className="icon-wrapper search-btn">
-                    <img src="/assets/search_btn.png" alt="Search" />
+                    <img src="/assets/white_plus.png" alt="Add song" />
                 </li></NavLink>
             </ul>
             <ul className="btn-list">
@@ -37,7 +36,7 @@ function Sidebar({ likedAlbumsData }) {
                     </div>
                     <div className={open ? 'open-content' : 'open-content hidden'}>
                         <span className="name">Liked Songs</span>
-                        <span className="count">Count: <span>90</span></span>
+                        <span className="count">Count | {likedSongsCount}</span>
                     </div>
                 </NavLink></li>
 
@@ -47,8 +46,8 @@ function Sidebar({ likedAlbumsData }) {
                             <img src={'/assets/' + likedAlbum.thumbnail} alt="Album" />
                         </div>
                         <div className={open ? 'open-content' : 'open-content hidden'}>
-                            <span className="name">Album</span>
-                            <span className="count">Count: <span>90</span></span>
+                            <span className="name">{likedAlbum.title}</span>
+                            <span className="count">Count | {likedAlbum.count}</span>
                         </div>
                     </NavLink></li>
                 )}
