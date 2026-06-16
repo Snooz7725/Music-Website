@@ -2,20 +2,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aquamarine;
+    background-color: rgba(0, 0, 0, 0.6);
     height: var(--creator-hero-height);
-    margin-top: calc(var(--searchbar-height) + 2vh);
+    margin-right: 1vw;
+    border-radius: 0.5vh;
+    outline: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 9px rgba(255, 255, 255, 0.4); 
 }
 
 .creator-hero-wrapper .content-wrapper {
     display: flex;
     gap: 1vw;
     align-items: center;
-    background-color: rgb(255, 232, 127);
-    padding: calc(var(--creator-hero-height) * 0.05);
+    background: linear-gradient(to left, rgb(0, 24, 71), rgb(0, 0, 0));
+    padding: calc(var(--creator-hero-height) * 0.1);
     padding-left: calc(var(--creator-hero-height) * 0.1);
     padding-right: calc(var(--creator-hero-height) * 0.1);
     border-radius: 1rem;
+    outline: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 9px rgba(255, 255, 255, 0.4); 
 }
 
 .creator-hero-wrapper .img-wrapper {
@@ -35,7 +40,6 @@
 }
 
 .creator-hero-wrapper .details {
-    background-color: rgb(127, 178, 255);
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -47,8 +51,9 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
-    background-color: aquamarine;
     padding: 0 0.6rem;
+    outline: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 9px rgba(255, 255, 255, 0.4); 
 }
 
 .creator-hero-wrapper .details div p {

@@ -6,11 +6,11 @@
 
 .creator-profile-wrapper .main-section {
     flex: 1;
-    width: calc(100% - var(--closed-sidebar-width));
     margin-left: calc(var(--closed-sidebar-width) + 1vw);
 }
 
 .creator-profile-wrapper .main-content {
+    margin-top: calc(var(--searchbar-height) + 2vh);
     display: flex;
     flex-direction: column;
     gap: 2.6vh;

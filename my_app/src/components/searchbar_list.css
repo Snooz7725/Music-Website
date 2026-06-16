@@ -11,7 +11,7 @@
     box-shadow: 0 0 9px rgba(255, 255, 255, 0.4); 
 }
 
-.search-row {
+.searchbar-list-wrapper .search-row {
     border-radius: 0.1rem;
     text-align: left;
     height: var(--searchbar-height);
@@ -20,18 +20,31 @@
     align-items: center;
     text-decoration: none;
     padding: 0.5rem 0;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.search-row:hover {
+.searchbar-list-wrapper .artists {
+    background: rgba(0, 0, 0, 0);
+}
+
+.searchbar-list-wrapper .albums {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.searchbar-list-wrapper .songs {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.searchbar-list-wrapper .search-row:hover {
     background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 9px rgba(255, 255, 255, 0.4);
 }
 
-.search-row:active {
+.searchbar-list-wrapper .search-row:active {
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-.search-row span {
+.searchbar-list-wrapper .search-row span {
     flex: 1;
     text-align: left;
     color: white;
@@ -41,8 +54,4 @@
     text-overflow: ellipsis;
     overflow: hidden;
     padding: 0 1rem;
-}
-
-.three-cols span {
-    flex: 1;
 }

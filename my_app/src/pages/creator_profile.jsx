@@ -11,11 +11,13 @@ import ErrorCard from '../components/error_card'
 import LoadingCard from '../components/loading_card'
 
 function CreatorProfile() {
-    const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
         artists: [],
+        liked_albums: [],
+        liked_songs: [],
+        loadState: 'loading'
     })
 
     const params = useParams()
@@ -59,7 +61,6 @@ function CreatorProfile() {
         artistSongs = musicData.songs.filter(song => song.artist_id === artistId)
         albumMap = Object.fromEntries(musicData.albums.map(album => [album.id, album]))
         artistMap = Object.fromEntries(musicData.artists.map(artist => [artist.id, artist]))
-        // console.log(JSON.stringify(artistMap, null, 2))
     }
 
     useEffect(() => {
