@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import './searchbar.css'
+import { useEffect, useState } from 'react'
 import SearchbarList from './searchbar_list'
 import LoadingCard from './loading_card'
 import ErrorCard from './error_card'
@@ -31,19 +31,21 @@ function Searchbar() {
 
     const [searchResults, setSearchResults] = useState([])
 
-    // These useEffect events are split to differentiate 
+    // These useEffect events are split to differentiate and run at different times
     useEffect(() => {
         // Timer starts every time input is entered
         const timer = setTimeout(() => {
             // Save debounced value
             setDebouncedValue(inputValue)
         }, 500)
-
+        
+        // Returning in effects only gives the effect a function for undoing the effect - this only occurs 
+        // when the inputValue changes
         return () => clearTimeout(timer)
     }, [inputValue]) // If this value changed, useEffect runs on next re-render
 
     useEffect(() => {
-        const trimmedSearch = debouncedValue.trim()
+        const trimmedSearch = debouncedValue?.trim()
         if (!trimmedSearch) {
             setSearchResults([])
             return
@@ -73,8 +75,8 @@ function Searchbar() {
                     placeholder="Search songs/albums.."
                 />
             </section>
-            {'data' in searchResults && searchResults.data.length > 0 && (
-                <SearchbarList searchResultsData={ searchResults.data } />
+            {(searchResults?.data?.length ?? 0) > 0 && (
+                <SearchbarList searchResultsData={searchResults.data} />
             )}
         </div>
     )

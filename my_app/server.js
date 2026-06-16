@@ -92,7 +92,6 @@ app.delete('/liked-songs', (req, res) => {
 
 app.delete('/liked-albums', (req, res) => {
   const { type } = req.query;
-  console.log("Album removed from liked")
   
   if (type == 'removeAlbumFromLiked') {
     const { albumId } = req.query;
@@ -153,7 +152,6 @@ app.get('/data', (req, res) => {
     const dbArr = Object.entries(db);
     const loweredKeyword = req.query.keyword?.toLowerCase() ?? '';
 
-
     // Go through each top level property and then find relevant results, 
     // then search through other properties if not enough is retrieved (5)
     let resultsCount = 0;
@@ -167,7 +165,7 @@ app.get('/data', (req, res) => {
       let tableData = tableArr.data;
 
       if (tableData.length < 1) return [];
-      
+
       let colName = '';
       if ('name' in tableData[0]) {
         colName = 'name';
@@ -176,7 +174,7 @@ app.get('/data', (req, res) => {
       // Check table for name/title that match keyword
       const matchingResults = tableData.filter(
         row => 
-        resultsCount < 6 && row?.colName?.toLowerCase().includes(loweredKeyword)
+        resultsCount < 6 && row[colName].toLowerCase().includes(loweredKeyword)
       );
 
       let mappedResults = [];
@@ -191,17 +189,25 @@ app.get('/data', (req, res) => {
           let obj = {};
 
           obj.id = resultsCount;
-          if (tableName === 'songs' || tableName === 'albums') {
+          if (tableName === 'songs') {
             obj.album_id = row.album_id;
             obj.artist_id = row.artist_id;
-            obj.artist_name = db.artists[row.artist_id].name;
+            obj.artist_name = db.artists.data[row.artist_id].name;
+            obj.title = row[`${colName}`];
+          } else if (tableName === 'albums') {
+            obj.album_id = row.id;
+            obj.artist_id = row.artist_id;
+            obj.artist_name = db.artists.data[row.artist_id].name;
+            obj.title = row[`${colName}`];
           } else {
-            obj.name = row.name;
+            obj.artist_id = row.id;
+            obj.artist_name = row.name;
           }
 
-          obj[`${colName}`] = row[`${colName}`];
+          obj.type = tableName;
           
           resultsCount += 1;
+
           return obj;
         })
       }
@@ -231,13 +237,13 @@ app.get('/data', (req, res) => {
   }
 });
 
-app.post('/data', async (req, res) => {
+app.post('/song', async (req, res) => {
   const { type } = req.query;
 
   if (type == 'addSong') {
     // TODO: finish adding the add-song system
-    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-    const { data } = req.body;
+    // const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+    // const { data } = req.body;
   } else {
     res.status(404).json({
       success: false,
@@ -296,7 +302,6 @@ app.post('/liked-songs', async (req, res) => {
 
 app.post('/liked-albums', async (req, res) => {
   const { type, albumId } = req.query;
-  console.log("Album added to liked")
 
   if (type == 'addAlbumToLiked') {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));

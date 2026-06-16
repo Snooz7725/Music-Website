@@ -1,24 +1,23 @@
 import './song_add_panel.css'
 import { useState } from "react"
+import { useFetch } from '../utils/useFetch'
 
 function SongAddPanel() {
-    async function handleAddNewSong(artistName, songName, albumName, albumNameFlag) {
-        let data = {}
-        if (albumNameFlag) {
-            data = {
-                artistName: artistName,
-                songName: songName,
-                albumName: albumName
-            }
-        } else data = {
+    async function handleAddNewSong(artistName, songName, albumName, thumbnail, albumFlag, thumbnailFlag) {
+        let data = {
             artistName: artistName,
             songName: songName,
+            albumName: null,
+            thumbnail: null
         }
 
-        let res = {}
+        if (albumFlag) data.albumName = albumName
+
+        if (thumbnailFlag) data.thumbnail = thumbnail
+
         try {
-            res = fetch(
-                '/api',
+            let res = fetch(
+                '/api/song?type=addSong',
                 {
                     method: 'POST',
                     body: JSON.stringify(data)
@@ -26,8 +25,6 @@ function SongAddPanel() {
             )
 
             if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
-
-            res = await res.json()
         } catch (error) {console.error('Fetch failed:', error)}
     }
 
@@ -144,7 +141,7 @@ function SongAddPanel() {
                 </div>
             </div>
             <hr className="main-hr"/>
-                <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong(newSongData.artistName, newSongData.songName, newSongData.albumName, newSongData.thumbnail, albumCheckbox)}>
+                <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong(newSongData.artistName, newSongData.songName, newSongData.albumName, newSongData.thumbnail, albumCheckbox, thumbnailCheckbox)}>
                     <img src="/assets/white_plus.png" alt="" />
                 </button>
         </div>
