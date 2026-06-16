@@ -69,7 +69,7 @@ function HomePage() {
                         songs: [],
                         artists: [],
                         liked_albums: [],
-                        liked_songs: db.data.liked_songs.data,
+                        liked_songs: [],
                         loadState: 'errored'
                     })
                 } else setMusicData({

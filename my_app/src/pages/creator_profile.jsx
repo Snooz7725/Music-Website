@@ -11,36 +11,6 @@ import ErrorCard from '../components/error_card'
 import LoadingCard from '../components/loading_card'
 
 function CreatorProfile() {
-    useEffect(() => {
-        let errorFlag = false
-
-        async function loadData() {
-            try {
-                const response = await fetch(`/api/data?type=all`, {
-                    method: 'GET'
-                })
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error: ${response.status}`)
-                }
-
-                const db = await response.json()
-                setMusicData(db.data)
-            } catch (error) {
-                console.error('Fetch failed:', error)
-                errorFlag = true
-            } finally {
-                if (errorFlag) {
-                    setLoadStatus('errored')
-                } else {
-                    setLoadStatus('loaded')
-                }
-            }
-        }
-
-        loadData()
-    }, [])
-
     const [loadStatus, setLoadStatus] = useState('loading')
     const [musicData, setMusicData] = useState({
         albums: [],
@@ -55,13 +25,30 @@ function CreatorProfile() {
         return <Navigate to="/" replace />
     }
 
-    let artistData = null
+    let albumData = []
+    let likedAlbumsData = []
+    let likedSongsCount = null
+    let artistData = []
     let artistAlbums = []
     let artistSongs = []
     let albumMap = {}
     let artistMap = {}
+    if (musicData.loadState === 'loaded') {
+        albumData = musicData.albums
+        likedAlbumsData = albumData.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
+        likedAlbumsData = likedAlbumsData.map(likedAlbum => {
+            // Count amount of songs that share album id and include it into the likedAlbumsData
+            let songCount = musicData.songs.reduce((acc, song) => {
+                if (song.album_id === likedAlbum.id) {
+                    return ++acc
+                } else return acc
+            }, 0)
 
-    if (loadStatus === 'loaded') {
+            likedAlbum.count = songCount
+            return likedAlbum
+        })
+
+        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
         artistData = musicData.artists.find(artist => artist.id === artistId)
 
         if (!artistData) {
@@ -75,13 +62,55 @@ function CreatorProfile() {
         // console.log(JSON.stringify(artistMap, null, 2))
     }
 
+    useEffect(() => {
+        async function loadData() {
+            let errorFlag = false
+            let db = {}
+            try {
+                const response = await fetch(`/api/data?type=all`, { 
+                    method: 'GET'
+                })
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`)
+                }
+
+                db = await response.json()
+            } catch (error) {
+                console.error('Fetch failed:', error)
+                errorFlag = true
+            } finally {
+                if (errorFlag) {
+                    setMusicData({
+                        albums: [],
+                        songs: [],
+                        artists: [],
+                        liked_albums: [],
+                        liked_songs: [],
+                        loadState: 'errored'
+                    })
+                } else setMusicData({
+                    albums: db.data.albums.data,
+                    songs: db.data.songs.data,
+                    artists: db.data.artists.data,
+                    liked_albums: db.data.liked_albums.data,
+                    liked_songs: db.data.liked_songs.data,
+                    loadState: 'loaded'
+                })
+                
+            }
+        }
+
+        loadData()
+    }, [])
+
     return (
         <div className="creator-profile-wrapper">
-            <Sidebar likedAlbumsData={likedAlbumsData} />
+            <Sidebar likedAlbumsData={likedAlbumsData} likedSongsCount={likedSongsCount}/>
             <div className="main-section">
                 <Searchbar />
                 <div className="main-content">
-                    {loadStatus === 'loaded' ? (
+                    {musicData.loadState === 'loaded' ? (
                         <>
                             <CreatorHero
                                 artistName={artistData.name}
@@ -116,7 +145,7 @@ function CreatorProfile() {
                                 ))}
                             </Category>
                         </>
-                    ) : loadStatus === 'errored' ? (
+                    ) : musicData.loadState === 'loaded' ? (
                         <ErrorCard />
                     ) : (
                         <LoadingCard />
