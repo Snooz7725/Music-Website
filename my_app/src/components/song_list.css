@@ -30,13 +30,11 @@
 }
 
 .song-list-wrapper .song-header .song-title span,
-.song-list-wrapper .song-header .song-album span,
-.song-list-wrapper .song-header .song-duration span {
+.song-list-wrapper .song-header .song-album span {
     flex: 1;
     background-color: rgb(124, 157, 235);
     text-align: center;
     border-radius: 0.2rem;
-    font-weight:700 !important;
     font-size: 2rem;
 }
 
@@ -45,12 +43,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 600;
 }
 
 .song-list-wrapper .song-title,
-.song-list-wrapper .song-album,
-.song-list-wrapper .song-duration {
+.song-list-wrapper .song-album {
     flex: 1;
 }
 
@@ -75,6 +71,10 @@
     overflow: hidden;
     background-color: transparent;
     border: unset;
+}
+
+.song-list-wrapper .song-row.minimized .like-btn-wrapper {
+    width: 2.5rem;
 }
 
 .song-list-wrapper .like-btn-wrapper img {
@@ -124,30 +124,41 @@
     gap: 0.6rem;
 }
 
+.song-list-wrapper .song-row.minimized .song-details {
+    gap: 0.2rem;
+}
+
 .song-list-wrapper .song-details span {
     width: 100%;
 }
 
 .song-list-wrapper .song-details .title {
     font-size: 1.3rem;
-    font-weight: 600;
+}
+
+.song-list-wrapper .song-row.minimized .song-details .title {
+    font-size: 1.1rem;
 }
 
 .song-list-wrapper .song-details .artist {
     font-size: 1rem;
 }
 
-.song-list-wrapper .song-row .song-album,
-.song-list-wrapper .song-row .song-duration {
+.song-list-wrapper .song-row.minimized .song-details .artist {
+    font-size: 0.9rem;
+}
+
+.song-list-wrapper .song-row .song-album {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 600;
 }
 
-.song-list-wrapper .song-album span,
-.song-list-wrapper .song-duration span {
+.song-list-wrapper .song-album span {
     font-size: 1.85rem;
-    font-weight: 500;
+}
+
+.song-list-wrapper .song-row.minimized .song-album span {
+    font-size: 1.1rem;
 }

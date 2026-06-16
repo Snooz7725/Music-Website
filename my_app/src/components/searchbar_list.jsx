@@ -2,18 +2,6 @@ import { Link } from 'react-router-dom'
 import './searchbar_list.css'
 
 function SearchbarList({ searchResultsData = [] }) {
-    console.log(JSON.stringify(searchResultsData))
-
-    // [
-    //     {
-    //         "id":0,
-    //         "artist_id":0,
-    //         "artist_name":"Kendrick Lamar",
-    //         "title":"Kendrick Lamar",
-    //         "type":"artists"
-    //     }
-    // ]
-
     return (
         <div className="searchbar-list-wrapper">
             {searchResultsData.map(result => {

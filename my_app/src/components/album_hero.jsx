@@ -1,6 +1,6 @@
 import './album_hero.css'
 
-function AlbumHero({ handleRemoveLikedAlbum, handleAddAlbumToLiked, handleDeleteAlbum, chosenAlbum, artist, count }) {
+function AlbumHero({ setListFormat, handleRemoveLikedAlbum, handleAddAlbumToLiked, handleDeleteAlbum, chosenAlbum, artist, count }) {
     return (
         <div className="album-hero-wrapper">
             <div
@@ -18,7 +18,7 @@ function AlbumHero({ handleRemoveLikedAlbum, handleAddAlbumToLiked, handleDelete
                 </div>
             </div>
             <ul className="btn-list">
-                <li><button className="list-btn"><img src="/assets/list_btn.png" alt="Format Icon" /></button></li>
+                <li><button className="list-btn" onClick={() => setListFormat(prev => !prev)}><img src="/assets/list_btn.png" alt="Format Icon" /></button></li>
                 <li><button className="like-btn" onClick={() => {chosenAlbum.isLiked ? handleRemoveLikedAlbum(chosenAlbum.id) : handleAddAlbumToLiked(chosenAlbum.id)}}><img src={chosenAlbum.isLiked ? '/assets/transparent_heart_btn.png' : '/assets/empty_heart_btn.png'} alt="Like Icon" /></button></li>
                 <li><button className="delete-btn" onClick={() => handleDeleteAlbum(chosenAlbum.id)}><img src="/assets/white_closed_bin.png" alt="" /></button></li>
             </ul>

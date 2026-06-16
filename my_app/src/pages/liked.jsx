@@ -13,6 +13,7 @@ function Liked() {
     }
 
     const [count, setCount] = useState(0)
+    const [listFormat, setListFormat] = useState(false)
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
@@ -132,8 +133,8 @@ function Liked() {
             <Sidebar likedAlbumsData={likedAlbumsData} />
             {musicData.loadState == 'loaded' ? (
                 <>
-                    <LikedSongsHero count={songData.length} />
-                    <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} />
+                    <LikedSongsHero setListFormat={setListFormat} count={songData.length} />
+                    <SongList listFormat={listFormat} handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={albumMap} artistMap={artistMap} />
                 </>
             ) : musicData.loadState == 'errored' ? (
                 <>

@@ -20,6 +20,7 @@ function Album() {
     }
 
     const [count, setCount] = useState(0)
+    const [listFormat, setListFormat] = useState(false)
     const [musicData, setMusicData] = useState({
         albums: [],
         songs: [],
@@ -29,11 +30,10 @@ function Album() {
         loadState: "loading"
     })
 
-    const navigate = useNavigate()
-
     const params = useParams()
-
     const albumId = Number(params.id)
+
+    const navigate = useNavigate()
 
     // If param not available
     if (isNaN(albumId)) {
@@ -206,17 +206,17 @@ function Album() {
             <Sidebar likedAlbumsData={likedAlbumsData} />
             {musicData.loadState == 'loaded' ? (
                 <>
-                    <AlbumHero handleRemoveLikedAlbum={handleRemoveLikedAlbum} handleAddAlbumToLiked={handleAddAlbumToLiked} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={chosenAlbumData} artist={artistMap[chosenAlbumData.artist_id].name} count={filteredAlbumData.length} />
-                    <SongList handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={filteredAlbumMap} artistMap={artistMap} />
+                    <AlbumHero setListFormat={setListFormat} handleRemoveLikedAlbum={handleRemoveLikedAlbum} handleAddAlbumToLiked={handleAddAlbumToLiked} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={chosenAlbumData} artist={artistMap[chosenAlbumData.artist_id].name} count={songData.length} />
+                    <SongList listFormat={listFormat} handleRemoveLikedSong={handleRemoveLikedSong} handleAddSongToLiked={handleAddSongToLiked} songData={songData} albumMap={filteredAlbumMap} artistMap={artistMap} />
                 </>
             ) : musicData.loadState == 'errored' ? (
                 <>
-                    <AlbumHero handleRemoveLikedAlbum={() => {}} handleAddAlbumToLiked={() => {}} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={{}} artist="" count="" />
+                    <AlbumHero setListFormat={() => {}} handleRemoveLikedAlbum={() => {}} handleAddAlbumToLiked={() => {}} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={{}} artist="" count="" />
                     <ErrorCard />
                 </>
             ) : (
                 <>
-                    <AlbumHero handleRemoveLikedAlbum={() => {}} handleAddAlbumToLiked={() => {}} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={{}} artist="" count="" />
+                    <AlbumHero setListFormat={() => {}} handleRemoveLikedAlbum={() => {}} handleAddAlbumToLiked={() => {}} handleDeleteAlbum={handleDeleteAlbum} chosenAlbum={{}} artist="" count="" />
                     <LoadingCard />
                 </>
             )}

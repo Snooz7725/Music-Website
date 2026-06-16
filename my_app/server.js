@@ -237,22 +237,6 @@ app.get('/data', (req, res) => {
   }
 });
 
-app.post('/song', async (req, res) => {
-  const { type } = req.query;
-
-  if (type == 'addSong') {
-    // TODO: finish adding the add-song system
-    // const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-    // const { data } = req.body;
-  } else {
-    res.status(404).json({
-      success: false,
-      msg: 'Invalid route for HTTP method POST',
-      data: null,
-    });
-  }
-})
-
 app.post('/liked-songs', async (req, res) => {
   const { type, songId } = req.query;
 

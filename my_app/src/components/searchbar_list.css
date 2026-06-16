@@ -19,22 +19,16 @@
     text-decoration: none;
 }
 
-.three-cols {
-    border-radius: 0.1rem;
-    text-align: left;
-    height: var(--searchbar-height);
-    background-color: rgb(44, 57, 91);
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-
 .search-row span {
     flex: 1;
     text-align: left;
     color: white;
     padding: 0 1.5rem;
     font-size: 1.1rem;
+    white-space: nowrap;
+    min-width: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .three-cols span {

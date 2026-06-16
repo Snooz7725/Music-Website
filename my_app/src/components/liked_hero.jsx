@@ -1,6 +1,6 @@
 import './liked_hero.css'
 
-function LikedSongsHero({ count }) {
+function LikedSongsHero({ setListFormat, count }) {
     return (
         <div className="liked-hero-wrapper">
             <div className="liked-hero-bg"/>
@@ -14,7 +14,7 @@ function LikedSongsHero({ count }) {
                 </div>
             </div>
             <ul className="btn-list">
-                <li><button className="list-btn"><img src="/assets/list_btn.png" alt="Format Icon" /></button></li>
+                <li><button className="list-btn" onClick={() => setListFormat(prev => !prev)}><img src="/assets/list_btn.png" alt="Format Icon" /></button></li>
             </ul>
         </div>
     )

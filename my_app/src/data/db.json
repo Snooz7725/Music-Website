@@ -1,4 +1,8 @@
 {
+    "artists": {"newId": 1, "data": [
+        {"id": 0, "name": "Kendrick Lamar", "profile_pic": "github.svg"}
+    ]},
+
     "albums": {"newId": 7, "data": [
         {"id": 0, "title": "DAMN.", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 1, "title": "GNX", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
@@ -23,10 +27,6 @@
         {"id": 10, "album_id": 5, "title": "N95", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 11, "album_id": 5, "title": "Count Me Out", "artist_id": 0, "thumbnail": "album_placeholder.jpg"},
         {"id": 12, "album_id": 6, "title": "A.D.H.D", "artist_id": 0, "thumbnail": "album_placeholder.jpg"}
-    ]},
-
-    "artists": {"newId": 1, "data": [
-        {"id": 0, "name": "Kendrick Lamar", "profile_pic": "github.svg"}
     ]},
 
     "liked_songs": {"newId": 3, "data": [

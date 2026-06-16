@@ -1,32 +1,8 @@
 import './song_add_panel.css'
 import { useState } from "react"
-import { useFetch } from '../utils/useFetch'
 
 function SongAddPanel() {
-    async function handleAddNewSong(artistName, songName, albumName, thumbnail, albumFlag, thumbnailFlag) {
-        let data = {
-            artistName: artistName,
-            songName: songName,
-            albumName: null,
-            thumbnail: null
-        }
-
-        if (albumFlag) data.albumName = albumName
-
-        if (thumbnailFlag) data.thumbnail = thumbnail
-
-        try {
-            let res = fetch(
-                '/api/song?type=addSong',
-                {
-                    method: 'POST',
-                    body: JSON.stringify(data)
-                }
-            )
-
-            if (!res.ok) throw new Error(`HTTP ${res.status} Error: ${res.statusText}`)
-        } catch (error) {console.error('Fetch failed:', error)}
-    }
+    async function handleAddNewSong() {}
 
     const [ newSongData, setnewSongData ] = useState({
         artistName: '',
@@ -141,7 +117,7 @@ function SongAddPanel() {
                 </div>
             </div>
             <hr className="main-hr"/>
-                <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong(newSongData.artistName, newSongData.songName, newSongData.albumName, newSongData.thumbnail, albumCheckbox, thumbnailCheckbox)}>
+                <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong}>
                     <img src="/assets/white_plus.png" alt="" />
                 </button>
         </div>
