@@ -62,11 +62,13 @@
 
 .liked-hero-wrapper .liked-info .title {
     font-size: 4.2rem;
+    padding: 1rem;
     margin-bottom: 0.2rem;
 }
 
 .liked-hero-wrapper .liked-info .song-count{
     font-size: 1.8rem;
+    padding: 0.43rem;
 }
 
 .liked-hero-wrapper .btn-list {

@@ -1,5 +1,6 @@
 import './song_add_panel.css'
 import { useState } from "react"
+import { useSearch } from '../utils/useSearch'
 
 function SongAddPanel() {
     async function handleAddNewSong() {}
@@ -57,6 +58,8 @@ function SongAddPanel() {
             console.error('Paste failed:', error)
         }
     })
+
+    // const {inputValue, setInputValue, results} = useSearch()
     
     return (
         <div className="song-add-panel-wrapper">

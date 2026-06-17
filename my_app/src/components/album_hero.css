@@ -62,15 +62,18 @@
 .album-hero-wrapper .album-info .title {
     font-size: 4.2rem;
     margin-bottom: 0.2rem;
+    padding: 1rem;
 }
 
 .album-hero-wrapper .album-info .artist-name {
     font-size: 1.8rem;
+    padding: 0.43rem;
 }
 
 .album-hero-wrapper .album-info .song-count,
 .album-hero-wrapper .album-info .release-date {
     font-size: 1.3rem;
+    padding: 0.31rem;
 }
 
 .album-hero-wrapper .btn-list {
