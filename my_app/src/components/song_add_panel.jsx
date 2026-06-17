@@ -65,18 +65,19 @@ function SongAddPanel() {
                 <span>Wanna Add A New Song?</span>
             </div>
             <div className="input-wrapper">
-                <input type="text" placeholder="Enter artist" className="text-input" onChange={(e) => setnewSongData(prev => ({
-                    ...prev,
-                    "artistName": e.target.value
-                }))}/>
                 <input type="text" placeholder="Enter song" className="text-input" onChange={(e) => setnewSongData(prev => ({
                     ...prev,
                     "songName": e.target.value
                 }))}/>
                 <hr/>
+                <input type="text" placeholder="Enter artist" className="text-input" onChange={(e) => setnewSongData(prev => ({
+                    ...prev,
+                    "artistName": e.target.value
+                }))}/>
+                <hr/>
                 <div className="album-input">
                     <button className={ albumCheckbox ? "active checkbox" : "checkbox"} onClick={() => setAlbumCheckbox(prev => !prev)}></button>
-                    <label className="details">Create an album/Add song to an existing album</label>
+                    <label className="details">Add song to an existing album</label>
                 </div>
                 <input type="text" placeholder="Enter album" className={ albumCheckbox ? 'text-input' : 'disabled text-input'} disabled={ !albumCheckbox } onChange={(e) => setnewSongData(prev => ({
                     ...prev,
@@ -120,8 +121,6 @@ function SongAddPanel() {
             <div className="btn-list">
                 <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong}>
                     <img src="/assets/white_plus.png" alt="" />
-                </button>
-                <button className="btn">
                 </button>
             </div>
         </div>

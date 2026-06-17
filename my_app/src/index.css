@@ -33,6 +33,7 @@ html,
 body {
     font-size: 16px;
     min-height: 100vh;
+    scrollbar-color: rgba(80, 115, 186, 0.5) transparent;
 }
 
 body {
