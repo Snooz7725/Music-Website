@@ -2,12 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
     height: var(--creator-hero-height);
     margin-right: 1vw;
     border-radius: 0.5vh;
-    outline: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 0 9px rgba(255, 255, 255, 0.4); 
 }
 
 .creator-hero-wrapper .content-wrapper {
@@ -31,6 +28,7 @@
     height: calc(var(--creator-hero-height) * 0.68);
     overflow: hidden;
     border-radius: 50%;
+    background-color: white;
 }
 
 .creator-hero-wrapper .img-wrapper img {
@@ -54,22 +52,26 @@
     padding: 0 0.6rem;
     outline: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0 0 9px rgba(255, 255, 255, 0.4); 
+    border-radius: 0.5vw;
 }
 
-.creator-hero-wrapper .details div p {
+.creator-hero-wrapper .details div p,
+.creator-hero-wrapper .details div span {
     font-size: var(--creator-hero-details-p-font-size);
+    color: white;
     white-space: nowrap;
     width: calc(var(--creator-hero-details-p-font-size) * 5.5);
 }
 
 .creator-hero-wrapper .details h1 {
     font-size: 3rem;
+    color: white;
 }
 
 .creator-hero-wrapper .details div hr {
-    align-self: stretch;
-    width: 0.35rem;
+    width: 0.075rem;
+    height: 1rem;
     border-radius: 1rem;
     border: unset;
-    background-color: rgb(255, 127, 165);
+    background-color: rgb(255, 255, 255);
 }

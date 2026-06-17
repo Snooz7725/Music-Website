@@ -5,17 +5,17 @@ function CreatorHero({artistName, songCount, albumCount}) {
         <div className="creator-hero-wrapper">
             <div className="content-wrapper">
                 <div className="img-wrapper">
-                    <img src="/assets/github.svg" alt="" />
+                    {/* <img src="/assets/github.svg" alt="" /> */}
                 </div>
                 <div className="details">
                     <h1 className="name">{artistName}</h1>
                     <div className="album-count-wrapper">
-                        <p className="album-count">Album Count</p>
+                        <p className="album-count">Album count</p>
                         <hr></hr>
                         <span>{albumCount}</span>
                     </div>
                     <div className="song-count-wrapper">
-                        <p className="song-count">Song Count</p>
+                        <p className="song-count">Song count</p>
                         <hr></hr>
                         <span>{songCount}</span>
                     </div>
