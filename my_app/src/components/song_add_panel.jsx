@@ -58,8 +58,6 @@ function SongAddPanel() {
             console.error('Paste failed:', error)
         }
     })
-
-    // const {inputValue, setInputValue, results} = useSearch()
     
     return (
         <div className="song-add-panel-wrapper">
@@ -73,10 +71,13 @@ function SongAddPanel() {
                     "songName": e.target.value
                 }))}/>
                 <hr/>
-                <input type="text" placeholder="Enter artist" className="text-input" onChange={(e) => setnewSongData(prev => ({
+                <input type="text" placeholder="Enter artist" list="artistInput" className="text-input" onChange={(e) => setnewSongData(prev => ({
                     ...prev,
                     "artistName": e.target.value
                 }))}/>
+                <datalist id="artistInput">
+                    {}
+                </datalist>
                 <hr/>
                 <div className="album-input">
                     <button className={ albumCheckbox ? "active checkbox" : "checkbox"} onClick={() => setAlbumCheckbox(prev => !prev)}></button>
@@ -122,12 +123,12 @@ function SongAddPanel() {
             </div>
             <hr className="main-hr"/>
             <div className="btn-list">
-                <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong}>
+                <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong()}>
                     <img src="/assets/white_plus.png" alt="" />
                 </button>
             </div>
         </div>
     )
-};
+}
 
 export default SongAddPanel

@@ -1,42 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDebounce } from './useDebounce';
+import { useFetch } from './useFetch'
 
-export function useSearch(delay = 500) {
-    const [inputValue, setInputValue] = useState(null);
-    const [results, setResults] = useState([]);
+export function useDebounceSearch(urlTemplate = '/api/data?type=searchAll', delay = 500) {
+    const [inputValue, setInputValue] = useState('');
     
     const debouncedValue = useDebounce(inputValue, delay);
 
     // Makes a search request after debouncedValue gets set and then sets results
-    useEffect(() => {
-        async function featchSearchResults() {
-            const trimmed = debouncedValue?.trim();
+    const trimmed = debouncedValue?.trim();
+    const url = trimmed ? `${urlTemplate}&keyword=${trimmed}` : null;
 
-            if (!trimmed) {
-                setResults([]);
-                return;
-            }
+    const {data, loading, error} = useFetch(url);
 
-            try {
-                const res = await fetch(
-                    `/api/data?type=searchAll&keyword=${trimmed}`
-                );
-
-                if (!res.ok)
-                    throw new Error(`HTTP ${res.status}`);
-
-                setResults(await res.json());
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        featchSearchResults();
-    }, [debouncedValue]);
-
-    return {
-        inputValue,
-        setInputValue,
-        results,
-    };
+    return {inputValue, setInputValue, results: data ?? []};
 }

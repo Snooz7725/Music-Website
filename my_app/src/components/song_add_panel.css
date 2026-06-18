@@ -51,6 +51,11 @@
     gap: 2.5vh; 
 }
 
+.artist-input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .song-add-panel-wrapper .text-input {
     height: 2.5rem;
     border-radius: 0.5rem;
