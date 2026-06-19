@@ -34,7 +34,7 @@ export function useFetch(url, options = {}) {
           setError(err);
         }
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     }
 

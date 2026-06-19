@@ -8,7 +8,7 @@
 }
 
 .searchbar-list-wrapper:hover {
-    box-shadow: 0 0 9px rgba(255, 255, 255, 0.4); 
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); 
 }
 
 .searchbar-list-wrapper .search-row {
@@ -37,7 +37,7 @@
 
 .searchbar-list-wrapper .search-row:hover {
     background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 9px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
 }
 
 .searchbar-list-wrapper .search-row:active {

@@ -1,23 +1,18 @@
 import './no_match.css'
-import { useState, useEffect } from 'react'
+import { useFetch } from '../utils/useFetch'
 import Sidebar from '../components/sidebar'
 
 
 function NoMatch() {
-    const [musicData, setMusicData] = useState({
-        albums: [],
-        liked_albums: [],
-        liked_songs: [],
-        loadState: [],
-    })
+    const {data, loading, error} = useFetch(`/api/data?type=all`, {method: 'GET'})
 
     let likedAlbumsData = []
     let likedSongsCount = null
-    if (musicData.loadState == 'loaded') {
-        likedAlbumsData = musicData.albums.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
+    if (!loading && error === null) {
+        likedAlbumsData = data.data.albums.filter(album => data.data.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
         likedAlbumsData = likedAlbumsData.map(likedAlbum => {
             // Count amount of songs that share album id and include it into the likedAlbumsData
-            let songCount = musicData.songs.reduce((acc, song) => {
+            let songCount = data.data.songs.reduce((acc, song) => {
                 if (song.album_id === likedAlbum.id) {
                     return ++acc
                 } else return acc
@@ -27,46 +22,8 @@ function NoMatch() {
             return likedAlbum
         })
 
-        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
+        likedSongsCount = data.data.liked_songs.reduce(acc => ++acc, 0)
     }
-
-    useEffect(() => {
-        async function loadData() {
-            let errorFlag = false
-            let db = {}
-            try {
-                const response = await fetch(`/api/data?type=all`, { 
-                    method: 'GET'
-                })
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error: ${response.status}`)
-                }
-
-                db = await response.json()
-            } catch (error) {
-                console.error('Fetch failed:', error)
-                errorFlag = true
-            } finally {
-                if (errorFlag) {
-                    setMusicData({
-                        albums: [],
-                        liked_albums: [],
-                        liked_songs: [],
-                        loadState: 'errored'
-                    })
-                } else setMusicData({
-                    albums: db.data.albums.data,
-                    liked_albums: db.data.liked_albums.data,
-                    liked_songs: db.data.liked_songs.data,
-                    loadState: 'loaded'
-                })
-                
-            }
-        }
-
-        loadData()
-    })
 
     return (
         <div className="no-match-wrapper">

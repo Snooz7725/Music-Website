@@ -1,25 +1,24 @@
 import './song_add.css'
 import { useState, useEffect } from 'react'
+import { useFetch } from '../utils/useFetch'
 import Searchbar from '../components/searchbar'
 import Sidebar from '../components/sidebar'
 import SongAddPanel from '../components/song_add_panel'
 
 function SongAdd() {
-    const [musicData, setMusicData] = useState({
-        albums: [],
-        songs: [],
-        liked_albums: [],
-        liked_songs: [],
-        loadState: [],
-    })
+    async function handleAddNewSong() {
+
+    }
+
+    const {data, loading, error} = useFetch('/api/data?type=all', {method: 'GET'})
 
     let likedAlbumsData = []
     let likedSongsCount = null
-    if (musicData.loadState == 'loaded') {
-        likedAlbumsData = musicData.albums.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
+    if (!loading && error === null) {
+        likedAlbumsData = data.data.albums.data.filter(album => data.data.liked_albums.data.some(likedAlbum => likedAlbum.album_id === album.id))
         likedAlbumsData = likedAlbumsData.map(likedAlbum => {
             // Count amount of songs that share album id and include it into the likedAlbumsData
-            let songCount = musicData.songs.reduce((acc, song) => {
+            let songCount = data.data.songs.data.reduce((acc, song) => {
                 if (song.album_id === likedAlbum.id) {
                     return ++acc
                 } else return acc
@@ -29,48 +28,67 @@ function SongAdd() {
             return likedAlbum
         })
 
-        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
+        likedSongsCount = data.data.liked_songs.data.reduce(acc => ++acc, 0)
     }
 
+    // Song add panel vars
+    const [newSongData, setNewSongData] = useState({
+        artistName: '',
+        songName: '',
+        albumName: '',
+        thumbnailData: ''
+    })
+
+    const addBtn = newSongData.songName.trim() !== ''
+        && newSongData.artistName.trim() !== ''
+        && ((!albumInputCheckbox) || newSongData.albumName.trim() !== '')
+
+    const [ albumInputCheckbox, setAlbumInputCheckbox ] = useState(false)
+    const [ thumbnailInputCheckbox, setThumbnailInputCheckbox ] = useState(false)
+    const [ pasteFlag, setPasteFlag ] = useState(false)
+    const [ imgURL, setImgURL ] = useState('')
+    const [ btnToggleFlag, setBtnToggleFlag ] = useState(false)
+
     useEffect(() => {
-        async function loadData() {
-            let errorFlag = false
-            let db = {}
+        function handlePaste(e) {
+            if (!pasteFlag || !thumbnailInputCheckbox || !btnToggleFlag) return
+
+            setPasteFlag(false)
+            setBtnToggleFlag(false)
+
             try {
-                const response = await fetch(`/api/data?type=all`, { 
-                    method: 'GET'
-                })
+                const items = e.clipboardData?.items
+                if (!items) throw new Error('Clipboard Read Error')
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error: ${response.status}`)
+                for (const item of items) {
+                    if (item.type.startsWith('image/')) {
+                        const blob = item.getAsFile()
+                        if (!blob) continue
+
+                        setNewSongData(prev => ({
+                            ...prev,
+                            thumbnailData: blob
+                        }))
+
+                        setImgURL(prevUrl => {
+                            if (prevUrl) URL.revokeObjectURL(prevUrl)
+                            return URL.createObjectURL(blob)
+                        })
+
+                        break
+                    }
                 }
-
-                db = await response.json()
             } catch (error) {
-                console.error('Fetch failed:', error)
-                errorFlag = true
-            } finally {
-                if (errorFlag) {
-                    setMusicData({
-                        albums: [],
-                        songs: [],
-                        liked_albums: [],
-                        liked_songs: [],
-                        loadState: 'errored'
-                    })
-                } else setMusicData({
-                    albums: db.data.albums.data,
-                    songs: db.data.songs.data,
-                    liked_albums: db.data.liked_albums.data,
-                    liked_songs: db.data.liked_songs.data,
-                    loadState: 'loaded'
-                })
-                
+                console.error('Paste failed:', error)
             }
         }
 
-        loadData()
-    })
+        document.addEventListener('paste', handlePaste)
+
+        return () => {
+            document.removeEventListener('paste', handlePaste)
+        }
+    }, [pasteFlag, thumbnailInputCheckbox, btnToggleFlag])
 
     return (
         <div className="song-add-wrapper">
@@ -81,7 +99,7 @@ function SongAdd() {
                     <div className="panel-img-wrapper">
                         <img src="/assets/microphone.jpg" alt="" />
                     </div>
-                    <SongAddPanel />
+                    <SongAddPanel handleAddNewSong={handleAddNewSong} addBtn={addBtn} imgURL={imgURL} setPasteFlag={setPasteFlag} btnToggleFlag={btnToggleFlag} setBtnToggleFlag={setBtnToggleFlag} thumbnailInputCheckbox={thumbnailInputCheckbox} setThumbnailInputCheckbox={setThumbnailInputCheckbox} albumInputCheckbox={albumInputCheckbox} setAlbumInputCheckbox={setAlbumInputCheckbox} newSongData={newSongData} setNewSongData={setNewSongData} data={data}/>
                 </div>
             </div>
         </div>

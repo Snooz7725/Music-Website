@@ -9,7 +9,7 @@ function AlbumHero({ setListFormat, handleRemoveLikedAlbum, handleAddAlbumToLike
             />
             <div className="top-section">
                 <div className="img-wrapper">
-                    <img src="/assets/album_placeholder.jpg" alt="Album Cover"/>
+                    <img src={"/assets/" + (chosenAlbum.thumbnail ?? "/github_profile")} alt="Album Cover"/>
                 </div>
                 <div className="album-info">
                     <h1 className="title">{chosenAlbum.title}</h1>

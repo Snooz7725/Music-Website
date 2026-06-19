@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useDebounce } from './useDebounce';
 import { useFetch } from './useFetch'
 
-export function useDebounceSearch(urlTemplate = '/api/data?type=searchAll', delay = 500) {
+// Debounce search function
+export function useDebSearch(urlTemplate = '/api/data?type=searchAll', delay = 500) {
     const [inputValue, setInputValue] = useState('');
     
     const debouncedValue = useDebounce(inputValue, delay);

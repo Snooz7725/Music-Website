@@ -138,7 +138,7 @@ app.get('/data', (req, res) => {
 
   if (type == 'all') {
     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-
+    
     res.status(200).json({
       success: true,
       msg: 'DB successfully retrieved',

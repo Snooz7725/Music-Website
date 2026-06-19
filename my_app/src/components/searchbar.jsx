@@ -1,11 +1,11 @@
 import './searchbar.css'
-import { useSearch } from '../utils/useSearch'
+import { useDebSearch } from '../utils/useDebSearch'
 import SearchbarList from './searchbar_list'
 import LoadingCard from './loading_card'
 import ErrorCard from './error_card'
 
 function Searchbar() {
-    const {inputValue, setInputValue, results} = useSearch()
+    const {inputValue, setInputValue, results} = useDebSearch()
 
     return (
         <div className="searchbar-wrapper">
