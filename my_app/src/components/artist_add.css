@@ -1,0 +1,33 @@
+.artist-add-wrapper {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+    min-width: 0;
+}
+
+.artist-add-wrapper .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.artist-add-wrapper .btn-list {
+    display: flex;
+}
+
+.artist-add-wrapper .btn {
+    width: 6vw;
+    height: 3vw;
+    min-height: auto;
+    min-width: auto;
+}
+
+.artist-add-wrapper .cancel-btn {
+    padding: 0.6vh;
+}

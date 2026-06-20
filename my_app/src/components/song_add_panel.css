@@ -51,11 +51,6 @@
     gap: 2.5vh; 
 }
 
-.artist-input-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
 .song-add-panel-wrapper .text-input {
     height: 2.5rem;
     border-radius: 0.5rem;
@@ -174,6 +169,56 @@
 
 .song-add-panel-wrapper .btn.disabled:active {
     background-color: rgb(91, 91, 91);
+}
+
+.song-add-panel-wrapper .artist-input-wrapper {
+    height: 2.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.song-add-panel-wrapper .artist-input-wrapper input {
+    flex: 1;
+}
+
+.song-add-panel-wrapper .artist-input-wrapper img {
+    aspect-ratio: 1 / 1;
+    height: 70%;
+    object-fit: contain;
+}
+
+.song-add-panel-wrapper .artist-input-wrapper button {
+    aspect-ratio: 2 / 1;
+    border-radius: 0.5rem;
+    height: 100%;
+    width: auto;
+    min-height: auto;
+    min-width: auto;
+}
+
+.song-add-panel-wrapper .album-input-wrapper {
+    height: 2.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.song-add-panel-wrapper .album-input-wrapper input {
+    flex: 1;
+}
+
+.song-add-panel-wrapper .album-input-wrapper img {
+    aspect-ratio: 1 / 1;
+    height: 70%;
+    object-fit: contain;
+}
+
+.song-add-panel-wrapper .album-input-wrapper button {
+    aspect-ratio: 2 / 1;
+    border-radius: 0.5rem;
+    height: 100%;
+    width: auto;
+    min-height: auto;
+    min-width: auto;
 }
 
 .song-add-panel-wrapper .thumbnail-output {

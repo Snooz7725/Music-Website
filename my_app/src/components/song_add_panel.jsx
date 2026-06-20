@@ -1,8 +1,15 @@
 import './song_add_panel.css'
+import { useContext } from "react";
+import { DialogContext } from "../provider/dialog_context";
+import ArtistAdd from './artist_add'
+// import AlbumAdd from './album_add'
 
 function SongAddPanel({handleAddNewSong, addBtn, imgURL, setPasteFlag, btnToggleFlag, setBtnToggleFlag, thumbnailInputCheckbox, setThumbnailInputCheckbox, albumInputCheckbox, setAlbumInputCheckbox, newSongData, setNewSongData, data}) {
+    const { activeDialog, setActiveDialog } = useContext(DialogContext);
     return (
         <div className="song-add-panel-wrapper">
+            <ArtistAdd openFlag={activeDialog === 'artistDialog'} setActiveDialog={setActiveDialog} />
+
             <div className="hero">
                 <img src="./assets/microphone.jpg" alt=""/>
                 <span>Wanna Add A New Song?</span>
@@ -14,30 +21,40 @@ function SongAddPanel({handleAddNewSong, addBtn, imgURL, setPasteFlag, btnToggle
                 }))}/>
                 <hr/>
                 
-                <input type="text" placeholder="Enter artist" list="artistInput" className="text-input" onChange={(e) => setNewSongData(prev => ({
-                    ...prev,
-                    "artistName": e.target.value
-                }))}/>
-                <datalist id="artistInput">
-                    {data?.data?.artists?.data?.map(artist =>
-                        <option key={artist.id}>{artist.name}</option>
-                    )}
-                </datalist>
+                <div className="artist-input-wrapper">
+                    <input type="text" placeholder="Enter artist" list="artistInput" className="text-input" onChange={(e) => setNewSongData(prev => ({
+                        ...prev,
+                        "artistName": e.target.value
+                    }))}/>
+                    <datalist id="artistInput">
+                        {data?.data?.artists?.data?.map(artist =>
+                            <option key={artist.id}>{artist.name}</option>
+                        )}
+                    </datalist>
+                    <button className="btn" onClick={() => setActiveDialog('artistDialog')}>
+                        <img src="assets/white_plus.png" alt="Add artist" />
+                    </button>
+                </div>
                 <hr/>
 
                 <div className="album-input">
                     <button className={ albumInputCheckbox ? "active checkbox" : "checkbox"} onClick={() => setAlbumInputCheckbox(prev => !prev)}></button>
                     <label className="details">Add song to an existing album</label>
                 </div>
-                <input type="text" placeholder="Enter album" list="albumInput" className={ albumInputCheckbox ? 'text-input' : 'disabled text-input'} disabled={ !albumInputCheckbox } onChange={(e) => setNewSongData(prev => ({
-                    ...prev,
-                    "albumName": e.target.value
-                }))}/>
-                <datalist id="albumInput">
-                    {data?.data?.albums?.data?.map(album =>
-                        <option key={album.id}>{album.title}</option>
-                    )}
-                </datalist>
+                <div className="album-input-wrapper">
+                    <input type="text" placeholder="Enter album" list="albumInput" className={ albumInputCheckbox ? 'text-input' : 'disabled text-input'} disabled={ !albumInputCheckbox } onChange={(e) => setNewSongData(prev => ({
+                        ...prev,
+                        "albumName": e.target.value
+                    }))}/>
+                    <datalist id="albumInput">
+                        {data?.data?.albums?.data?.map(album =>
+                            <option key={album.id}>{album.title}</option>
+                        )}
+                    </datalist>
+                    <button className="btn" onClick={() => setActiveDialog('albumDialog')}>
+                        <img src="assets/white_plus.png" alt="Add artist" />
+                    </button>
+                </div>
                 <hr/>
 
                 <div className="thumbnail-input">
