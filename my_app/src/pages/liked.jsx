@@ -23,6 +23,48 @@ function Liked() {
         loadState: [],
     })
 
+    useEffect(() => {
+        async function loadData() {
+            let errorFlag = false
+            let db = {}
+            try {
+                const response = await fetch(`/api/data?type=all`, { 
+                    method: 'GET'
+                })
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`)
+                }
+
+                db = await response.json()
+            } catch (error) {
+                console.error('Fetch failed:', error)
+                errorFlag = true
+            } finally {
+                if (errorFlag) {
+                    setMusicData({
+                        albums: [],
+                        songs: [],
+                        artists: [],
+                        liked_songs: [],
+                        liked_albums: [],
+                        loadState: 'errored'
+                    })
+                } else setMusicData({
+                    albums: db.data.albums.data,
+                    songs: db.data.songs.data,
+                    artists: db.data.artists.data,
+                    liked_songs: db.data.liked_songs.data,
+                    liked_albums: db.data.liked_albums.data,
+                    loadState: 'loaded'
+                })
+                
+            }
+        }
+
+        loadData()
+    }, [count])
+
     // If album not found
     let albumData = []
     let likedSongs = []
@@ -99,48 +141,6 @@ function Liked() {
         reload()
         console.log("handleAddSongToLiked finished")
     }
-    
-    useEffect(() => {
-        async function loadData() {
-            let errorFlag = false
-            let db = {}
-            try {
-                const response = await fetch(`/api/data?type=all`, { 
-                    method: 'GET'
-                })
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error: ${response.status}`)
-                }
-
-                db = await response.json()
-            } catch (error) {
-                console.error('Fetch failed:', error)
-                errorFlag = true
-            } finally {
-                if (errorFlag) {
-                    setMusicData({
-                        albums: [],
-                        songs: [],
-                        artists: [],
-                        liked_songs: [],
-                        liked_albums: [],
-                        loadState: 'errored'
-                    })
-                } else setMusicData({
-                    albums: db.data.albums.data,
-                    songs: db.data.songs.data,
-                    artists: db.data.artists.data,
-                    liked_songs: db.data.liked_songs.data,
-                    liked_albums: db.data.liked_albums.data,
-                    loadState: 'loaded'
-                })
-                
-            }
-        }
-
-        loadData()
-    }, [count])
 
     return (
         <div className="liked-wrapper">

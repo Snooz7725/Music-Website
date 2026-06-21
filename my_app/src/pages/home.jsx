@@ -19,32 +19,6 @@ function HomePage() {
         loadState: 'loading',
     })
 
-    let albumData = []
-    let artistMap = {}
-    let albumMap = {}
-    let likedAlbumsData = []
-    let likedSongsCount = null
-    if (musicData.loadState == 'loaded') {
-        albumData = musicData.albums
-        likedAlbumsData = albumData.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
-        likedAlbumsData = likedAlbumsData.map(likedAlbum => {
-            // Count amount of songs that share album id and include it into the likedAlbumsData
-            let songCount = musicData.songs.reduce((acc, song) => {
-                if (song.album_id === likedAlbum.id) {
-                    return ++acc
-                } else return acc
-            }, 0)
-
-            likedAlbum.count = songCount
-            return likedAlbum
-        })
-
-        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
-
-        albumMap = Object.fromEntries(Object.entries(albumData))
-        artistMap = Object.fromEntries(Object.entries(musicData.artists))
-    }
-
     useEffect(() => {
         async function loadData() {
             let errorFlag = false
@@ -86,6 +60,32 @@ function HomePage() {
 
         loadData()
     }, [])
+
+    let albumData = []
+    let artistMap = {}
+    let albumMap = {}
+    let likedAlbumsData = []
+    let likedSongsCount = null
+    if (musicData.loadState == 'loaded') {
+        albumData = musicData.albums
+        likedAlbumsData = albumData.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
+        likedAlbumsData = likedAlbumsData.map(likedAlbum => {
+            // Count amount of songs that share album id and include it into the likedAlbumsData
+            let songCount = musicData.songs.reduce((acc, song) => {
+                if (song.album_id === likedAlbum.id) {
+                    return ++acc
+                } else return acc
+            }, 0)
+
+            likedAlbum.count = songCount
+            return likedAlbum
+        })
+
+        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
+
+        albumMap = Object.fromEntries(Object.entries(albumData))
+        artistMap = Object.fromEntries(Object.entries(musicData.artists))
+    }
 
     return (
         <div className="home-wrapper">

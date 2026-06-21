@@ -1,20 +1,47 @@
 .artist-add-wrapper {
+    z-index: 999;
     position: fixed;
     inset: 0;
-    pointer-events: none;
+    margin: auto;
+    width: 18.5rem;
+    height: fit-content;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 0;
-    min-width: 0;
+    gap: 1rem;
+    flex-direction: column;
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(0, 11, 33));
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.3); 
+    padding: 1rem;
+    border-radius: 1rem;
+
+    animation: artist-dialog-open 300ms ease;
 }
 
-.artist-add-wrapper .input-wrapper {
-    display: flex;
-    flex-direction: column;
-    background-color: black;
-    padding: 2rem;
-    border-radius: 1rem;
+.artist-add-wrapper.closing {
+    animation: artist-dialog-close 300ms ease;
+}
+
+@keyframes artist-dialog-open {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes artist-dialog-close {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.92) translateY(1rem);
+    }
 }
 
 .artist-add-wrapper .btn-list {
@@ -22,7 +49,7 @@
 }
 
 .artist-add-wrapper .btn {
-    width: 6vw;
+    flex: 1;
     height: 3vw;
     min-height: auto;
     min-width: auto;

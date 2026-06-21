@@ -35,6 +35,49 @@ function Album() {
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        async function loadData() {
+            let errorFlag = false
+            let db = {}
+            try {
+                const response = await fetch(`/api/data?type=all`, { 
+                    method: 'GET'
+                })
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`)
+                }
+
+                db = await response.json()
+            } catch (error) {
+                console.error('Fetch failed:', error)
+                errorFlag = true
+            } finally {
+                if (errorFlag) {
+                    setMusicData({
+                        albums: [],
+                        songs: [],
+                        artists: [],
+                        liked_songs: [],
+                        liked_albums: [],
+                        loadState: 'errored'
+                    })
+                } else setMusicData({
+                    albums: db.data.albums.data,
+                    songs: db.data.songs.data,
+                    artists: db.data.artists.data,
+                    liked_songs: db.data.liked_songs.data,
+                    liked_albums: db.data.liked_albums.data,
+                    loadState: 'loaded'
+                })
+            }
+
+            // console.log(JSON.stringify(db, null, 2))
+        }
+
+        loadData()
+    }, [count])
+
     // If param not available
     if (isNaN(albumId)) {
         return <Navigate to="/" replace />;
@@ -171,49 +214,6 @@ function Album() {
 
         navigate('/')
     }
-    
-    useEffect(() => {
-        async function loadData() {
-            let errorFlag = false
-            let db = {}
-            try {
-                const response = await fetch(`/api/data?type=all`, { 
-                    method: 'GET'
-                })
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error: ${response.status}`)
-                }
-
-                db = await response.json()
-            } catch (error) {
-                console.error('Fetch failed:', error)
-                errorFlag = true
-            } finally {
-                if (errorFlag) {
-                    setMusicData({
-                        albums: [],
-                        songs: [],
-                        artists: [],
-                        liked_songs: [],
-                        liked_albums: [],
-                        loadState: 'errored'
-                    })
-                } else setMusicData({
-                    albums: db.data.albums.data,
-                    songs: db.data.songs.data,
-                    artists: db.data.artists.data,
-                    liked_songs: db.data.liked_songs.data,
-                    liked_albums: db.data.liked_albums.data,
-                    loadState: 'loaded'
-                })
-            }
-
-            // console.log(JSON.stringify(db, null, 2))
-        }
-
-        loadData()
-    }, [count])
 
     return (
         <div className="album-wrapper">

@@ -23,46 +23,6 @@ function CreatorProfile() {
     const params = useParams()
     const artistId = Number(params.id)
 
-    if (Number.isNaN(artistId)) {
-        return <Navigate to="/" replace />
-    }
-
-    let albumData = []
-    let likedAlbumsData = []
-    let likedSongsCount = null
-    let artistData = []
-    let artistAlbums = []
-    let artistSongs = []
-    let albumMap = {}
-    let artistMap = {}
-    if (musicData.loadState === 'loaded') {
-        albumData = musicData.albums
-        likedAlbumsData = albumData.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
-        likedAlbumsData = likedAlbumsData.map(likedAlbum => {
-            // Count amount of songs that share album id and include it into the likedAlbumsData
-            let songCount = musicData.songs.reduce((acc, song) => {
-                if (song.album_id === likedAlbum.id) {
-                    return ++acc
-                } else return acc
-            }, 0)
-
-            likedAlbum.count = songCount
-            return likedAlbum
-        })
-
-        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
-        artistData = musicData.artists.find(artist => artist.id === artistId)
-
-        if (!artistData) {
-            return <Navigate to="/" replace />
-        }
-
-        artistAlbums = musicData.albums.filter(album => album.artist_id === artistId)
-        artistSongs = musicData.songs.filter(song => song.artist_id === artistId)
-        albumMap = Object.fromEntries(musicData.albums.map(album => [album.id, album]))
-        artistMap = Object.fromEntries(musicData.artists.map(artist => [artist.id, artist]))
-    }
-
     useEffect(() => {
         async function loadData() {
             let errorFlag = false
@@ -104,6 +64,46 @@ function CreatorProfile() {
 
         loadData()
     }, [])
+
+    if (Number.isNaN(artistId)) {
+        return <Navigate to="/" replace />
+    }
+
+    let albumData = []
+    let likedAlbumsData = []
+    let likedSongsCount = null
+    let artistData = []
+    let artistAlbums = []
+    let artistSongs = []
+    let albumMap = {}
+    let artistMap = {}
+    if (musicData.loadState === 'loaded') {
+        albumData = musicData.albums
+        likedAlbumsData = albumData.filter(album => musicData.liked_albums.some(likedAlbum => likedAlbum.album_id === album.id))
+        likedAlbumsData = likedAlbumsData.map(likedAlbum => {
+            // Count amount of songs that share album id and include it into the likedAlbumsData
+            let songCount = musicData.songs.reduce((acc, song) => {
+                if (song.album_id === likedAlbum.id) {
+                    return ++acc
+                } else return acc
+            }, 0)
+
+            likedAlbum.count = songCount
+            return likedAlbum
+        })
+
+        likedSongsCount = musicData.liked_songs.reduce(acc => ++acc, 0)
+        artistData = musicData.artists.find(artist => artist.id === artistId)
+
+        if (!artistData) {
+            return <Navigate to="/" replace />
+        }
+
+        artistAlbums = musicData.albums.filter(album => album.artist_id === artistId)
+        artistSongs = musicData.songs.filter(song => song.artist_id === artistId)
+        albumMap = Object.fromEntries(musicData.albums.map(album => [album.id, album]))
+        artistMap = Object.fromEntries(musicData.artists.map(artist => [artist.id, artist]))
+    }
 
     return (
         <div className="creator-profile-wrapper">

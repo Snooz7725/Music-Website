@@ -4,11 +4,12 @@ import { DialogContext } from "../provider/dialog_context";
 import ArtistAdd from './artist_add'
 // import AlbumAdd from './album_add'
 
-function SongAddPanel({handleAddNewSong, addBtn, imgURL, setPasteFlag, btnToggleFlag, setBtnToggleFlag, thumbnailInputCheckbox, setThumbnailInputCheckbox, albumInputCheckbox, setAlbumInputCheckbox, newSongData, setNewSongData, data}) {
+function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPasteFlag, btnToggleFlag, setBtnToggleFlag, thumbnailInputCheckbox, setThumbnailInputCheckbox, albumInputCheckbox, setAlbumInputCheckbox, newSongData, setNewSongData, data}) {
     const { activeDialog, setActiveDialog } = useContext(DialogContext);
+    
     return (
         <div className="song-add-panel-wrapper">
-            <ArtistAdd openFlag={activeDialog === 'artistDialog'} setActiveDialog={setActiveDialog} />
+            <ArtistAdd openFlag={activeDialog === 'artistDialog'} setActiveDialog={setActiveDialog} handleAddArtist={handleAddArtist} />
 
             <div className="hero">
                 <img src="./assets/microphone.jpg" alt=""/>
