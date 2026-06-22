@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function useFetch(url, options = {}) {
+export function useLoadFetch(url, options = {}) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,16 +14,16 @@ export function useFetch(url, options = {}) {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(url, {
+        const res = await fetch(url, {
           ...options, // allow custom fetch options (headers, method, etc.)
           signal: controller.signal, // attach abort signal for cancellation
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error: ${response.status}`);
+        if (!res.ok) {
+          throw new Error(`HTTP error: ${res.status}`);
         }
 
-        const result = await response.json();
+        const result = await res?.json();
 
         // Save the data into state
         setData(result);
@@ -42,7 +42,7 @@ export function useFetch(url, options = {}) {
 
     // cancels the fetch request
     return () => controller.abort(); 
-  }, [url]); 
+  }, [url, options]); 
 
   return {data, loading, error};
 }

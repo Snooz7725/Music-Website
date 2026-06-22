@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDebounce } from './useDebounce';
-import { useFetch } from './useFetch'
+import { useLoadFetch } from './useLoadFetch'
 
 // Debounce search function
 export function useDebSearch(urlTemplate = '/api/data?type=searchAll', delay = 500) {
@@ -12,7 +12,7 @@ export function useDebSearch(urlTemplate = '/api/data?type=searchAll', delay = 5
     const trimmed = debouncedValue?.trim();
     const url = trimmed ? `${urlTemplate}&keyword=${trimmed}` : null;
 
-    const {data} = useFetch(url);
+    const {data} = useLoadFetch(url);
 
     return {inputValue, setInputValue, results: data ?? []};
 }

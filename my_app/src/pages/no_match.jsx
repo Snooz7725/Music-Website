@@ -1,10 +1,10 @@
 import './no_match.css'
-import { useFetch } from '../../utils/useFetch'
+import { useLoadFetch } from '../../utils/useLoadFetch'
 import Sidebar from '../components/sidebar'
 
 
 function NoMatch() {
-    const {data, loading, error} = useFetch(`/api/data?type=all`, {method: 'GET'})
+    const {data, loading, error} = useLoadFetch(`/api/data?type=all`, {method: 'GET'})
 
     let likedAlbumsData = []
     let likedSongsCount = null

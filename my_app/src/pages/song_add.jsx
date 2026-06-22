@@ -1,6 +1,6 @@
 import './song_add.css'
 import { useState, useEffect } from 'react'
-import { useFetch } from '../../utils/useFetch'
+import { useLoadFetch } from '../../utils/useLoadFetch'
 import Searchbar from '../components/searchbar'
 import Sidebar from '../components/sidebar'
 import SongAddPanel from '../components/song_add_panel'
@@ -34,7 +34,7 @@ function SongAdd() {
         }
     }
 
-    const {data, loading, error} = useFetch('/api/data?type=all', {method: 'GET'})
+    const {data, loading, error} = useLoadFetch('/api/data?type=all', {method: 'GET'})
 
     // Song add panel vars
     const [newSongData, setNewSongData] = useState({
