@@ -12,7 +12,7 @@ export function useDebSearch(urlTemplate = '/api/data?type=searchAll', delay = 5
     const trimmed = debouncedValue?.trim();
     const url = trimmed ? `${urlTemplate}&keyword=${trimmed}` : null;
 
-    const {data, loading, error} = useFetch(url);
+    const {data} = useFetch(url);
 
     return {inputValue, setInputValue, results: data ?? []};
 }

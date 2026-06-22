@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const filePath = fileURLToPath(import.meta.url); // Current filepath
 const dirPath = path.dirname(filePath); // Current dirpath
-const dbPath = path.join(dirPath, '..', 'data', 'db.json'); // db path
+const dbPath = path.join(dirPath, '..', 'backend', 'db.json'); // db path
 
 export function readDb() {
   return JSON.parse(fs.readFileSync(dbPath, 'utf8'));
