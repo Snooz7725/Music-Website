@@ -1,5 +1,5 @@
 import './artist_add.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
     const [artistData, setArtistData] = useState({
@@ -21,12 +21,101 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
         }, 290)
     }
 
+    const [newSongData, setNewSongData] = useState({
+        artistName: '',
+        songName: '',
+        albumName: '',
+        thumbnailData: ''
+    })
+
+    const [ thumbnailInputCheckbox, setThumbnailInputCheckbox ] = useState(false)
+    const [ pasteFlag, setPasteFlag ] = useState(false)
+    const [ imgURL, setImgURL ] = useState('')
+    const [ btnToggleFlag, setBtnToggleFlag ] = useState(false)
+
+    useEffect(() => {
+        function handlePaste(e) {
+            if (!pasteFlag || !thumbnailInputCheckbox || !btnToggleFlag) return
+
+            setPasteFlag(false)
+            setBtnToggleFlag(false)
+
+            try {
+                const items = e.clipboardData?.items
+                if (!items) throw new Error('Clipboard Read Error')
+
+                for (const item of items) {
+                    if (item.type.startsWith('image/')) {
+                        const blob = item.getAsFile()
+                        if (!blob) continue
+
+                        setNewSongData(prev => ({
+                            ...prev,
+                            thumbnailData: blob
+                        }))
+
+                        setImgURL(prevUrl => {
+                            if (prevUrl) URL.revokeObjectURL(prevUrl)
+                            return URL.createObjectURL(blob)
+                        })
+
+                        break
+                    }
+                }
+            } catch (error) {
+                console.error('Paste failed:', error)
+            }
+        }
+
+        document.addEventListener('paste', handlePaste)
+
+        return () => {
+            document.removeEventListener('paste', handlePaste)
+        }
+    }, [pasteFlag, thumbnailInputCheckbox, btnToggleFlag])
+
     if (openFlag || isClosing) return (
         <div className={isClosing ? "artist-add-wrapper closing" : "artist-add-wrapper"}>
             <input type="text" placeholder="Enter new artist" className="text-input" onChange={(e) => setArtistData(prev => ({
                 ...prev,
                 "name": e.target.value
             }))}/>
+
+            <div className="thumbnail-input">
+                <button className={ thumbnailInputCheckbox ? "active checkbox" : "checkbox"} onClick={() => setThumbnailInputCheckbox(prev => !prev)}></button>
+                <label className="details">Add thumbnail</label>
+            </div>
+            <div className="thumbnail-output">
+                { newSongData.thumbnailData == '' ? (
+            <button
+                className={
+                    thumbnailInputCheckbox && !btnToggleFlag ? "btn paste-thumbnail-btn"
+                    : thumbnailInputCheckbox && btnToggleFlag ? "btn paste-thumbnail-btn toggled"
+                    : "btn paste-thumbnail-btn disabled"
+                }
+                disabled={!thumbnailInputCheckbox}
+                onClick={() => {
+                    setPasteFlag(true)
+                    setBtnToggleFlag(true)
+                }}
+            >
+                <img src="./assets/white_paste.png" alt="paste" />
+            </button>
+                ) : (
+                    <>
+                        <span className="details">Pasted image:</span>
+                        <div className="img-wrapper">
+                            <img src={ imgURL }></img>
+                        </div>
+                        <button className="btn cancel-thumbnail-btn" onClick={() => setNewSongData(prev => ({
+                            ...prev,
+                            "thumbnailData": ''
+                        }))}>
+                            <img src="./assets/white_closed_bin.png" alt="delete" />
+                        </button>
+                    </>
+                )}
+            </div>
             
             <div className="btn-list">
                 <button className={canSubmit ? 'btn' : 'disabled btn'} disabled={!canSubmit || isClosing} onClick={() => {
