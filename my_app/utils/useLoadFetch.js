@@ -42,7 +42,7 @@ export function useLoadFetch(url, options = {}) {
 
     // cancels the fetch request
     return () => controller.abort(); 
-  }, [url, options]); 
+  }, [url]); 
 
   return {data, loading, error};
 }
