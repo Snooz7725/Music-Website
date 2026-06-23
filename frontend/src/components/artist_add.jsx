@@ -8,8 +8,6 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
     })
     const [isClosing, setIsClosing] = useState(false)
 
-    const canSubmit = Boolean(artistData?.name && artistData?.profilePic)
-
     const handleCancel = () => {
         if (isClosing) return // Just in case
 
@@ -17,6 +15,10 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
 
         setTimeout(() => {
             setIsClosing(false)
+            setArtistData({
+                name: null,
+                blob: null
+            })
             setActiveDialog('')
         }, 290)
     }
@@ -25,6 +27,8 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
     const [ pasteFlag, setPasteFlag ] = useState(false)
     const [ imgURL, setImgURL ] = useState('')
     const [ btnToggleFlag, setBtnToggleFlag ] = useState(false)
+
+    const canSubmit = Boolean(artistData.name && (thumbnailInputCheckbox === (artistData.blob !== null)))
 
     useEffect(() => {
         function handlePaste(e) {
@@ -110,13 +114,15 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
             </div>
             
             <div className="btn-list">
-                <button className={canSubmit ? 'btn' : 'disabled btn'} disabled={!canSubmit || isClosing} onClick={() => {
+                <button className={(canSubmit && !isClosing) ? 'btn' : 'disabled btn'} disabled={!canSubmit || isClosing} onClick={() => {
                     handleAddArtist(artistData, thumbnailInputCheckbox)
                     handleCancel()
                 }}>
                     <img src="/assets/white_plus.png" alt="" />
                 </button>
-                <button className="btn cancel-btn" disabled={isClosing} onClick={handleCancel}>
+                <button className="btn cancel-btn" disabled={isClosing} onClick={() => {
+                    handleCancel()
+                }}>
                     <img src="/assets/white_x.png" alt="" />
                 </button>
             </div>

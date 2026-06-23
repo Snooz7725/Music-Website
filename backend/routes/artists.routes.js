@@ -8,7 +8,7 @@ const router = express.Router();
 let uniqueName = null;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '../assets/'); // <- folder
+    cb(null, 'assets/'); // Where files are being placed
   },
   filename: (req, file, cb) => {
     uniqueName = Date.now() + '-' + file.originalname + '-' + randomUUID();
@@ -22,6 +22,7 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
   const { type } = req.query;
 
   if (type == 'addArtist') {
+    console.log('addArtist started')
     const db = readDb();
     const chosenId = Number(db.artists.newId);
 
@@ -35,6 +36,8 @@ router.post('/', upload.single('thumbnail'), async (req, res) => {
 
     db.artists.newId++;
     writeDb(db);
+
+    console.log('addArtist ended successfully')
 
     res.status(200).json({
       success: true,

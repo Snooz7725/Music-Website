@@ -30,7 +30,7 @@ app.listen(PORT, () => {
   const universalDate = new Date().toUTCString();
 
   console.log('DB data loaded');
+  console.log("process dir:", process.cwd());
   console.log(`Backend running on http://localhost:${PORT} on:\n${universalDate}`);
   console.log("process type:", typeof process);
-  console.log("process dir:", process.cwd());
 });
