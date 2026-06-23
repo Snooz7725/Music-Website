@@ -11,14 +11,14 @@ const storage = multer.diskStorage({
     cb(null, 'assets/'); // Where files are being placed
   },
   filename: (req, file, cb) => {
-    uniqueName = Date.now() + '-' + file.originalname + '-' + randomUUID();
+    uniqueName = Date.now() + '-' + randomUUID() + '-' + file.originalname;
     cb(null, uniqueName);
   }
 });
 
 const upload = multer({ storage });
 
-router.post('/', upload.single('thumbnail'), async (req, res) => {
+router.post('/', upload.single('profilePic'), async (req, res) => {
   const { type } = req.query;
 
   if (type == 'addArtist') {

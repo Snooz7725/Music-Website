@@ -24,8 +24,8 @@ function SongAdd() {
         const formData = new FormData();
 
         if (thumbnailFlag) {
-            formData.append('blob', artistData.blob)
-        } else formData.append('blob', null)
+            formData.append('profilePic', artistData.blob)
+        } else formData.append('profilePic', null)
 
         formData.append('name', artistData.name)
 
