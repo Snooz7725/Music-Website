@@ -1,5 +1,5 @@
 import './no_match.css'
-import { useLoadFetch } from '../../utils/useLoadFetch'
+import { useLoadFetch } from '../utils/useLoadFetch'
 import Sidebar from '../components/sidebar'
 
 

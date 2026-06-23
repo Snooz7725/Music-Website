@@ -1,22 +1,36 @@
 import express from 'express';
-
-import { readDb, writeDb } from '../../utils/db.js';
+import multer from 'multer'
+import { randomUUID } from 'crypto';
+import { readDb, writeDb } from '../utils/db.js';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+let uniqueName = null;
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '../assets/'); // <- folder
+  },
+  filename: (req, file, cb) => {
+    uniqueName = Date.now() + '-' + file.originalname + '-' + randomUUID();
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ storage });
+
+router.post('/', upload.single('thumbnail'), async (req, res) => {
   const { type } = req.query;
 
   if (type == 'addArtist') {
-    const artistName = req.body.artistName;
-    const profilePic = req.body.profilePic;
     const db = readDb();
     const chosenId = Number(db.artists.newId);
+
+    const artistName = req.body.name;
 
     db.artists.data.push({
       id: chosenId,
       name: artistName,
-      profile_pic: profilePic,
+      profile_pic: 'assets/ + uniqueName',
     });
 
     db.artists.newId++;

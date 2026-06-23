@@ -1,6 +1,6 @@
 import './song_add.css'
 import { useState, useEffect } from 'react'
-import { useLoadFetch } from '../../utils/useLoadFetch'
+import { useLoadFetch } from '../utils/useLoadFetch'
 import Searchbar from '../components/searchbar'
 import Sidebar from '../components/sidebar'
 import SongAddPanel from '../components/song_add_panel'
@@ -20,14 +20,19 @@ function SongAdd() {
         }
     }
 
-    async function handleAddArtist(newArtistData) {
+    async function handleAddArtist(artistData, thumbnailFlag) {
+        const formData = new FormData();
+
+        if (thumbnailFlag) {
+            formData.append('blob', artistData.blob)
+        } else formData.append('blob', null)
+
+        formData.append('name', artistData.name)
+
         try {
-            fetch('/api/artists', {
+            fetch('/api/artists?type=addArtist', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({data: newArtistData}),
+                body: formData
             })
         } catch (err) {
             console.error("Fetch failed:", err)

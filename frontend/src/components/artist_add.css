@@ -51,10 +51,26 @@
 .artist-add-wrapper .btn {
     flex: 1;
     height: 3vw;
+    width: 8vw;
     min-height: auto;
     min-width: auto;
 }
 
+.artist-add-wrapper .paste-thumbnail-btn,
+.artist-add-wrapper .cancel-thumbnail-btn {
+    flex: auto;
+}
+
+.artist-add-wrapper .cancel-thumbnail-btn {
+    padding: 0;
+}
+
 .artist-add-wrapper .cancel-btn {
     padding: 0.6vh;
+}
+
+.artist-add-wrapper .thumbnail-output .img-wrapper {
+    border-radius: 100%;
+    width: 12vw;
+    aspect-ratio: 1 / 1;
 }

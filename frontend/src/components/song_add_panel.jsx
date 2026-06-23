@@ -32,7 +32,7 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
                             <option key={artist.id}>{artist.name}</option>
                         )}
                     </datalist>
-                    <button className="btn" onClick={() => setActiveDialog('artistDialog')}>
+                    <button className="btn add-btn" onClick={() => setActiveDialog('artistDialog')}>
                         <img src="assets/white_plus.png" alt="Add artist" />
                     </button>
                 </div>
@@ -52,7 +52,7 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
                             <option key={album.id}>{album.title}</option>
                         )}
                     </datalist>
-                    <button className="btn" onClick={() => setActiveDialog('albumDialog')}>
+                    <button className="btn add-btn" onClick={() => setActiveDialog('albumDialog')}>
                         <img src="assets/white_plus.png" alt="Add artist" />
                     </button>
                 </div>

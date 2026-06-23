@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
     const [artistData, setArtistData] = useState({
         name: null,
-        profilePic: null
+        blob: null
     })
     const [isClosing, setIsClosing] = useState(false)
 
@@ -20,13 +20,6 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
             setActiveDialog('')
         }, 290)
     }
-
-    const [newSongData, setNewSongData] = useState({
-        artistName: '',
-        songName: '',
-        albumName: '',
-        thumbnailData: ''
-    })
 
     const [ thumbnailInputCheckbox, setThumbnailInputCheckbox ] = useState(false)
     const [ pasteFlag, setPasteFlag ] = useState(false)
@@ -47,12 +40,11 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
                 for (const item of items) {
                     if (item.type.startsWith('image/')) {
                         const blob = item.getAsFile()
-                        if (!blob) continue
-
-                        setNewSongData(prev => ({
+                        setArtistData(prev => ({
                             ...prev,
-                            thumbnailData: blob
+                            blob
                         }))
+                        if (!blob) continue
 
                         setImgURL(prevUrl => {
                             if (prevUrl) URL.revokeObjectURL(prevUrl)
@@ -83,33 +75,33 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
 
             <div className="thumbnail-input">
                 <button className={ thumbnailInputCheckbox ? "active checkbox" : "checkbox"} onClick={() => setThumbnailInputCheckbox(prev => !prev)}></button>
-                <label className="details">Add thumbnail</label>
+                <label className="details">Add profile picture</label>
             </div>
             <div className="thumbnail-output">
-                { newSongData.thumbnailData == '' ? (
-            <button
-                className={
-                    thumbnailInputCheckbox && !btnToggleFlag ? "btn paste-thumbnail-btn"
-                    : thumbnailInputCheckbox && btnToggleFlag ? "btn paste-thumbnail-btn toggled"
-                    : "btn paste-thumbnail-btn disabled"
-                }
-                disabled={!thumbnailInputCheckbox}
-                onClick={() => {
-                    setPasteFlag(true)
-                    setBtnToggleFlag(true)
-                }}
-            >
-                <img src="./assets/white_paste.png" alt="paste" />
-            </button>
+                { artistData.blob === null ? (
+                    <button
+                        className={
+                            thumbnailInputCheckbox && !btnToggleFlag ? "btn paste-thumbnail-btn"
+                            : thumbnailInputCheckbox && btnToggleFlag ? "btn paste-thumbnail-btn toggled"
+                            : "btn paste-thumbnail-btn disabled"
+                        }
+                        disabled={!thumbnailInputCheckbox}
+                        onClick={() => {
+                            setPasteFlag(true)
+                            setBtnToggleFlag(true)
+                        }}
+                    >
+                        <img src="./assets/white_paste.png" alt="paste" />
+                    </button>
                 ) : (
                     <>
                         <span className="details">Pasted image:</span>
                         <div className="img-wrapper">
                             <img src={ imgURL }></img>
                         </div>
-                        <button className="btn cancel-thumbnail-btn" onClick={() => setNewSongData(prev => ({
+                        <button className="btn cancel-thumbnail-btn" onClick={() => setArtistData(prev => ({
                             ...prev,
-                            "thumbnailData": ''
+                            blob: null
                         }))}>
                             <img src="./assets/white_closed_bin.png" alt="delete" />
                         </button>
@@ -119,7 +111,7 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist}) {
             
             <div className="btn-list">
                 <button className={canSubmit ? 'btn' : 'disabled btn'} disabled={!canSubmit || isClosing} onClick={() => {
-                    handleAddArtist(artistData)
+                    handleAddArtist(artistData, thumbnailInputCheckbox)
                     handleCancel()
                 }}>
                     <img src="/assets/white_plus.png" alt="" />

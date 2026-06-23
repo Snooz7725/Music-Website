@@ -1,5 +1,5 @@
 import './searchbar.css'
-import { useDebSearch } from '../../utils/useDebSearch'
+import { useDebSearch } from '../utils/useDebSearch'
 import SearchbarList from './searchbar_list'
 import LoadingCard from './loading_card'
 import ErrorCard from './error_card'

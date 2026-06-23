@@ -1,39 +1,39 @@
 import express from 'express';
 
-import { readDb, writeDb } from '../../utils/db.js';
+import { readDb, writeDb } from '../utils/db.js';
 
 const router = express.Router();
 
 router.delete('/', (req, res) => {
   const { type } = req.query;
 
-  if (type == 'removeSongFromLiked') {
-    const { songId } = req.query;
+  if (type == 'removeAlbumFromLiked') {
+    const { albumId } = req.query;
     const db = readDb();
 
-    let songToRemoveIndex = null;
-    const songToRemove = db.liked_songs.data.find((song, index) => {
-      if (song.song_id == songId) {
-        songToRemoveIndex = index;
+    let albumToRemoveIndex = null;
+    const albumToRemove = db.liked_albums.data.find((album, index) => {
+      if (album.album_id == albumId) {
+        albumToRemoveIndex = index;
         return true;
       } else return false;
     });
 
-    if (songToRemove === undefined) {
+    if (albumToRemove === undefined) {
       res.status(404).json({
         success: false,
-        msg: 'Song ID did not match any available songs',
+        msg: 'Album ID did not match any available albums',
         data: null,
       });
       return;
     }
 
-    db.liked_songs.data.splice(songToRemoveIndex, 1);
+    db.liked_albums.data.splice(albumToRemoveIndex, 1);
     writeDb(db);
 
     res.status(200).json({
       success: true,
-      msg: 'Liked song successfully removed from liked',
+      msg: 'Liked Album successfully removed from liked',
       data: null,
     });
   } else {
@@ -46,34 +46,34 @@ router.delete('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { type, songId } = req.query;
+  const { type, albumId } = req.query;
 
-  if (type == 'addSongToLiked') {
+  if (type == 'addAlbumToLiked') {
     const db = readDb();
-    const song = db.songs.data.find(song => Number(song?.id) === Number(songId));
+    const album = db.albums.data.find(album => Number(album?.id) === Number(albumId));
 
-    if (song === undefined) {
+    if (album === undefined) {
       res.status(404).json({
         success: false,
-        msg: 'Song ID did not match any available songs',
+        msg: 'album ID did not match any available albums',
         data: null,
       });
       return;
     }
 
-    const chosenId = Number(db.liked_songs.newId);
+    const chosenId = Number(db.liked_albums.newId);
 
-    db.liked_songs.data.push({
+    db.liked_albums.data.push({
       id: chosenId,
-      song_id: Number(songId),
+      album_id: Number(albumId),
     });
 
-    db.liked_songs.newId++;
+    db.liked_albums.newId++;
     writeDb(db);
 
     res.status(200).json({
       success: true,
-      msg: 'Song successfully added to liked',
+      msg: 'Album successfully added to liked',
       data: null,
     });
   } else {

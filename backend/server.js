@@ -4,7 +4,7 @@ import artistRoutes from './routes/artists.routes.js';
 import dataRoutes from './routes/data.routes.js';
 import likedAlbumRoutes from './routes/likedAlbums.routes.js';
 import likedSongRoutes from './routes/likedSongs.routes.js';
-import { readDb } from '../utils/db.js';
+import { readDb } from './utils/db.js';
 
 const app = express();
 const PORT = 5000;
@@ -31,4 +31,6 @@ app.listen(PORT, () => {
 
   console.log('DB data loaded');
   console.log(`Backend running on http://localhost:${PORT} on:\n${universalDate}`);
+  console.log("process type:", typeof process);
+  console.log("process dir:", process.cwd());
 });
