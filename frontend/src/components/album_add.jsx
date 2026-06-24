@@ -1,7 +1,7 @@
 import './album_add.css'
 import { useState, useEffect } from 'react'
 
-function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch}) {
+function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
     const [albumData, setAlbumData] = useState({
         title: null,
         blob: null
@@ -80,6 +80,22 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch}) {
                 ...prev,
                 "title": e.target.value
             }))}/>
+
+            <div className="artist-input-wrapper">
+                <input type="text" placeholder="Enter artist" list="artistInput" className="text-input" onChange={(e) => setNewSongData(prev => ({
+                    ...prev,
+                    "artistName": e.target.value
+                }))}/>
+                <datalist id="artistInput">
+                    {data?.data?.artists?.data?.map(artist =>
+                        <option 
+                            key={artist.id} 
+                            value={artist.name} 
+                            data-id={artist.id} 
+                        />
+                    )}
+                </datalist>
+            </div>
 
             <div className="thumbnail-input">
                 <button className={ thumbnailInputCheckbox ? "active checkbox" : "checkbox"} onClick={() => setThumbnailInputCheckbox(prev => !prev)}></button>

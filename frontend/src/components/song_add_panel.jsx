@@ -10,7 +10,7 @@ function SongAddPanel({refetch, handleAddNewSong, handleAddArtist, handleAddAlbu
     return (
         <div className="song-add-panel-wrapper">
             <ArtistAdd openFlag={activeDialog === 'artistDialog'} setActiveDialog={setActiveDialog} handleAddArtist={handleAddArtist} refetch={refetch} />
-            <AlbumAdd openFlag={activeDialog === 'albumDialog'} setActiveDialog={setActiveDialog} handleAddAlbum={handleAddAlbum} refetch={refetch} />
+            <AlbumAdd openFlag={activeDialog === 'albumDialog'} setActiveDialog={setActiveDialog} handleAddAlbum={handleAddAlbum} refetch={refetch} data={data} />
 
             <div className="hero">
                 <img src="/images/ui/microphone.jpg" alt=""/>
