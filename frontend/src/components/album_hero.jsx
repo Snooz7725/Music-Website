@@ -5,11 +5,11 @@ function AlbumHero({ setListFormat, handleRemoveLikedAlbum, handleAddAlbumToLike
         <div className="album-hero-wrapper">
             <div
                 className="album-hero-bg"
-                style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9)), url('/assets/${chosenAlbum.thumbnail}')` }}
+                style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9)), url('${chosenAlbum.thumbnail}')` }}
             />
             <div className="top-section">
                 <div className="img-wrapper">
-                    <img src={"/assets/" + (chosenAlbum.thumbnail ?? "/github_profile")} alt="Album Cover"/>
+                    <img src={chosenAlbum.thumbnail ?? "/images/ui/github.svg"} alt="Album Cover"/>
                 </div>
                 <div className="album-info">
                     <h1 className="title">{chosenAlbum.title}</h1>
@@ -18,9 +18,9 @@ function AlbumHero({ setListFormat, handleRemoveLikedAlbum, handleAddAlbumToLike
                 </div>
             </div>
             <ul className="btn-list">
-                <li><button className="list-btn" onClick={() => setListFormat(prev => !prev)}><img src="/assets/list_btn.png" alt="Format Icon" /></button></li>
-                <li><button className="like-btn" onClick={() => {chosenAlbum.isLiked ? handleRemoveLikedAlbum(chosenAlbum.id) : handleAddAlbumToLiked(chosenAlbum.id)}}><img src={chosenAlbum.isLiked ? '/assets/transparent_heart_btn.png' : '/assets/empty_heart_btn.png'} alt="Like Icon" /></button></li>
-                <li><button className="delete-btn" onClick={() => handleDeleteAlbum(chosenAlbum.id)}><img src="/assets/white_closed_bin.png" alt="" /></button></li>
+                <li><button className="list-btn" onClick={() => setListFormat(prev => !prev)}><img src="/images/ui/list_btn.png" alt="Format Icon" /></button></li>
+                <li><button className="like-btn" onClick={() => {chosenAlbum.isLiked ? handleRemoveLikedAlbum(chosenAlbum.id) : handleAddAlbumToLiked(chosenAlbum.id)}}><img src={chosenAlbum.isLiked ? '/images/ui/transparent_heart_btn.png' : '/images/ui/empty_heart_btn.png'} alt="Like Icon" /></button></li>
+                <li><button className="delete-btn" onClick={() => handleDeleteAlbum(chosenAlbum.id)}><img src="/images/ui/white_closed_bin.png" alt="" /></button></li>
             </ul>
         </div>
     )

@@ -3,17 +3,66 @@ import express from 'express';
 import { readDb } from '../utils/db.js';
 
 const router = express.Router();
+const BASE_URL = 'http://localhost:5000';
+
+function normalizeFileName(filename) {
+  if (!filename) return null;
+  return filename
+    .replace(/\\/g, '/')
+    .replace(/^\/+/, '')
+    .replace(/^assets\//, '')
+    .replace(/^public\/images\//, '')
+    .replace(/^images\//, '');
+}
+
+function mapImageUrl(filename, folder) {
+  const cleanName = normalizeFileName(filename);
+  if (!cleanName) return null;
+  if (cleanName.startsWith('http://') || cleanName.startsWith('https://')) {
+    return cleanName;
+  }
+  return `${BASE_URL}/uploads/images/${folder}/${cleanName}`;
+}
+
+function mapDb(db) {
+  return {
+    artists: {
+      newId: db.artists.newId,
+      data: db.artists.data.map((artist) => ({
+        ...artist,
+        profile_pic: mapImageUrl(artist.profile_pic, 'artists'),
+      })),
+    },
+    albums: {
+      newId: db.albums.newId,
+      data: db.albums.data.map((album) => ({
+        ...album,
+        thumbnail: mapImageUrl(album.thumbnail, 'albums'),
+      })),
+    },
+    songs: {
+      newId: db.songs.newId,
+      data: db.songs.data.map((song) => ({
+        ...song,
+        thumbnail: mapImageUrl(song.thumbnail, 'albums'),
+      })),
+    },
+    liked_songs: db.liked_songs,
+    liked_albums: db.liked_albums,
+  };
+}
 
 router.get('/', (req, res) => {
   const { type } = req.query;
 
   if (type == 'all') {
     const db = readDb();
+    const mappedDb = mapDb(db);
 
     res.status(200).json({
       success: true,
       msg: 'DB successfully retrieved',
-      data: db,
+      data: mappedDb,
     });
   } else if (type == 'searchAll') {
     const whiteListedTables = ['artists', 'songs', 'albums'];

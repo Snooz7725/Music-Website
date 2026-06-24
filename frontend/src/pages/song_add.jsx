@@ -20,12 +20,14 @@ function SongAdd() {
         }
     }
 
-    async function handleAddArtist(artistData, thumbnailFlag) {
+    async function handleAddArtist(artistData, profilePicFlag) {
         const formData = new FormData();
 
-        if (thumbnailFlag) {
-            formData.append('profilePic', artistData.blob)
-        } else formData.append('profilePic', null)
+        formData.append('profilePic', artistData.blob)
+
+        if (profilePicFlag) {
+            formData.append('fileFlag', true)
+        } else formData.append('fileFlag', false)
 
         formData.append('name', artistData.name)
 
@@ -39,7 +41,28 @@ function SongAdd() {
         }
     }
 
-    const {data, loading, error} = useLoadFetch('/api/data?type=all', {method: 'GET'})
+    async function handleAddAlbum(albumData, thumbnailFlag) {
+        const formData = new FormData();
+
+        formData.append('profilePic', thumbnailFlag.blob)
+
+        if (thumbnailFlag) {
+            formData.append('fileFlag', true)
+        } else formData.append('fileFlag', false)
+
+        formData.append('title', albumData.title)
+
+        try {
+            fetch('/api/albums?type=addAlbum', {
+                method: 'POST',
+                body: formData
+            })
+        } catch (err) {
+            console.error("Fetch failed:", err)
+        }
+    }
+
+    const {data, loading, error, refetch} = useLoadFetch('/api/data?type=all', {method: 'GET'})
 
     // Song add panel vars
     const [ albumInputCheckbox, setAlbumInputCheckbox ] = useState(false)
@@ -126,9 +149,9 @@ function SongAdd() {
                 <Searchbar />
                 <div className="main-content">
                     <div className="panel-img-wrapper">
-                        <img src="/assets/microphone.jpg" alt="" />
+                        <img src="/images/ui/microphone.jpg" alt="" />
                     </div>
-                    <SongAddPanel handleAddSong={handleAddSong} handleAddArtist={handleAddArtist} addBtn={addBtn} imgURL={imgURL} setPasteFlag={setPasteFlag} btnToggleFlag={btnToggleFlag} setBtnToggleFlag={setBtnToggleFlag} thumbnailInputCheckbox={thumbnailInputCheckbox} setThumbnailInputCheckbox={setThumbnailInputCheckbox} albumInputCheckbox={albumInputCheckbox} setAlbumInputCheckbox={setAlbumInputCheckbox} newSongData={newSongData} setNewSongData={setNewSongData} data={data}/>
+                    <SongAddPanel refetch={refetch} handleAddSong={handleAddSong} handleAddArtist={handleAddArtist} handleAddAlbum={handleAddAlbum} addBtn={addBtn} imgURL={imgURL} setPasteFlag={setPasteFlag} btnToggleFlag={btnToggleFlag} setBtnToggleFlag={setBtnToggleFlag} thumbnailInputCheckbox={thumbnailInputCheckbox} setThumbnailInputCheckbox={setThumbnailInputCheckbox} albumInputCheckbox={albumInputCheckbox} setAlbumInputCheckbox={setAlbumInputCheckbox} newSongData={newSongData} setNewSongData={setNewSongData} data={data}/>
                 </div>
             </div>
         </div>

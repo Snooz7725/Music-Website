@@ -1,9 +1,9 @@
-import './artist_add.css'
+import './album_add.css'
 import { useState, useEffect } from 'react'
 
-function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
-    const [artistData, setArtistData] = useState({
-        name: null,
+function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch}) {
+    const [albumData, setAlbumData] = useState({
+        title: null,
         blob: null
     })
     const [isClosing, setIsClosing] = useState(false)
@@ -19,7 +19,7 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
             }
 
             setIsClosing(false)
-            setArtistData({
+            setAlbumData({
                 title: null,
                 blob: null
             })
@@ -27,16 +27,16 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
         }, 290)
     }
 
-    const [ profilePicInputCheckbox, setThumbnailInputCheckbox ] = useState(false)
+    const [ thumbnailInputCheckbox, setThumbnailInputCheckbox ] = useState(false)
     const [ pasteFlag, setPasteFlag ] = useState(false)
     const [ imgURL, setImgURL ] = useState('')
     const [ btnToggleFlag, setBtnToggleFlag ] = useState(false)
 
-    const canSubmit = Boolean(artistData.name && (profilePicInputCheckbox === (artistData.blob !== null)))
+    const canSubmit = Boolean(albumData.title && (thumbnailInputCheckbox === (albumData.blob !== null)))
 
     useEffect(() => {
         function handlePaste(e) {
-            if (!pasteFlag || !profilePicInputCheckbox || !btnToggleFlag) return
+            if (!pasteFlag || !thumbnailInputCheckbox || !btnToggleFlag) return
 
             setPasteFlag(false)
             setBtnToggleFlag(false)
@@ -48,7 +48,7 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
                 for (const item of items) {
                     if (item.type.startsWith('image/')) {
                         const blob = item.getAsFile()
-                        setArtistData(prev => ({
+                        setAlbumData(prev => ({
                             ...prev,
                             blob
                         }))
@@ -72,28 +72,28 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
         return () => {
             document.removeEventListener('paste', handlePaste)
         }
-    }, [pasteFlag, profilePicInputCheckbox, btnToggleFlag])
+    }, [pasteFlag, thumbnailInputCheckbox, btnToggleFlag])
 
     if (openFlag || isClosing) return (
-        <div className={isClosing ? "artist-add-wrapper closing" : "artist-add-wrapper"}>
-            <input type="text" placeholder="Enter new artist" className="text-input" onChange={(e) => setArtistData(prev => ({
+        <div className={isClosing ? "album-add-wrapper closing" : "album-add-wrapper"}>
+            <input type="text" placeholder="Enter new album" className="text-input" onChange={(e) => setAlbumData(prev => ({
                 ...prev,
-                "name": e.target.value
+                "title": e.target.value
             }))}/>
 
             <div className="thumbnail-input">
-                <button className={ profilePicInputCheckbox ? "active checkbox" : "checkbox"} onClick={() => setThumbnailInputCheckbox(prev => !prev)}></button>
-                <label className="details">Add profile picture</label>
+                <button className={ thumbnailInputCheckbox ? "active checkbox" : "checkbox"} onClick={() => setThumbnailInputCheckbox(prev => !prev)}></button>
+                <label className="details">Add thumbnail</label>
             </div>
             <div className="thumbnail-output">
-                { artistData.blob === null ? (
+                { albumData.blob === null ? (
                     <button
                         className={
-                            profilePicInputCheckbox && !btnToggleFlag ? "btn paste-thumbnail-btn"
-                            : profilePicInputCheckbox && btnToggleFlag ? "btn paste-thumbnail-btn toggled"
+                            thumbnailInputCheckbox && !btnToggleFlag ? "btn paste-thumbnail-btn"
+                            : thumbnailInputCheckbox && btnToggleFlag ? "btn paste-thumbnail-btn toggled"
                             : "btn paste-thumbnail-btn disabled"
                         }
-                        disabled={!profilePicInputCheckbox}
+                        disabled={!thumbnailInputCheckbox}
                         onClick={() => {
                             setPasteFlag(true)
                             setBtnToggleFlag(true)
@@ -107,7 +107,7 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
                         <div className="img-wrapper">
                             <img src={ imgURL }></img>
                         </div>
-                        <button className="btn cancel-thumbnail-btn" onClick={() => setArtistData(prev => ({
+                        <button className="btn cancel-thumbnail-btn" onClick={() => setAlbumData(prev => ({
                             ...prev,
                             blob: null
                         }))}>
@@ -119,7 +119,7 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
             
             <div className="btn-list">
                 <button className={(canSubmit && !isClosing) ? 'btn' : 'disabled btn'} disabled={!canSubmit || isClosing} onClick={() => {
-                    handleAddArtist(artistData, profilePicInputCheckbox)
+                    handleAddAlbum(albumData, thumbnailInputCheckbox)
                     handleCancel(true)
                 }}>
                     <img src="/images/ui/white_plus.png" alt="" />
@@ -134,4 +134,4 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
     )
 }
 
-export default ArtistAdd
+export default AlbumAdd

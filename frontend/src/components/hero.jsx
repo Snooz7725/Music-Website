@@ -10,7 +10,7 @@ function Hero() {
                 <ul className="btn-list">
                     <li><a className="github-btn btn" href="https://github.com">
                         <div className="icon-wrapper">
-                            <img src="/assets/github.svg" alt="GitHub" />
+                            <img src="/images/ui/github.svg" alt="GitHub" />
                         </div>
                         <span>GitHub</span>
                     </a></li>

@@ -1,0 +1,76 @@
+.album-add-wrapper {
+    z-index: 999;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: 18.5rem;
+    height: fit-content;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(0, 11, 33));
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.3); 
+    padding: 1rem;
+    border-radius: 1rem;
+
+    animation: album-dialog-open 300ms ease;
+}
+
+.album-add-wrapper.closing {
+    animation: album-dialog-close 300ms ease;
+}
+
+@keyframes album-dialog-open {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes album-dialog-close {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.92) translateY(1rem);
+    }
+}
+
+.album-add-wrapper .btn-list {
+    display: flex;
+}
+
+.album-add-wrapper .btn {
+    flex: 1;
+    height: 3vw;
+    width: 8vw;
+    min-height: auto;
+    min-width: auto;
+}
+
+.album-add-wrapper .paste-thumbnail-btn,
+.album-add-wrapper .cancel-thumbnail-btn {
+    flex: auto;
+}
+
+.album-add-wrapper .cancel-thumbnail-btn {
+    padding: 0;
+}
+
+.album-add-wrapper .cancel-btn {
+    padding: 0.6vh;
+}
+
+.album-add-wrapper .thumbnail-output .img-wrapper {
+    border-radius: 1vw;
+    width: 12vw;
+    aspect-ratio: 1 / 1;
+}

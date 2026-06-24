@@ -2,17 +2,18 @@ import './song_add_panel.css'
 import { useContext } from "react";
 import { DialogContext } from "../provider/dialog_context";
 import ArtistAdd from './artist_add'
-// import AlbumAdd from './album_add'
+import AlbumAdd from './album_add'
 
-function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPasteFlag, btnToggleFlag, setBtnToggleFlag, thumbnailInputCheckbox, setThumbnailInputCheckbox, albumInputCheckbox, setAlbumInputCheckbox, newSongData, setNewSongData, data}) {
+function SongAddPanel({refetch, handleAddNewSong, handleAddArtist, handleAddAlbum, addBtn, imgURL, setPasteFlag, btnToggleFlag, setBtnToggleFlag, thumbnailInputCheckbox, setThumbnailInputCheckbox, albumInputCheckbox, setAlbumInputCheckbox, newSongData, setNewSongData, data}) {
     const { activeDialog, setActiveDialog } = useContext(DialogContext);
     
     return (
         <div className="song-add-panel-wrapper">
-            <ArtistAdd openFlag={activeDialog === 'artistDialog'} setActiveDialog={setActiveDialog} handleAddArtist={handleAddArtist} />
+            <ArtistAdd openFlag={activeDialog === 'artistDialog'} setActiveDialog={setActiveDialog} handleAddArtist={handleAddArtist} refetch={refetch} />
+            <AlbumAdd openFlag={activeDialog === 'albumDialog'} setActiveDialog={setActiveDialog} handleAddAlbum={handleAddAlbum} refetch={refetch} />
 
             <div className="hero">
-                <img src="./assets/microphone.jpg" alt=""/>
+                <img src="/images/ui/microphone.jpg" alt=""/>
                 <span>Wanna Add A New Song?</span>
             </div>
             <div className="input-wrapper">
@@ -37,7 +38,7 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
                         )}
                     </datalist>
                     <button className="btn add-btn" onClick={() => setActiveDialog('artistDialog')}>
-                        <img src="assets/white_plus.png" alt="Add artist" />
+                        <img src="/public/images/ui/white_plus.png" alt="Add artist" />
                     </button>
                 </div>
                 <hr/>
@@ -61,7 +62,7 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
                         )}
                     </datalist>
                     <button className="btn add-btn" onClick={() => setActiveDialog('albumDialog')}>
-                        <img src="assets/white_plus.png" alt="Add artist" />
+                        <img src="/public/images/ui/white_plus.png" alt="Add artist" />
                     </button>
                 </div>
                 <hr/>
@@ -84,7 +85,7 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
                         setBtnToggleFlag(true)
                     }}
                 >
-                    <img src="./assets/white_paste.png" alt="paste" />
+                    <img src="/images/ui/white_paste.png" alt="paste" />
                 </button>
                     ) : (
                         <>
@@ -96,7 +97,7 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
                                 ...prev,
                                 "thumbnailData": ''
                             }))}>
-                                <img src="./assets/white_closed_bin.png" alt="delete" />
+                                <img src="/images/ui/white_closed_bin.png" alt="delete" />
                             </button>
                         </>
                     )}
@@ -105,7 +106,7 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
             <hr className="main-hr"/>
             <div className="btn-list">
                 <button className={ addBtn ? 'btn' : 'disabled btn'} disabled={ !addBtn } onClick={() => handleAddNewSong()}>
-                    <img src="/assets/white_plus.png" alt="" />
+                    <img src="/images/ui/white_plus.png" alt="" />
                 </button>
             </div>
         </div>

@@ -6,8 +6,8 @@ function CategoryCard({ artistId, albumId, albumTitle, artist, filePath }) {
         <li className="album-category-card-wrapper">
             <Link to={`/album/${albumId}`}>
                 <div className="icon-wrapper">
-                    <img className="thumbnail" src={'/assets/' + filePath} alt="Album cover" />
-                    <img className="background-thumbnail" src={'/assets/' + filePath} alt="Album cover" />
+                    <img className={"thumbnail"} src={filePath} alt="Album cover" />
+                    <img className="background-thumbnail" src={filePath} alt="Album cover" />
                 </div>
             </Link>
             <div className="details">
@@ -22,8 +22,8 @@ function CategoryCard({ artistId, albumId, albumTitle, artist, filePath }) {
 
             <div className="clone-album-category-card-wrapper">
                 <Link to={`/album/${albumId}`}><div className="icon-wrapper">
-                    <img className="thumbnail" src={'/assets/' + filePath} alt="Album cover" />
-                    <img className="background-thumbnail" src={'/assets/' + filePath} alt="Album cover" />
+                    <img className="thumbnail" src={filePath} alt="Album cover" />
+                    <img className="background-thumbnail" src={filePath} alt="Album cover" />
                 </div></Link>
                 <div className="details">
                     <Link to={`/album/${albumId}`}>

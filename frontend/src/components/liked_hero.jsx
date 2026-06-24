@@ -6,7 +6,7 @@ function LikedSongsHero({ setListFormat, count }) {
             <div className="liked-hero-bg"/>
             <div className="top-section">
                 <div className="img-wrapper">
-                    <img src="/assets/transparent_heart_btn.png" alt="Album Cover"/>
+                    <img src="/images/ui/transparent_heart_btn.png" alt="Album Cover"/>
                 </div>
                 <div className="liked-info">
                     <h1 className="title">Liked Songs</h1>
@@ -14,7 +14,7 @@ function LikedSongsHero({ setListFormat, count }) {
                 </div>
             </div>
             <ul className="btn-list">
-                <li><button className="list-btn" onClick={() => setListFormat(prev => !prev)}><img src="/assets/list_btn.png" alt="Format Icon" /></button></li>
+                <li><button className="list-btn" onClick={() => setListFormat(prev => !prev)}><img src="/images/ui/list_btn.png" alt="Format Icon" /></button></li>
             </ul>
         </div>
     )

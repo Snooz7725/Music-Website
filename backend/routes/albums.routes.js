@@ -1,14 +1,19 @@
 import express from 'express';
 import multer from 'multer'
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { randomUUID } from 'crypto';
 import { readDb, writeDb } from '../utils/db.js';
+
+const filePath = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(filePath);
 
 const router = express.Router();
 
 let uniqueName = null;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'assets/'); // Where files are being placed
+    cb(null, path.join(__dirname, '../uploads/images/albums')); // Where files are being placed
   },
   filename: (req, file, cb) => {
     uniqueName = Date.now() + '-' + randomUUID() + '-' + file.originalname;
@@ -42,10 +47,25 @@ router.post('/', upload.single('thumbnail'), (req, res) => {
   const { type } = req.query;
 
   if (type === 'addAlbum') {
-    console.log('addAlbum started')
+    console.log('[TEST] addAlbum started')
+    const fileFlag = req.body.fileFlag;
+
+    console.log('[TEST]', JSON.stringify(req?.file, null, 2))
+    console.log('[TEST]', fileFlag, typeof fileFlag)
+
+    if (fileFlag === 'true' && req.file === undefined) {
+      console.log('[TEST] File not found')
+      res.status(404).json({
+        success: false,
+        msg: 'Invalid file upload error',
+        data: null,
+      });
+
+      return;
+    }
+
     const db = readDb();
     const chosenId = Number(db.albums.newId);
-
     const albumName = req.body.title;
     const artistId = req.body.artistId;
 
@@ -53,13 +73,13 @@ router.post('/', upload.single('thumbnail'), (req, res) => {
       id: chosenId,
       title: albumName,
       artist_id: artistId,
-      thumbnail: 'assets/' + uniqueName,
+      thumbnail: req.file === undefined ? null : uniqueName,
     });
 
     db.albums.newId++;
     writeDb(db);
 
-    console.log('addAlbum ended successfully')
+    console.log('[TEST] addAlbum ended successfully')
 
     res.status(200).json({
       success: true,

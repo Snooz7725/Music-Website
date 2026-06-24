@@ -11,7 +11,7 @@ function Searchbar() {
         <div className="searchbar-wrapper">
             <section className="input-section">
                 <label className="icon-wrapper" htmlFor="searchField">
-                    <img src="/assets/search_btn.png" alt="Search" />
+                    <img src="/images/ui/search_btn.png" alt="Search" />
                 </label>
 
                 <input

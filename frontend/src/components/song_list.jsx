@@ -15,7 +15,7 @@ function SongList({ listFormat, handleRemoveLikedSong, handleAddSongToLiked, son
                             <div className="song-title">
                                 <div className="like-btn-outer-wrapper">
                                     <button className="like-btn-wrapper" onClick={() => song.isLiked ? handleRemoveLikedSong(song.id) : handleAddSongToLiked(song.id)}>
-                                        <img src={song.isLiked ? "/assets/transparent_heart_btn.png" : "/assets/empty_heart_btn.png"} alt="Like Button" />
+                                        <img src={song.isLiked ? "/images/ui/transparent_heart_btn.png" : "/images/ui/empty_heart_btn.png"} alt="Like Button" />
                                     </button>
                                 </div>
 
@@ -32,12 +32,13 @@ function SongList({ listFormat, handleRemoveLikedSong, handleAddSongToLiked, son
                             <div className="song-title">
                                 <div className="like-btn-outer-wrapper">
                                     <button className="like-btn-wrapper" onClick={() => song.isLiked ? handleRemoveLikedSong(song.id) : handleAddSongToLiked(song.id)}>
-                                        <img src={song.isLiked ? "/assets/transparent_heart_btn.png" : "/assets/empty_heart_btn.png"} alt="Like Button" />
+                                        <img src={song.isLiked ? "/images/ui/transparent_heart_btn.png" : "/images/ui/empty_heart_btn.png"} alt="Like Button" />
                                     </button>
                                 </div>
 
                                 <div className="song-thumbnail-wrapper">
-                                    <img src={'/assets/' + song.thumbnail} alt={song.title} />
+                                    {console.log(JSON.stringify(song, null, 2))}
+                                    <img src={song.thumbnail} alt={song.title} />
                                 </div>
                                 <div className="song-details">
                                     <span className="title">{song.title}</span>
