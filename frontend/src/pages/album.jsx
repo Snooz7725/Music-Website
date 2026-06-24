@@ -203,7 +203,7 @@ function Album() {
     const handleDeleteAlbum = async (id) => {
         try {
             const res = await fetch(
-                `/api/albums/${id}`,
+                `/api/albums/${id}?type=deleteAlbum`,
                 {
                     method: "DELETE"
                 }

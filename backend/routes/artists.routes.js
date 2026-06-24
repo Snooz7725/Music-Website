@@ -21,7 +21,7 @@ const upload = multer({ storage });
 router.post('/', upload.single('profilePic'), async (req, res) => {
   const { type } = req.query;
 
-  if (type == 'addArtist') {
+  if (type === 'addArtist') {
     console.log('addArtist started')
     const db = readDb();
     const chosenId = Number(db.artists.newId);
@@ -31,7 +31,7 @@ router.post('/', upload.single('profilePic'), async (req, res) => {
     db.artists.data.push({
       id: chosenId,
       name: artistName,
-      profile_pic: 'assets/ + uniqueName',
+      profile_pic: 'assets/' + uniqueName,
     });
 
     db.artists.newId++;

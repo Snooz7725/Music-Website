@@ -42,6 +42,7 @@ function SongAdd() {
     const {data, loading, error} = useLoadFetch('/api/data?type=all', {method: 'GET'})
 
     // Song add panel vars
+    const [ albumInputCheckbox, setAlbumInputCheckbox ] = useState(false)
     const [newSongData, setNewSongData] = useState({
         artistName: '',
         songName: '',
@@ -53,7 +54,6 @@ function SongAdd() {
         && newSongData.artistName.trim() !== ''
         && ((!albumInputCheckbox) || newSongData.albumName.trim() !== '')
 
-    const [ albumInputCheckbox, setAlbumInputCheckbox ] = useState(false)
     const [ thumbnailInputCheckbox, setThumbnailInputCheckbox ] = useState(false)
     const [ pasteFlag, setPasteFlag ] = useState(false)
     const [ imgURL, setImgURL ] = useState('')

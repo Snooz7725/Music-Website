@@ -29,7 +29,11 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
                     }))}/>
                     <datalist id="artistInput">
                         {data?.data?.artists?.data?.map(artist =>
-                            <option key={artist.id}>{artist.name}</option>
+                            <option 
+                                key={artist.id} 
+                                value={artist.name} 
+                                data-id={artist.id} 
+                            />
                         )}
                     </datalist>
                     <button className="btn add-btn" onClick={() => setActiveDialog('artistDialog')}>
@@ -49,7 +53,11 @@ function SongAddPanel({handleAddNewSong, handleAddArtist, addBtn, imgURL, setPas
                     }))}/>
                     <datalist id="albumInput">
                         {data?.data?.albums?.data?.map(album =>
-                            <option key={album.id}>{album.title}</option>
+                            <option 
+                                key={album.id} 
+                                value={album.title} 
+                                data-id={album.id} 
+                            />
                         )}
                     </datalist>
                     <button className="btn add-btn" onClick={() => setActiveDialog('albumDialog')}>
