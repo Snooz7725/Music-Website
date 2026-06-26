@@ -27,11 +27,7 @@ router.post('/', upload.single('profilePic'), async (req, res) => {
   const { type } = req.query;
 
   if (type === 'addArtist') {
-    console.log('[TEST] addArtist started');
     const fileFlag = req.body.fileFlag;
-
-    console.log('[TEST]', JSON.stringify(req?.file, null, 2))
-    console.log('[TEST]', fileFlag, typeof fileFlag)
 
     if (fileFlag === 'true' && req.file === undefined) {
       res.status(404).json({
@@ -56,11 +52,9 @@ router.post('/', upload.single('profilePic'), async (req, res) => {
     db.artists.newId++;
     writeDb(db);
 
-    console.log('[TEST] addArtist ended successfully');
-
     res.status(200).json({
       success: true,
-      msg: 'Album successfully added to liked',
+      msg: 'Artist successfully successfully added',
       data: null,
     });
   } else {

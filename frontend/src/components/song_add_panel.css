@@ -142,9 +142,12 @@
     transition: box-shadow ease 0.3s, background-color ease 0.3s, border ease 0.3s;
 }
 
-.song-add-panel-wrapper .btn img {
+.song-add-panel-wrapper .btn > img {
+    display: block;
     width: 70%;
     height: 70%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
 }
 
@@ -240,7 +243,14 @@
     overflow: hidden;
     border: 1px solid var(--prim-colour);
     border-radius: 0.5vw;
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    aspect-ratio: 1 / 1;
+}
+
+.song-add-panel-wrapper .thumbnail-output .img-wrapper img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .song-add-panel-wrapper .main-hr {

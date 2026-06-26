@@ -5,23 +5,9 @@ import { readDb } from '../utils/db.js';
 const router = express.Router();
 const BASE_URL = 'http://localhost:5000';
 
-function normalizeFileName(filename) {
-  if (!filename) return null;
-  return filename
-    .replace(/\\/g, '/')
-    .replace(/^\/+/, '')
-    .replace(/^assets\//, '')
-    .replace(/^public\/images\//, '')
-    .replace(/^images\//, '');
-}
-
-function mapImageUrl(filename, folder) {
-  const cleanName = normalizeFileName(filename);
-  if (!cleanName) return null;
-  if (cleanName.startsWith('http://') || cleanName.startsWith('https://')) {
-    return cleanName;
-  }
-  return `${BASE_URL}/uploads/images/${folder}/${cleanName}`;
+function mapImageUrl(fileName, folder) {
+  if (!fileName) return null;
+  return `${BASE_URL}/uploads/images/${folder}/${fileName}`;
 }
 
 function mapDb(db) {
@@ -44,7 +30,7 @@ function mapDb(db) {
       newId: db.songs.newId,
       data: db.songs.data.map((song) => ({
         ...song,
-        thumbnail: mapImageUrl(song.thumbnail, 'albums'),
+        thumbnail: mapImageUrl(song.thumbnail, 'songs'),
       })),
     },
     liked_songs: db.liked_songs,

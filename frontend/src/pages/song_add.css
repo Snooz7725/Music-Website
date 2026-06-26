@@ -36,7 +36,7 @@
     box-shadow: 0 0 6px rgba(255, 255, 255, 0.4); 
 }
 
-.song-add-wrapper .main-content img {
+.song-add-wrapper .main-content > .panel-img-wrapper img {
     height: 100%;
     width: 100%;
     object-fit: cover;

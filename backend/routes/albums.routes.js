@@ -47,11 +47,7 @@ router.post('/', upload.single('thumbnail'), (req, res) => {
   const { type } = req.query;
 
   if (type === 'addAlbum') {
-    console.log('[TEST] addAlbum started')
     const fileFlag = req.body.fileFlag;
-
-    console.log('[TEST]', JSON.stringify(req?.file, null, 2))
-    console.log('[TEST]', fileFlag, typeof fileFlag)
 
     if (fileFlag === 'true' && req.file === undefined) {
       console.log('[TEST] File not found')
@@ -66,12 +62,12 @@ router.post('/', upload.single('thumbnail'), (req, res) => {
 
     const db = readDb();
     const chosenId = Number(db.albums.newId);
-    const albumName = req.body.title;
+    const title = req.body.title;
     const artistId = Number(req.body.artistId);
 
     db.albums.data.push({
       id: chosenId,
-      title: albumName,
+      title,
       artist_id: artistId,
       thumbnail: req.file === undefined ? null : uniqueName,
     });
@@ -79,11 +75,15 @@ router.post('/', upload.single('thumbnail'), (req, res) => {
     db.albums.newId++;
     writeDb(db);
 
-    console.log('[TEST] addAlbum ended successfully')
-
     res.status(200).json({
       success: true,
-      msg: 'Album successfully added to liked',
+      msg: 'Album successfully added',
+      data: null,
+    });
+  } else {
+    res.status(404).json({
+      success: false,
+      msg: 'Invalid route for HTTP method POST',
       data: null,
     });
   }

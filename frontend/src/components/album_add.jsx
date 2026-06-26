@@ -65,8 +65,6 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
         (thumbnailInputCheckbox === (albumData.blob !== null)
     ))
 
-    console.log(canSubmit, albumData.title, albumData.artistId, thumbnailInputCheckbox, (albumData.blob !== null))
-
     function handleCancel(reload = false) {
         if (isClosing) return // Just in case
 
@@ -106,9 +104,7 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
             }))}/>
 
             <div className="artist-input-wrapper">
-                <input type="text" placeholder="Enter artist" list="artistInput" className="text-input" onChange={(e) => {
-                    setArtistName(e.target.value)
-                }}/>
+                <input type="text" placeholder="Enter artist" list="artistInput" className="text-input" onChange={(e) => setArtistName(e.target.value)}/>
                 <datalist id="artistInput">
                     {data?.data?.artists?.data?.map(artist => {
                         return (
@@ -161,6 +157,7 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
             <div className="btn-list">
                 <button className={(canSubmit && !isClosing) ? 'btn' : 'disabled btn'} disabled={!canSubmit || isClosing} onClick={() => {
                     handleAddAlbum(albumData, thumbnailInputCheckbox)
+                    setArtistName(null)
                     handleCancel(true)
                 }}>
                     <img src="/images/ui/white_plus.png" alt="" />

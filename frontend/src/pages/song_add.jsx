@@ -9,14 +9,19 @@ import './song_add.css'
 function SongAdd() {
     const {data, loading, error, refetch} = useLoadFetch('/api/data?type=all', {method: 'GET'})
 
-    async function handleAddSong(newSongData) {
+    async function handleAddSong(songData, thumbnailFlag) {
+        const formData = new FormData();
+
+        formData.append('thumbnail', songData.blob)
+        formData.append('fileFlag', thumbnailFlag)
+        formData.append('title', songData.title)
+        formData.append('artistId', songData.artistId)
+        formData.append('albumId', songData.albumId)
+
         try {
-            fetch('/api/songs', {
+            fetch('/api/songs?type=addSong', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({data: newSongData}),
+                body: formData
             })
         } catch (err) {
             console.error("Fetch failed:", err)
@@ -48,7 +53,7 @@ function SongAdd() {
         const formData = new FormData();
 
         formData.append('thumbnail', albumData.blob)
-        formData.append('fileFlag', Boolean(thumbnailFlag))
+        formData.append('fileFlag', thumbnailFlag)
         formData.append('title', albumData.title)
         formData.append('artistId', albumData.artistId)
 
