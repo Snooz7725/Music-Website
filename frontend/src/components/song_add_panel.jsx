@@ -1,11 +1,69 @@
 import './song_add_panel.css'
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { DialogContext } from "../provider/dialog_context";
 import ArtistAdd from './artist_add'
 import AlbumAdd from './album_add'
 
-function SongAddPanel({refetch, handleAddNewSong, handleAddArtist, handleAddAlbum, addBtn, imgURL, setPasteFlag, btnToggleFlag, setBtnToggleFlag, thumbnailInputCheckbox, setThumbnailInputCheckbox, albumInputCheckbox, setAlbumInputCheckbox, newSongData, setNewSongData, data}) {
+function SongAddPanel({refetch, handleAddNewSong, handleAddArtist, handleAddAlbum, data}) {
     const { activeDialog, setActiveDialog } = useContext(DialogContext);
+
+    const [ albumInputCheckbox, setAlbumInputCheckbox ] = useState(false)
+    const [newSongData, setNewSongData] = useState({
+        artistName: '',
+        songName: '',
+        albumName: '',
+        thumbnailData: ''
+    })
+
+    const addBtn = newSongData.songName.trim() !== ''
+        && newSongData.artistName.trim() !== ''
+        && ((!albumInputCheckbox) || newSongData.albumName.trim() !== '')
+
+    const [ thumbnailInputCheckbox, setThumbnailInputCheckbox ] = useState(false)
+    const [ pasteFlag, setPasteFlag ] = useState(false)
+    const [ imgURL, setImgURL ] = useState('')
+    const [ btnToggleFlag, setBtnToggleFlag ] = useState(false)
+
+    useEffect(() => {
+        function handlePaste(e) {
+            if (!pasteFlag || !thumbnailInputCheckbox || !btnToggleFlag) return
+
+            setPasteFlag(false)
+            setBtnToggleFlag(false)
+
+            try {
+                const items = e.clipboardData?.items
+                if (!items) throw new Error('Clipboard Read Error')
+
+                for (const item of items) {
+                    if (item.type.startsWith('image/')) {
+                        const blob = item.getAsFile()
+                        if (!blob) continue
+
+                        setNewSongData(prev => ({
+                            ...prev,
+                            thumbnailData: blob
+                        }))
+
+                        setImgURL(prevUrl => {
+                            if (prevUrl) URL.revokeObjectURL(prevUrl)
+                            return URL.createObjectURL(blob)
+                        })
+
+                        break
+                    }
+                }
+            } catch (error) {
+                console.error('Paste failed:', error)
+            }
+        }
+
+        document.addEventListener('paste', handlePaste)
+
+        return () => {
+            document.removeEventListener('paste', handlePaste)
+        }
+    }, [pasteFlag, thumbnailInputCheckbox, btnToggleFlag])
     
     return (
         <div className="song-add-panel-wrapper">

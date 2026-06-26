@@ -3,6 +3,14 @@ Absolute internal imports (if your project uses aliases like @/components).
 Relative internal imports (../ then ./).
 CSS/assets last.
 
+props
+context
+state
+derived values
+effects
+handlers
+render
+
 function MyComponent() {
   // 1. Hooks
   const [artistName, setArtistName] = useState("");
