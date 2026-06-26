@@ -38,7 +38,7 @@ function SongAddPanel({refetch, handleAddNewSong, handleAddArtist, handleAddAlbu
                         )}
                     </datalist>
                     <button className="btn add-btn" onClick={() => setActiveDialog('artistDialog')}>
-                        <img src="/public/images/ui/white_plus.png" alt="Add artist" />
+                        <img src="/images/ui/white_plus.png" alt="Add artist" />
                     </button>
                 </div>
                 <hr/>
@@ -62,7 +62,7 @@ function SongAddPanel({refetch, handleAddNewSong, handleAddArtist, handleAddAlbu
                         )}
                     </datalist>
                     <button className="btn add-btn" onClick={() => setActiveDialog('albumDialog')}>
-                        <img src="/public/images/ui/white_plus.png" alt="Add artist" />
+                        <img src="/images/ui/white_plus.png" alt="Add artist" />
                     </button>
                 </div>
                 <hr/>

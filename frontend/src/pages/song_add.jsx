@@ -44,13 +44,10 @@ function SongAdd() {
     async function handleAddAlbum(albumData, thumbnailFlag) {
         const formData = new FormData();
 
-        formData.append('profilePic', thumbnailFlag.blob)
-
-        if (thumbnailFlag) {
-            formData.append('fileFlag', true)
-        } else formData.append('fileFlag', false)
-
+        formData.append('thumbnail', albumData.blob)
+        formData.append('fileFlag', Boolean(thumbnailFlag))
         formData.append('title', albumData.title)
+        formData.append('artistId', albumData.artistId)
 
         try {
             fetch('/api/albums?type=addAlbum', {

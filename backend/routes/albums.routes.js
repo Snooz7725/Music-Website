@@ -67,7 +67,7 @@ router.post('/', upload.single('thumbnail'), (req, res) => {
     const db = readDb();
     const chosenId = Number(db.albums.newId);
     const albumName = req.body.title;
-    const artistId = req.body.artistId;
+    const artistId = Number(req.body.artistId);
 
     db.albums.data.push({
       id: chosenId,
