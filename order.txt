@@ -1,0 +1,34 @@
+Third-party libraries (e.g. Apollo, React Router, Zod).
+Absolute internal imports (if your project uses aliases like @/components).
+Relative internal imports (../ then ./).
+CSS/assets last.
+
+function MyComponent() {
+  // 1. Hooks
+  const [artistName, setArtistName] = useState("");
+  const [artistId, setArtistId] = useState(null);
+
+  const query = useQuery(...);
+
+  // 2. Effects
+  useEffect(() => {
+    // ...
+  }, [artistName]);
+
+  // 3. Derived values
+  const filteredArtists = ...;
+
+  // 4. Event handlers
+  function handleChange(e) {
+    // ...
+  }
+
+  function handleSubmit() {
+    // ...
+  }
+
+  // 5. JSX
+  return (
+    // ...
+  );
+}

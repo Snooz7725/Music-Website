@@ -1,5 +1,6 @@
-import './album_add.css'
 import { useState, useEffect } from 'react'
+
+import './album_add.css'
 
 function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
     const [artistName, setArtistName] = useState(null)
@@ -10,48 +11,13 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
     })
     const [isClosing, setIsClosing] = useState(false)
 
-    function handleDebArtistId(artists, name) {
-        setTimeout(() => {
-            // Inevitably returns undefined
-            const artist = artists.find(artist => artist.name?.toLowerCase() === name?.toLowerCase())
-            setAlbumData(prev => ({
-                ...prev, 
-                artistId: artist?.id ?? null
-            }))
-        }, 290)
-    }
-
-    function handleCancel(reload = false) {
-        if (isClosing) return // Just in case
-
-        setIsClosing(true)
-
-        setTimeout(() => {
-            if (reload) {
-                refetch()
-            }
-
-            setIsClosing(false)
-            setAlbumData({
-                title: null,
-                artistId: null,
-                blob: null
-            })
-            setActiveDialog('')
-        }, 290)
-    }
-
+    // Paste states
     const [ thumbnailInputCheckbox, setThumbnailInputCheckbox ] = useState(false)
     const [ pasteFlag, setPasteFlag ] = useState(false)
     const [ imgURL, setImgURL ] = useState('')
     const [ btnToggleFlag, setBtnToggleFlag ] = useState(false)
-    
-    const canSubmit = Boolean(
-        albumData.title && 
-        Number.isInteger(albumData.artistId) && 
-        (thumbnailInputCheckbox === (Boolean(albumData.blob) !== null)
-    ))
-    console.log(canSubmit, albumData.title, albumData.artistId, thumbnailInputCheckbox, (albumData.blob !== null))
+
+    useEffect(() => handleDebArtistId(data?.data?.artists?.data, artistName), [artistName,data])
 
     useEffect(() => {
         function handlePaste(e) {
@@ -93,6 +59,45 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
         }
     }, [pasteFlag, thumbnailInputCheckbox, btnToggleFlag])
 
+    const canSubmit = Boolean(
+        albumData.title && 
+        Number.isInteger(albumData.artistId) && 
+        (thumbnailInputCheckbox === (albumData.blob !== null)
+    ))
+
+    console.log(canSubmit, albumData.title, albumData.artistId, thumbnailInputCheckbox, (albumData.blob !== null))
+
+    function handleCancel(reload = false) {
+        if (isClosing) return // Just in case
+
+        setIsClosing(true)
+
+        setTimeout(() => {
+            if (reload) {
+                refetch()
+            }
+
+            setIsClosing(false)
+            setAlbumData({
+                title: null,
+                artistId: null,
+                blob: null
+            })
+            setActiveDialog('')
+        }, 290)
+    }
+
+    function handleDebArtistId(artists, name) {
+        setTimeout(() => {
+            // Inevitably returns undefined
+            const artist = artists?.find(artist => artist.name?.toLowerCase() === name?.toLowerCase())
+            setAlbumData(prev => ({
+                ...prev, 
+                artistId: artist?.id ?? null
+            }))
+        }, 290)
+    }
+
     if (openFlag || isClosing) return (
         <div className={isClosing ? "album-add-wrapper closing" : "album-add-wrapper"}>
             <input type="text" placeholder="Enter new album" className="text-input" onChange={(e) => setAlbumData(prev => ({
@@ -103,7 +108,6 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
             <div className="artist-input-wrapper">
                 <input type="text" placeholder="Enter artist" list="artistInput" className="text-input" onChange={(e) => {
                     setArtistName(e.target.value)
-                    handleDebArtistId(data?.data?.artists?.data, artistName)
                 }}/>
                 <datalist id="artistInput">
                     {data?.data?.artists?.data?.map(artist => {
@@ -156,7 +160,7 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
             
             <div className="btn-list">
                 <button className={(canSubmit && !isClosing) ? 'btn' : 'disabled btn'} disabled={!canSubmit || isClosing} onClick={() => {
-                    handleAddAlbum(...albumData, thumbnailInputCheckbox)
+                    handleAddAlbum(albumData, thumbnailInputCheckbox)
                     handleCancel(true)
                 }}>
                     <img src="/images/ui/white_plus.png" alt="" />

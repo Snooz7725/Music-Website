@@ -6,59 +6,6 @@ import Sidebar from '../components/sidebar'
 import SongAddPanel from '../components/song_add_panel'
 
 function SongAdd() {
-    async function handleAddSong(newSongData) {
-        try {
-            fetch('/api/songs', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({data: newSongData}),
-            })
-        } catch (err) {
-            console.error("Fetch failed:", err)
-        }
-    }
-
-    async function handleAddArtist(artistData, profilePicFlag) {
-        const formData = new FormData();
-
-        formData.append('profilePic', artistData.blob)
-
-        if (profilePicFlag) {
-            formData.append('fileFlag', true)
-        } else formData.append('fileFlag', false)
-
-        formData.append('name', artistData.name)
-
-        try {
-            fetch('/api/artists?type=addArtist', {
-                method: 'POST',
-                body: formData
-            })
-        } catch (err) {
-            console.error("Fetch failed:", err)
-        }
-    }
-
-    async function handleAddAlbum(albumData, thumbnailFlag) {
-        const formData = new FormData();
-
-        formData.append('thumbnail', albumData.blob)
-        formData.append('fileFlag', Boolean(thumbnailFlag))
-        formData.append('title', albumData.title)
-        formData.append('artistId', albumData.artistId)
-
-        try {
-            fetch('/api/albums?type=addAlbum', {
-                method: 'POST',
-                body: formData
-            })
-        } catch (err) {
-            console.error("Fetch failed:", err)
-        }
-    }
-
     const {data, loading, error, refetch} = useLoadFetch('/api/data?type=all', {method: 'GET'})
 
     // Song add panel vars
@@ -119,6 +66,59 @@ function SongAdd() {
             document.removeEventListener('paste', handlePaste)
         }
     }, [pasteFlag, thumbnailInputCheckbox, btnToggleFlag])
+
+    async function handleAddSong(newSongData) {
+        try {
+            fetch('/api/songs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({data: newSongData}),
+            })
+        } catch (err) {
+            console.error("Fetch failed:", err)
+        }
+    }
+
+    async function handleAddArtist(artistData, profilePicFlag) {
+        const formData = new FormData();
+
+        formData.append('profilePic', artistData.blob)
+
+        if (profilePicFlag) {
+            formData.append('fileFlag', true)
+        } else formData.append('fileFlag', false)
+
+        formData.append('name', artistData.name)
+
+        try {
+            fetch('/api/artists?type=addArtist', {
+                method: 'POST',
+                body: formData
+            })
+        } catch (err) {
+            console.error("Fetch failed:", err)
+        }
+    }
+
+    async function handleAddAlbum(albumData, thumbnailFlag) {
+        const formData = new FormData();
+
+        formData.append('thumbnail', albumData.blob)
+        formData.append('fileFlag', Boolean(thumbnailFlag))
+        formData.append('title', albumData.title)
+        formData.append('artistId', albumData.artistId)
+
+        try {
+            fetch('/api/albums?type=addAlbum', {
+                method: 'POST',
+                body: formData
+            })
+        } catch (err) {
+            console.error("Fetch failed:", err)
+        }
+    }
 
     let likedAlbumsData = []
     let likedSongsCount = null
