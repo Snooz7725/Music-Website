@@ -37,7 +37,6 @@ function SongList({ listFormat, handleRemoveLikedSong, handleAddSongToLiked, son
                                 </div>
 
                                 <div className="song-thumbnail-wrapper">
-                                    {console.log(JSON.stringify(song, null, 2))}
                                     <img src={song.thumbnail} alt={song.title} />
                                 </div>
                                 <div className="song-details">
