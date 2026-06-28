@@ -7,8 +7,14 @@ import ErrorCard from './error_card'
 function Searchbar() {
     const {inputValue, setInputValue, results} = useDebSearch()
 
+    const handleBlur = (event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+            setInputValue('')
+        }
+    }
+
     return (
-        <div className="searchbar-wrapper">
+        <div className="searchbar-wrapper" onBlur={handleBlur}>
             <section className="input-section">
                 <label className="icon-wrapper" htmlFor="searchField">
                     <img src="/images/ui/search_btn.png" alt="Search" />

@@ -118,6 +118,7 @@ function SongAddPanel({refetch, handleAddSong, handleAddArtist, handleAddAlbum, 
             artistId: null,
             blob: null
         })
+        
         setThumbnailInputCheckbox(false)
         setPasteFlag(false)
         setImgURL('')
