@@ -30,7 +30,7 @@ function mapDb(db) {
       newId: db.songs.newId,
       data: db.songs.data.map((song) => ({
         ...song,
-        thumbnail: mapImageUrl(song.thumbnail, 'songs'),
+        thumbnail: mapImageUrl(song.thumbnail, 'songs') ?? mapImageUrl(db.albums.data.find(album => album.id === song.album_id)?.thumbnail, 'albums'),
       })),
     },
     liked_songs: db.liked_songs,
