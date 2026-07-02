@@ -21,7 +21,7 @@ function SearchbarList({ searchResultsData = [] }) {
             const t = setTimeout(() => {
                 setResultsBuffer([]);
                 setIsClosing(false);
-            }, 270);
+            }, 300);
 
             return () => clearTimeout(t);
         }
@@ -53,6 +53,7 @@ function SearchbarList({ searchResultsData = [] }) {
                         </Link>
                     );
                 }
+
                 if (result.type === "artists") {
                     return (
                         <Link
@@ -66,6 +67,7 @@ function SearchbarList({ searchResultsData = [] }) {
                         </Link>
                     );
                 }
+
                 if (result.type === "albums") {
                     return (
                         <Link
@@ -79,6 +81,7 @@ function SearchbarList({ searchResultsData = [] }) {
                         </Link>
                     );
                 }
+
                 return null;
             })}
         </div>

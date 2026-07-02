@@ -82,7 +82,7 @@ function AlbumAdd({openFlag, setActiveDialog, handleAddAlbum, refetch, data}) {
                 blob: null
             })
             setActiveDialog('')
-        }, 290)
+        }, 270)
     }
 
     function handleDebArtistId(artists, name) {

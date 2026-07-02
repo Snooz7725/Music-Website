@@ -7,8 +7,9 @@ import ErrorCard from './error_card'
 function Searchbar() {
     const {inputValue, setInputValue, results} = useDebSearch()
 
-    const handleBlur = (event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) {
+    // Sets input value as empty and causes a refetch so song-list becomes empty
+    const handleBlur = (e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
             setInputValue('')
         }
     }
@@ -34,9 +35,7 @@ function Searchbar() {
                     placeholder="Search songs/albums.."
                 />
             </section>
-            {(results?.data?.length ?? 0) > 0 && (
-                <SearchbarList searchResultsData={results.data} />
-            )}
+            <SearchbarList searchResultsData={results.data} />
         </div>
     )
 }

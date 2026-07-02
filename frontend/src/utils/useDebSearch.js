@@ -3,7 +3,7 @@ import { useDebounce } from './useDebounce';
 import { useLoadFetch } from './useLoadFetch'
 
 // Debounce search function
-export function useDebSearch(urlTemplate = '/api/data?type=searchAll', delay = 500) {
+export function useDebSearch(urlTemplate = '/api/data?type=searchAll', delay = 350) {
     const [inputValue, setInputValue] = useState('');
     
     const debouncedValue = useDebounce(inputValue, delay);

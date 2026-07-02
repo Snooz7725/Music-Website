@@ -24,7 +24,7 @@ function ArtistAdd({openFlag, setActiveDialog, handleAddArtist, refetch}) {
                 blob: null
             })
             setActiveDialog('')
-        }, 290)
+        }, 270)
     }
 
     const [ profilePicInputCheckbox, setThumbnailInputCheckbox ] = useState(false)

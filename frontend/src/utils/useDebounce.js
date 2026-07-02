@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 // Designed to constantly get called to reset the timer until user stops 
 // typing to finally set debouncedValue, and thus make the search request
-export function useDebounce(inputValue, delay = 250) {
+export function useDebounce(inputValue, delay = 350) {
     const [debouncedValue, setDebouncedValue] = useState(inputValue);
 
     useEffect(() => {

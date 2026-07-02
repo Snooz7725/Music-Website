@@ -5,6 +5,35 @@
     overflow: hidden;
     background-color: rgb(80, 115, 186);
     transition: box-shadow 0.3s ease;
+    animation: searchbar-list-wrapper-open ease 0.3s;
+}
+
+.searchbar-list-wrapper.closing {
+    animation: searchbar-list-wrapper-close ease 0.3s;
+}
+
+@keyframes searchbar-list-wrapper-open {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes searchbar-list-wrapper-close {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.92) translateY(1rem);
+    }
 }
 
 .searchbar-list-wrapper:hover {
@@ -20,7 +49,7 @@
     align-items: center;
     text-decoration: none;
     padding: 0.5rem 0;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .searchbar-list-wrapper .artists {
